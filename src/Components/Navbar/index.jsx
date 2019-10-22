@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "react-bulma-components/dist/react-bulma-components.min.css";
+import "bulma/css/bulma.css";
 import { useLocation, NavLink, Link } from "react-router-dom";
 import { Navbar } from "react-bulma-components";
 
@@ -62,14 +61,14 @@ const NavigationBar = props => {
   let boss = "";
   let raid = "";
 
-  if (params.length === 2) {
+  if (params.length >= 2) {
     raid = params[0];
     boss = params[1];
   } else if (params.length === 1) raid = params[0];
 
   return (
     <div>
-      <Navbar color='primary'>
+      <Navbar color='primary' fixed='top'>
         <Navbar.Brand>
           <Link to='/' className='navbar-item'>
             <img
@@ -94,11 +93,6 @@ const NavigationBar = props => {
       </Navbar>
     </div>
   );
-};
-
-NavigationBar.propTypes = {
-  raid: PropTypes.string.isRequired,
-  boss: PropTypes.string.isRequired,
 };
 
 export default NavigationBar;

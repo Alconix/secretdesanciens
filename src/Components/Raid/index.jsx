@@ -1,12 +1,8 @@
 import React from "react";
-
-import { useParams } from "react-router-dom";
+import "bulma/css/bulma.css";
 
 const Raid = props => {
-  let { raid } = useParams();
-  console.log(raid);
-
-  return <p>RAID PAGE</p>;
+  return <p>raid</p>;
 };
 
 export default Raid;
