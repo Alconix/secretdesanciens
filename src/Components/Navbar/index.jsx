@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "bulma/css/bulma.css";
 import { useLocation, NavLink, Link } from "react-router-dom";
-import { Navbar } from "react-bulma-components";
+import {
+  Navbar,
+  Modal,
+  Section,
+  Button,
+  Heading,
+} from "react-bulma-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWrench } from "@fortawesome/free-solid-svg-icons";
 
 const DropItem = props => {
   return (
@@ -55,6 +63,8 @@ const bossesNA = (
 );
 
 const NavigationBar = props => {
+  const [open, setOpen] = useState(false);
+
   let location = useLocation();
   let params = location.pathname.split("/").filter(elt => elt !== "");
 
@@ -65,6 +75,18 @@ const NavigationBar = props => {
     raid = params[0];
     boss = params[1];
   } else if (params.length === 1) raid = params[0];
+
+  const handleClickTank = () => {
+    props.changeConfig("tank", !props.config.tank);
+  };
+
+  const handleClickDps = () => {
+    props.changeConfig("dps", !props.config.dps);
+  };
+
+  const handleClickHeal = () => {
+    props.changeConfig("heal", !props.config.heal);
+  };
 
   return (
     <div>
@@ -90,7 +112,65 @@ const NavigationBar = props => {
         </Navbar.Item>
         {raid && raid === "palais" && bossesEP}
         {raid && raid === "nyalotha" && bossesNA}
+        <Navbar.Container position='end'>
+          <Navbar.Item onClick={() => setOpen(true)}>
+            <FontAwesomeIcon icon={faWrench} size='lg' />
+          </Navbar.Item>
+        </Navbar.Container>
       </Navbar>
+      <Modal show={open} onClose={() => setOpen(false)} closeOnBlur>
+        <Modal.Content style={{ backgroundColor: "white" }}>
+          <Section>
+            <h1 className='subtitle'>Configuration</h1>
+          </Section>
+          <div
+            className='columns is-vcentered is-centered'
+            style={{ maxWidth: "640px" }}
+          >
+            <div className='column has-text-centered is-2'>
+              <img
+                className='is-rounded'
+                src={props.config.tank ? "./tank.png" : "./tank.png"}
+                onClick={handleClickTank}
+                alt='tank'
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className='column has-text-centered is-2'>
+              <img
+                className='is-rounded'
+                src={props.config.heal ? "./heal.png" : "./heal.png"}
+                onClick={handleClickHeal}
+                alt='heal'
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className='column has-text-centered is-2'>
+              <img
+                className='is-rounded'
+                src={props.config.dps ? "./dps.png" : "./dps.png"}
+                onClick={handleClickDps}
+                alt='dps'
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+          </div>
+          <br />
+          <Button
+            color='success'
+            pull='right'
+            style={{
+              marginLeft: "20px",
+              marginBottom: "20px",
+              marginRight: "20px",
+              textAlign: "right",
+            }}
+            onClick={() => setOpen(false)}
+          >
+            Valider
+          </Button>
+        </Modal.Content>
+      </Modal>
     </div>
   );
 };

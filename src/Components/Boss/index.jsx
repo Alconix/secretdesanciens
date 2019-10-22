@@ -1,5 +1,4 @@
 import React from "react";
-import "react-bulma-components/dist/react-bulma-components.min.css";
 
 import { Link, useParams, useLocation, Route, Switch } from "react-router-dom";
 
@@ -11,7 +10,6 @@ const Boss = props => {
   const active = params.length === 3 ? params[params.length - 1] : "overview";
 
   const strat = require(`../../Content/Boss/${raid}/${boss}`);
-  console.log(strat.details);
 
   const GetContent = props => {
     return <span dangerouslySetInnerHTML={{ __html: props.content }} />;
