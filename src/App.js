@@ -29,7 +29,7 @@ function App() {
         <NavigationBar config={config} changeConfig={changeConfig} />
         <Switch>
           <Route path='/:raid/:boss'>
-            <Boss />
+            <Boss config={config} />
           </Route>
           <Route path='/:raid'>
             <Raid />
