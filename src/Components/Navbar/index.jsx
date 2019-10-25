@@ -89,7 +89,7 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.tank ? "" : "/tank.png"}
+              src={props.config.tank ? "/tank.png" : "/tank-grey.png"}
               onClick={handleClickTank}
               alt='tank'
               style={{ cursor: "pointer" }}
@@ -98,7 +98,7 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.heal ? "" : "/heal.png"}
+              src={props.config.heal ? "/heal.png" : "/heal-grey.png"}
               onClick={handleClickHeal}
               alt='heal'
               style={{ cursor: "pointer" }}
@@ -107,7 +107,7 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.dps ? "" : "/dps.png"}
+              src={props.config.dps ? "/dps.png" : "/dps-grey.png"}
               onClick={handleClickDps}
               alt='dps'
               style={{ cursor: "pointer" }}

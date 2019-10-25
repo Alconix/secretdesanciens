@@ -16,8 +16,7 @@ const styleNyalotha = {
 };
 
 const heroStyle = {
-  backgroundImage:
-    "url(https://i.pinimg.com/originals/b1/72/91/b17291a0263dc9e998d62e5d8e88f5ed.png)",
+  backgroundImage: "url(/bfa-banner.png)",
   backgroundSize: "contain no-repeat",
   backgroundPosition: "right 50% bottom 20%",
   backgroundRepeat: "no-repeat",
