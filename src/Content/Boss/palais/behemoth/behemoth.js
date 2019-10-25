@@ -1,5 +1,5 @@
-export const name = "behemoth";
-export const title = "";
+export const name = "Béhémoth";
+export const title = "des flots noirs";
 
 export const overview = {
   general: require("./behemoth-general.html"),

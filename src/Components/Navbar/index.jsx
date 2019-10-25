@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "bulma/css/bulma.css";
 import { useLocation, NavLink, Link } from "react-router-dom";
 import { Navbar, Modal, Section, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +6,12 @@ import { faWrench } from "@fortawesome/free-solid-svg-icons";
 
 const DropItem = props => {
   return (
-    <NavLink className='navbar-item' activeClassName='is-active' to={props.to}>
+    <NavLink
+      className='navbar-item'
+      activeClassName='is-active'
+      to={props.to}
+      onClick={props.onClick}
+    >
       {props.name}
     </NavLink>
   );
@@ -133,27 +137,22 @@ const ConfigModal = props => {
 const NavigationBar = props => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
-
+  const [raidOpen, setRaidOpen] = useState(false);
   let location = useLocation();
   let params = location.pathname.split("/").filter(elt => elt !== "");
 
-  let boss = "";
   let raid = "";
 
-  if (params.length >= 2) {
+  if (params.length >= 1) {
     raid = params[0];
-    boss = params[1];
-  } else if (params.length === 1) raid = params[0];
+  }
 
   return (
     <div>
-      <Navbar color='primary' fixed='top' active={active}>
-        <Navbar.Brand>
+      <Navbar color='link' fixed='top' active={active}>
+        <div className='navbar-brand'>
           <Link to='/' className='navbar-item'>
-            <img
-              src='https://cdn1.iconfinder.com/data/icons/video-games-7/24/video_game_play_wow_world_of_warcraft-128.png'
-              alt='wow'
-            />
+            <img src='/wow.png' alt='wow' />
             <h3
               className='title is-4'
               style={{ paddingLeft: "15px", paddingBottom: "5px" }}
@@ -161,21 +160,41 @@ const NavigationBar = props => {
               Secret des Anciens
             </h3>
           </Link>
-          <Navbar.Burger active={active} onClick={() => setActive(!active)} />
-        </Navbar.Brand>
+          <Navbar.Burger
+            active={active.toString()}
+            onClick={() => setActive(!active)}
+          />
+        </div>
+        <Navbar.Divider />
         <Navbar.Menu>
-          <Navbar.Item dropdown hoverable>
-            <Navbar.Link>
+          <Navbar.Item dropdown hoverable active={raidOpen}>
+            <Navbar.Link onClick={() => setRaidOpen(!raidOpen)}>
               <b>Raids</b>
             </Navbar.Link>
-            <Navbar.Dropdown>
-              <DropItem name="Ny'alotha" to='/nyalotha' />
-              <DropItem name='Palais Eternel' to='/palais' />
+            <Navbar.Dropdown onSelect={() => console.log("ok")}>
+              <DropItem
+                name="Ny'alotha"
+                to='/nyalotha'
+                onClick={() => setRaidOpen(false)}
+              />
+              <DropItem
+                name='Palais Eternel'
+                to='/palais'
+                onClick={() => setRaidOpen(false)}
+              />
             </Navbar.Dropdown>
           </Navbar.Item>
           {raid && raid === "palais" && bossesEP}
           {raid && raid === "nyalotha" && bossesNA}
           <Navbar.Container position='end'>
+            <a
+              className='navbar-item'
+              href='http://secretdesanciens.guildi.com/fr/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <b>Site / Forum</b>
+            </a>
             <Navbar.Item onClick={() => setOpen(true)}>
               <FontAwesomeIcon icon={faWrench} size='lg' />
             </Navbar.Item>

@@ -10,7 +10,9 @@ const tileStyle = {
 const heroStyle = {
   backgroundImage: "url(/ep-banner.jpg)",
   backgroundSize: "contain no-repeat",
-  backgroundPosition: "right 50% bottom 80%",
+  backgroundPosition: "right 50% bottom 100%",
+  backgroundRepeat: "no-repeat",
+  backgroundColor: "black",
   marginBottom: "20px",
 };
 
@@ -34,8 +36,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Irion</Heading>
@@ -47,8 +48,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Maut</Heading>
@@ -59,8 +59,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Skitra</Heading>
@@ -74,8 +73,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Xanesh</Heading>
@@ -87,8 +85,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Conscience</Heading>
@@ -100,8 +97,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Shad'har</Heading>
@@ -115,8 +111,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Drest'agath</Heading>
@@ -127,8 +122,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Vexiona</Heading>
@@ -139,8 +133,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Ra'den</Heading>
@@ -154,8 +147,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Il'gynoth</Heading>
@@ -167,8 +159,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>Carapace</Heading>
@@ -180,8 +171,7 @@ export const BossList = () => {
                   renderAs='article'
                   kind='child'
                   notification
-                  color='danger'
-                  className='has-text-left'
+                  className='has-text-left is-danger'
                   style={tileStyle}
                 >
                   <Heading>N'Zoth</Heading>

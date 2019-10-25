@@ -19,7 +19,7 @@ const Boss = props => {
   const heroStyle = {
     backgroundImage: "url(/ep-banner.jpg)",
     backgroundSize: "contain no-repeat",
-    backgroundPosition: "right 50% bottom 80%",
+    backgroundPosition: "right 50% bottom 100%",
     backgroundRepeat: "no-repeat",
     backgroundColor: "black",
     marginBottom: "20px",
@@ -30,7 +30,7 @@ const Boss = props => {
     return (
       <div>
         <h1 className='title has-text-left'>General:</h1>
-        <div class='content has-text-left'>
+        <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.general} />
         </div>
@@ -44,7 +44,7 @@ const Boss = props => {
     return (
       <div>
         <h1 className='title has-text-left'>Tank:</h1>
-        <div class='content has-text-left'>
+        <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.tank} />
         </div>
@@ -57,7 +57,7 @@ const Boss = props => {
   const HealContent = props => {
     return (
       <div>
-        <div class='content has-text-left'>
+        <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.heal} />
         </div>
@@ -69,7 +69,7 @@ const Boss = props => {
   // #region dps content
   const DpsContent = props => {
     return (
-      <div class='content has-text-left'>
+      <div className='content has-text-left'>
         <hr />
         <GetContent content={strat.overview.dps} />
       </div>
@@ -86,12 +86,24 @@ const Boss = props => {
               <section className='hero' style={heroStyle}>
                 <div className='hero-body'>
                   <div className='container has-text-left'>
-                    <h1 className='title is-1 has-text-light'>
-                      <GetContent content={strat.name} />
-                    </h1>
-                    <h2 className='subtitle is-3 has-text-light'>
-                      <GetContent content={strat.title} />
-                    </h2>
+                    {!strat.inverted ? (
+                      <h1 className='title is-1 has-text-light'>
+                        <GetContent content={strat.name} />
+                      </h1>
+                    ) : (
+                      <h3 className='subtitle is-3 has-text-light'>
+                        <GetContent content={strat.title} />
+                      </h3>
+                    )}
+                    {!strat.inverted ? (
+                      <h3 className='subtitle is-3 has-text-light'>
+                        <GetContent content={strat.title} />
+                      </h3>
+                    ) : (
+                      <h1 className='title is-1 has-text-light'>
+                        <GetContent content={strat.name} />
+                      </h1>
+                    )}
                   </div>
                 </div>
               </section>
@@ -117,9 +129,9 @@ const Boss = props => {
             </div>
             <Section>
               <Switch>
-                <Route path='/:raid/:boss/info'>Infos</Route>
-                <Route path='/:raid/:boss/video'>Videos du boss</Route>
-                <Route path='/:raid/:boss/schema'>Schemas</Route>
+                <Route path='/:raid/:boss/info'>{strat.info}</Route>
+                <Route path='/:raid/:boss/video'>{strat.video}</Route>
+                <Route path='/:raid/:boss/schema'>{strat.schema}</Route>
                 <Route path='/:raid/:boss/details'>
                   <div className='content has-text-left'>
                     <GetContent content={strat.details} />

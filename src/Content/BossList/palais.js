@@ -10,7 +10,9 @@ const tileStyle = {
 const heroStyle = {
   backgroundImage: "url(/ep-banner.jpg)",
   backgroundSize: "contain no-repeat",
-  backgroundPosition: "right 50% bottom 80%",
+  backgroundPosition: "right 50% bottom 100%",
+  backgroundRepeat: "no-repeat",
+  backgroundColor: "black",
   marginBottom: "20px",
 };
 
