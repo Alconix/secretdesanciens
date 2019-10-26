@@ -42,8 +42,8 @@ export const BossList = () => {
                   className='has-text-left'
                   style={tileStyle}
                 >
-                  <Heading>Sivara</Heading>
                   <Heading subtitle>Commandant abyssal</Heading>
+                  <Heading>Sivara</Heading>
                 </Tile>
               </Link>
               <Link className='tile is-parent' to='/palais/behemoth'>
@@ -83,8 +83,8 @@ export const BossList = () => {
                   className='has-text-left'
                   style={tileStyle}
                 >
-                  <Heading>Corsandre</Heading>
                   <Heading subtitle>Dame</Heading>
+                  <Heading>Corsandre</Heading>
                 </Tile>
               </Link>
               <Link className='tile is-parent' to='/palais/orgozoa'>
@@ -136,8 +136,8 @@ export const BossList = () => {
                   className='has-text-left'
                   style={tileStyle}
                 >
-                  <Heading>Azshara</Heading>
                   <Heading subtitle>Reine</Heading>
+                  <Heading>Azshara</Heading>
                 </Tile>
               </Link>
               <div className='tile is-parent' />

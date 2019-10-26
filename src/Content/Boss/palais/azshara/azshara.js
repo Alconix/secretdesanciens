@@ -1,6 +1,8 @@
 export const name = "Azshara";
 export const title = "Reine";
 
+export const inverted = true;
+
 export const overview = {
   general: require("./azshara-general.html"),
   dps: require("./azshara-dps.html"),

@@ -29,7 +29,7 @@ const Boss = props => {
   const GeneralContent = props => {
     return (
       <div>
-        <h1 className='title has-text-left'>General:</h1>
+        <h1 className='title has-text-left'>General</h1>
         <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.general} />
@@ -43,7 +43,7 @@ const Boss = props => {
   const TankContent = props => {
     return (
       <div>
-        <h1 className='title has-text-left'>Tank:</h1>
+        <h1 className='title has-text-left'>Tank</h1>
         <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.tank} />
@@ -57,6 +57,7 @@ const Boss = props => {
   const HealContent = props => {
     return (
       <div>
+        <h1 className='title has-text-left'>Heal</h1>
         <div className='content has-text-left'>
           <hr />
           <GetContent content={strat.overview.heal} />
@@ -69,9 +70,12 @@ const Boss = props => {
   // #region dps content
   const DpsContent = props => {
     return (
-      <div className='content has-text-left'>
-        <hr />
-        <GetContent content={strat.overview.dps} />
+      <div>
+        <h1 className='title has-text-left'>DPS</h1>
+        <div className='content has-text-left'>
+          <hr />
+          <GetContent content={strat.overview.dps} />
+        </div>
       </div>
     );
   };
@@ -111,19 +115,29 @@ const Boss = props => {
             <div className='tabs'>
               <ul>
                 <li className={active === "overview" ? "is-active" : ""}>
-                  <Link to={`/${raid}/${boss}/overview`}>Overview</Link>
+                  {strat.overview && (
+                    <Link to={`/${raid}/${boss}/overview`}>Overview</Link>
+                  )}
                 </li>
                 <li className={active === "details" ? "is-active" : ""}>
-                  <Link to={`/${raid}/${boss}/details`}>Details</Link>
+                  {strat.details && (
+                    <Link to={`/${raid}/${boss}/details`}>Details</Link>
+                  )}
                 </li>
                 <li className={active === "info" ? "is-active" : ""}>
-                  <Link to={`/${raid}/${boss}/info`}>Infos</Link>
+                  {strat.info && (
+                    <Link to={`/${raid}/${boss}/info`}>Infos</Link>
+                  )}
                 </li>
                 <li className={active === "video" ? "is-active" : ""}>
-                  <Link to={`/${raid}/${boss}/video`}>Video</Link>
+                  {strat.video && (
+                    <Link to={`/${raid}/${boss}/video`}>Video</Link>
+                  )}
                 </li>
                 <li className={active === "schema" ? "is-active" : ""}>
-                  <Link to={`/${raid}/${boss}/schema`}>Schema</Link>
+                  {strat.schema && (
+                    <Link to={`/${raid}/${boss}/schema`}>Schema</Link>
+                  )}
                 </li>
               </ul>
             </div>

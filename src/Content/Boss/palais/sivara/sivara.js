@@ -44,10 +44,5 @@ export const schema = (
     <i>Dessin de Sir</i>
   </div>
 );
-export const video = (
-  <video width='1280' height='720 ' controls>
-    <source src='/video.mp4' type='video/mp4' />
-    Your browser does not support the video tag.
-  </video>
-);
+export const video = "";
 export let details = require("./sivara-details.html");
