@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const Raid = props => {
   const { raid } = useParams();
-  const { BossList } = require(`../../Content/BossList/${raid}`);
+  const { BossList, name } = require(`../../Content/BossList/${raid}`);
+
+  console.log(BossList);
+
+  useEffect(() => {
+    document.title = `${name} - Secret des Anciens`;
+  }, [name]);
 
   return <BossList />;
 };

@@ -138,6 +138,7 @@ const NavigationBar = props => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [raidOpen, setRaidOpen] = useState(false);
+
   let location = useLocation();
   let params = location.pathname.split("/").filter(elt => elt !== "");
 
@@ -187,6 +188,16 @@ const NavigationBar = props => {
           {raid && raid === "palais" && bossesEP}
           {raid && raid === "nyalotha" && bossesNA}
           <Navbar.Container position='end'>
+            <Link
+              className='navbar-item'
+              to='/progress'
+              onClick={e => {
+                e.currentTarget.classList.add("is-active");
+                e.currentTarget.classList.remove("is-active");
+              }}
+            >
+              <b>Progress</b>
+            </Link>
             <a
               className='navbar-item'
               href='http://secretdesanciens.guildi.com/fr/'

@@ -8,13 +8,16 @@ const tileStyle = {
 };
 
 const heroStyle = {
-  backgroundImage: "url(/ep-banner.jpg)",
+  backgroundImage:
+    "url(https://momentus.wtf/images/progress/30-07-19-10-bfa-the-eternal-palace-banner.jpg)",
   backgroundSize: "contain no-repeat",
   backgroundPosition: "right 50% bottom 100%",
   backgroundRepeat: "no-repeat",
   backgroundColor: "black",
   marginBottom: "20px",
 };
+
+export const name = "Ny'Alotha";
 
 export const BossList = () => {
   return (
@@ -62,8 +65,8 @@ export const BossList = () => {
                   className='has-text-left is-danger'
                   style={tileStyle}
                 >
-                  <Heading>Skitra</Heading>
                   <Heading subtitle>Le prophète</Heading>
+                  <Heading>Skitra</Heading>
                 </Tile>
               </Link>
             </Tile>
@@ -76,8 +79,8 @@ export const BossList = () => {
                   className='has-text-left is-danger'
                   style={tileStyle}
                 >
-                  <Heading>Xanesh</Heading>
                   <Heading subtitle>Sombre Inquisitrice</Heading>
+                  <Heading>Xanesh</Heading>
                 </Tile>
               </Link>
               <Link className='tile is-parent' to='/nyalotha/conscience'>
@@ -136,8 +139,8 @@ export const BossList = () => {
                   className='has-text-left is-danger'
                   style={tileStyle}
                 >
-                  <Heading>Ra'den</Heading>
-                  <Heading subtitle>Le dépouillé</Heading>
+                  <Heading>Ra Den</Heading>
+                  <Heading subtitle>Le Spolié</Heading>
                 </Tile>
               </Link>
             </Tile>

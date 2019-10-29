@@ -8,13 +8,16 @@ const tileStyle = {
 };
 
 const heroStyle = {
-  backgroundImage: "url(/ep-banner.jpg)",
+  backgroundImage:
+    "url(https://momentus.wtf/images/progress/30-07-19-10-bfa-the-eternal-palace-banner.jpg)",
   backgroundSize: "contain no-repeat",
   backgroundPosition: "right 50% bottom 100%",
   backgroundRepeat: "no-repeat",
   backgroundColor: "black",
   marginBottom: "20px",
 };
+
+export const name = "Palais Eternel";
 
 export const BossList = () => {
   return (

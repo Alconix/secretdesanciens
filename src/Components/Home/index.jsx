@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Tile, Section, Heading, Box } from "react-bulma-components";
 import { Link } from "react-router-dom";
 
 const stylePalais = {
-  backgroundImage: "url(/ep-raid.jpg)",
+  backgroundImage:
+    "url(https://render-eu.worldofwarcraft.com/zones/the-eternal-palace-small.jpg)",
   backgroundSize: "cover",
   height: "30vh",
 };
 
 const styleNyalotha = {
-  backgroundImage: "url(/na-raid.jpg)",
+  backgroundImage:
+    "url(https://www.mamytwink.com/upload/news/2019/octobre/15/tests-nyalotha-ptr-patch-wow.jpg)",
   backgroundSize: "cover",
   height: "30vh",
 };
 
 const heroStyle = {
-  backgroundImage: "url(/bfa-banner.png)",
+  backgroundImage:
+    "url(https://i.pinimg.com/originals/b1/72/91/b17291a0263dc9e998d62e5d8e88f5ed.png)",
   backgroundSize: "contain no-repeat",
   backgroundPosition: "right 50% bottom 20%",
   backgroundRepeat: "no-repeat",
@@ -25,6 +28,10 @@ const heroStyle = {
 };
 
 const Home = props => {
+  useEffect(() => {
+    document.title = `Secret des Anciens`;
+  }, []);
+
   return (
     <div className='columns is-centered'>
       <div className='column is-6'>

@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 //#endregion
 
 import NavigationBar from "./Components/Navbar";
+import Progress from "./Components/Progress";
 import Raid from "./Components/Raid";
 import Boss from "./Components/Boss";
 import Home from "./Components/Home";
@@ -28,6 +29,9 @@ function App() {
       <BrowserRouter>
         <NavigationBar config={config} changeConfig={changeConfig} />
         <Switch>
+          <Route path='/progress'>
+            <Progress />
+          </Route>
           <Route path='/:raid/:boss'>
             <Boss config={config} />
           </Route>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link, useParams, useLocation, Route, Switch } from "react-router-dom";
 import { Section, Box } from "react-bulma-components";
@@ -12,12 +12,17 @@ const Boss = props => {
 
   const strat = require(`../../Content/Boss/${raid}/${boss}/${boss}`);
 
+  useEffect(() => {
+    document.title = `${strat.name} - Secret des Anciens`;
+  }, [strat.name]);
+
   const GetContent = props => {
     return <span dangerouslySetInnerHTML={{ __html: props.content }} />;
   };
 
   const heroStyle = {
-    backgroundImage: "url(/ep-banner.jpg)",
+    backgroundImage:
+      "url(https://momentus.wtf/images/progress/30-07-19-10-bfa-the-eternal-palace-banner.jpg)",
     backgroundSize: "contain no-repeat",
     backgroundPosition: "right 50% bottom 100%",
     backgroundRepeat: "no-repeat",
