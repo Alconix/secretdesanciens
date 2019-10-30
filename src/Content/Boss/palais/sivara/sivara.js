@@ -40,7 +40,7 @@ export const info = (
 );
 export const schema = (
   <div>
-    <img src='/ep/sivara/sivara-dessin.png' alt='dessin' />
+    <img src='https://puu.sh/EyPS0/dfea56a3eb.png' alt='dessin' />
     <i>Dessin de Sir</i>
   </div>
 );

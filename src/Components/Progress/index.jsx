@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Section } from "react-bulma-components";
 
 const heroStyle = {
-  backgroundImage: "url(/guild.png)",
+  backgroundImage: "url(https://puu.sh/EyPQx/1fe336010b.png)",
   marginBottom: "20px",
   backgroundSize: "contain",
   backgroundPosition: "right 0%",

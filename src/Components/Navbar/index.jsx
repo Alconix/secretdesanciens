@@ -89,7 +89,11 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.tank ? "/tank.png" : "/tank-grey.png"}
+              src={
+                props.config.tank
+                  ? "https://puu.sh/EyPQR/f264ef6a6c.png"
+                  : "https://puu.sh/EyPQT/e46ac777be.png"
+              }
               onClick={handleClickTank}
               alt='tank'
               style={{ cursor: "pointer" }}
@@ -98,7 +102,11 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.heal ? "/heal.png" : "/heal-grey.png"}
+              src={
+                props.config.heal
+                  ? "https://puu.sh/EyPR5/5cc97e33c9.png"
+                  : "https://puu.sh/EyPR3/6a4316f42f.png"
+              }
               onClick={handleClickHeal}
               alt='heal'
               style={{ cursor: "pointer" }}
@@ -107,7 +115,11 @@ const ConfigModal = props => {
           <div className='column has-text-centered is-2'>
             <img
               className='is-rounded'
-              src={props.config.dps ? "/dps.png" : "/dps-grey.png"}
+              src={
+                props.config.dps
+                  ? "https://puu.sh/EyPQY/7c4771a50f.png"
+                  : "https://puu.sh/EyPQU/d93df5421c.png"
+              }
               onClick={handleClickDps}
               alt='dps'
               style={{ cursor: "pointer" }}
@@ -153,7 +165,7 @@ const NavigationBar = props => {
       <Navbar color='link' fixed='top' active={active}>
         <div className='navbar-brand'>
           <Link to='/' className='navbar-item'>
-            <img src='/wow.png' alt='wow' />
+            <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
             <h3
               className='title is-4'
               style={{ paddingLeft: "15px", paddingBottom: "5px" }}
