@@ -161,21 +161,22 @@ const Boss = props => {
                     <Section>
                       <GeneralContent />
                     </Section>
-                    <Section>
-                      {props.config.tank && strat.overview.tank !== "" && (
+
+                    {props.config.tank && strat.overview.tank !== "" && (
+                      <Section>
                         <TankContent />
-                      )}
-                    </Section>
-                    <Section>
-                      {props.config.heal && strat.overview.heal !== "" && (
+                      </Section>
+                    )}
+                    {props.config.heal && strat.overview.heal !== "" && (
+                      <Section>
                         <HealContent />
-                      )}
-                    </Section>
-                    <Section>
-                      {props.config.dps && strat.overview.dps !== "" && (
+                      </Section>
+                    )}
+                    {props.config.dps && strat.overview.dps !== "" && (
+                      <Section>
                         <DpsContent />
-                      )}
-                    </Section>
+                      </Section>
+                    )}
                   </div>
                 </Route>
               </Switch>
