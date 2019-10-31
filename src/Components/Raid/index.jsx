@@ -5,8 +5,6 @@ const Raid = props => {
   const { raid } = useParams();
   const { BossList, name } = require(`../../Content/BossList/${raid}`);
 
-  console.log(BossList);
-
   useEffect(() => {
     document.title = `${name} - Secret des Anciens`;
   }, [name]);
