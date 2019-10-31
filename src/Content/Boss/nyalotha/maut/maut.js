@@ -17,9 +17,8 @@ export const video = (
         <iframe
           title='kirling sivara'
           src='https://www.youtube.com/embed/o3NfZ03VWuY'
-          frameborder='0'
+          frameBorder='0'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
-          allowfullscreen
         ></iframe>
       </div>
     </div>
