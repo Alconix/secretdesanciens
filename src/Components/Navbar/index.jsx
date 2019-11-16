@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { useLocation, NavLink, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Navbar, Modal, Section, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
 
 const DropItem = props => {
+  const location = useLocation();
+  const paramsLocation = location.pathname.split("/").filter(elt => elt !== "");
+  const paramsItem = props.to.split("/").filter(elt => elt !== "");
+
+  let classActivity = "";
+
+  if (paramsItem.length === 1 && paramsLocation[0] === paramsItem[0]) {
+    classActivity = "navbar-item is-active";
+  } else if (
+    paramsItem.length === 2 &&
+    paramsLocation.length === 2 &&
+    paramsLocation[1] === paramsItem[1]
+  ) {
+    classActivity = "navbar-item is-active";
+  } else {
+    classActivity = "navbar-item";
+  }
+
   return (
-    <NavLink
-      className='navbar-item'
-      activeClassName='is-active'
-      to={props.to}
-      onClick={props.onClick}
-    >
+    <a className={classActivity} href={props.to} onClick={props.onClick}>
       {props.name}
-    </NavLink>
+    </a>
   );
 };
 
@@ -164,15 +177,15 @@ const NavigationBar = props => {
     <div>
       <Navbar color='link' fixed='top' active={active}>
         <div className='navbar-brand'>
-          <Link to='/' className='navbar-item'>
+          <a href='/' className='navbar-item'>
             <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
             <h3
               className='title is-4'
               style={{ paddingLeft: "15px", paddingBottom: "5px" }}
             >
-              Secret des Anciens
+              <b>Secret des Anciens</b>
             </h3>
-          </Link>
+          </a>
           <Navbar.Burger
             active={active.toString()}
             onClick={() => setActive(!active)}
@@ -200,16 +213,16 @@ const NavigationBar = props => {
           {raid && raid === "palais" && bossesEP}
           {raid && raid === "nyalotha" && bossesNA}
           <Navbar.Container position='end'>
-            <Link
+            <a
               className='navbar-item'
-              to='/progress'
+              href='/progress'
               onClick={e => {
                 e.currentTarget.classList.add("is-active");
                 e.currentTarget.classList.remove("is-active");
               }}
             >
               <b>Progress</b>
-            </Link>
+            </a>
             <a
               className='navbar-item'
               href='http://secretdesanciens.guildi.com/fr/'

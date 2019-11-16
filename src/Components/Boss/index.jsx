@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Link, useParams, useLocation, Route, Switch } from "react-router-dom";
+import { useParams, useLocation, Route, Switch } from "react-router-dom";
 import { Section, Box } from "react-bulma-components";
 
 const Boss = props => {
@@ -121,27 +121,23 @@ const Boss = props => {
               <ul>
                 <li className={active === "overview" ? "is-active" : ""}>
                   {strat.overview && (
-                    <Link to={`/${raid}/${boss}/overview`}>Overview</Link>
+                    <a href={`/${raid}/${boss}/overview`}>Overview</a>
                   )}
                 </li>
                 <li className={active === "details" ? "is-active" : ""}>
                   {strat.details && (
-                    <Link to={`/${raid}/${boss}/details`}>Details</Link>
+                    <a href={`/${raid}/${boss}/details`}>Details</a>
                   )}
                 </li>
                 <li className={active === "info" ? "is-active" : ""}>
-                  {strat.info && (
-                    <Link to={`/${raid}/${boss}/info`}>Infos</Link>
-                  )}
+                  {strat.info && <a href={`/${raid}/${boss}/info`}>Infos</a>}
                 </li>
                 <li className={active === "video" ? "is-active" : ""}>
-                  {strat.video && (
-                    <Link to={`/${raid}/${boss}/video`}>Video</Link>
-                  )}
+                  {strat.video && <a href={`/${raid}/${boss}/video`}>Video</a>}
                 </li>
                 <li className={active === "schema" ? "is-active" : ""}>
                   {strat.schema && (
-                    <Link to={`/${raid}/${boss}/schema`}>Schema</Link>
+                    <a href={`/${raid}/${boss}/schema`}>Schema</a>
                   )}
                 </li>
               </ul>
