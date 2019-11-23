@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Modal, Section, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
+import firebase from "firebase";
 
 const DropItem = props => {
   const location = useLocation();
@@ -162,7 +163,6 @@ const ConfigModal = props => {
 const NavigationBar = props => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
-  const [raidOpen, setRaidOpen] = useState(false);
 
   let location = useLocation();
   let params = location.pathname.split("/").filter(elt => elt !== "");
@@ -172,6 +172,8 @@ const NavigationBar = props => {
   if (params.length >= 1) {
     raid = params[0];
   }
+
+  let user = firebase.auth().currentUser;
 
   return (
     <div>
@@ -193,34 +195,49 @@ const NavigationBar = props => {
         </div>
         <Navbar.Divider />
         <Navbar.Menu>
-          <Navbar.Item dropdown hoverable active={raidOpen}>
-            <Navbar.Link onClick={() => setRaidOpen(!raidOpen)}>
+          <Navbar.Item dropdown hoverable>
+            <Navbar.Link>
               <b>Raids</b>
             </Navbar.Link>
-            <Navbar.Dropdown onSelect={() => console.log("ok")}>
-              <DropItem
-                name="Ny'alotha"
-                to='/nyalotha'
-                onClick={() => setRaidOpen(false)}
-              />
-              <DropItem
-                name='Palais Eternel'
-                to='/palais'
-                onClick={() => setRaidOpen(false)}
-              />
+            <Navbar.Dropdown>
+              <DropItem name="Ny'alotha" to='/nyalotha' />
+              <DropItem name='Palais Eternel' to='/palais' />
             </Navbar.Dropdown>
           </Navbar.Item>
           {raid && raid === "palais" && bossesEP}
           {raid && raid === "nyalotha" && bossesNA}
           <Navbar.Container position='end'>
-            <a
-              className='navbar-item'
-              href='/progress'
-              onClick={e => {
-                e.currentTarget.classList.add("is-active");
-                e.currentTarget.classList.remove("is-active");
-              }}
-            >
+            {user && (
+              <a className='navbar-item' href='/candidatures'>
+                <b>Candidatures</b>
+              </a>
+            )}
+            {user && (
+              <Navbar.Item dropdown hoverable>
+                <Navbar.Link>
+                  <b>{user.displayName}</b>
+                </Navbar.Link>
+                <Navbar.Dropdown>
+                  <Navbar.Item href={`/users/${user.uid}`}>
+                    Mon profil
+                  </Navbar.Item>
+                  <Navbar.Item
+                    href='/'
+                    onClick={() => {
+                      firebase.auth().signOut();
+                    }}
+                  >
+                    Se déconnecter
+                  </Navbar.Item>
+                </Navbar.Dropdown>
+              </Navbar.Item>
+            )}
+            {!user && (
+              <a className='navbar-item' href='/login'>
+                <b>Login</b>
+              </a>
+            )}
+            <a className='navbar-item' href='/progress'>
               <b>Progress</b>
             </a>
             <a
@@ -229,7 +246,7 @@ const NavigationBar = props => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <b>Site / Forum</b>
+              <b>Discord</b>
             </a>
             <Navbar.Item onClick={() => setOpen(true)}>
               <FontAwesomeIcon icon={faWrench} size='lg' />
