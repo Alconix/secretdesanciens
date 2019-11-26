@@ -34,7 +34,7 @@ const Comment = props => {
                 className='container has-text-justified'
                 style={{ whiteSpace: "pre-line" }}
               >
-                {props.content}
+                {props.content} {/* TODO : Edition here */}
               </div>
             </div>
           </div>

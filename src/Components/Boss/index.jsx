@@ -31,7 +31,7 @@ const Boss = props => {
   };
 
   // #region general content
-  const GeneralContent = props => {
+  const GeneralContent = () => {
     return (
       <div>
         <h1 className='title has-text-left'>General</h1>
@@ -45,7 +45,7 @@ const Boss = props => {
   // #endregion
 
   // #region tank content
-  const TankContent = props => {
+  const TankContent = () => {
     return (
       <div>
         <h1 className='title has-text-left'>Tank</h1>
@@ -59,7 +59,7 @@ const Boss = props => {
   // #endregion
 
   // #region heal content
-  const HealContent = props => {
+  const HealContent = () => {
     return (
       <div>
         <h1 className='title has-text-left'>Heal</h1>
@@ -73,7 +73,7 @@ const Boss = props => {
   // #endregion
 
   // #region dps content
-  const DpsContent = props => {
+  const DpsContent = () => {
     return (
       <div>
         <h1 className='title has-text-left'>DPS</h1>

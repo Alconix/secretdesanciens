@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Modal, Section, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
-import firebase from "firebase";
+import { Firebase } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const DropItem = props => {
   const location = useLocation();
@@ -161,6 +162,7 @@ const ConfigModal = props => {
 // #endregion
 
 const NavigationBar = props => {
+  const [auth, init] = useAuthState(Firebase.auth());
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
 
@@ -173,95 +175,97 @@ const NavigationBar = props => {
     raid = params[0];
   }
 
-  let user = firebase.auth().currentUser;
-
-  return (
-    <div>
-      <Navbar color='link' fixed='top' active={active}>
-        <div className='navbar-brand'>
-          <a href='/' className='navbar-item'>
-            <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
-            <h3
-              className='title is-4'
-              style={{ paddingLeft: "15px", paddingBottom: "5px" }}
-            >
-              <b>Secret des Anciens</b>
-            </h3>
-          </a>
-          <Navbar.Burger
-            active={active.toString()}
-            onClick={() => setActive(!active)}
-          />
-        </div>
-        <Navbar.Divider />
-        <Navbar.Menu>
-          <Navbar.Item dropdown hoverable>
-            <Navbar.Link>
-              <b>Raids</b>
-            </Navbar.Link>
-            <Navbar.Dropdown>
-              <DropItem name="Ny'alotha" to='/nyalotha' />
-              <DropItem name='Palais Eternel' to='/palais' />
-            </Navbar.Dropdown>
-          </Navbar.Item>
-          {raid && raid === "palais" && bossesEP}
-          {raid && raid === "nyalotha" && bossesNA}
-          <Navbar.Container position='end'>
-            {user && (
-              <a className='navbar-item' href='/candidatures'>
-                <b>Candidatures</b>
-              </a>
-            )}
-            {user && (
-              <Navbar.Item dropdown hoverable>
-                <Navbar.Link>
-                  <b>{user.displayName}</b>
-                </Navbar.Link>
-                <Navbar.Dropdown>
-                  <Navbar.Item href={`/users/${user.uid}`}>
-                    Mon profil
-                  </Navbar.Item>
-                  <Navbar.Item
-                    href='/'
-                    onClick={() => {
-                      firebase.auth().signOut();
-                    }}
-                  >
-                    Se déconnecter
-                  </Navbar.Item>
-                </Navbar.Dropdown>
-              </Navbar.Item>
-            )}
-            {!user && (
-              <a className='navbar-item' href='/login'>
-                <b>Login</b>
-              </a>
-            )}
-            <a className='navbar-item' href='/progress'>
-              <b>Progress</b>
+  if (!init) {
+    return (
+      <div>
+        <Navbar color='link' fixed='top' active={active}>
+          <div className='navbar-brand'>
+            <a href='/' className='navbar-item'>
+              <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
+              <h3
+                className='title is-4'
+                style={{ paddingLeft: "15px", paddingBottom: "5px" }}
+              >
+                <b>Secret des Anciens</b>
+              </h3>
             </a>
-            <a
-              className='navbar-item'
-              href='http://secretdesanciens.guildi.com/fr/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <b>Discord</b>
-            </a>
-            <Navbar.Item onClick={() => setOpen(true)}>
-              <FontAwesomeIcon icon={faWrench} size='lg' />
+            <Navbar.Burger
+              active={active.toString()}
+              onClick={() => setActive(!active)}
+            />
+          </div>
+          <Navbar.Divider />
+          <Navbar.Menu>
+            <Navbar.Item dropdown hoverable>
+              <Navbar.Link>
+                <b>Raids</b>
+              </Navbar.Link>
+              <Navbar.Dropdown>
+                <DropItem name="Ny'alotha" to='/nyalotha' />
+                <DropItem name='Palais Eternel' to='/palais' />
+              </Navbar.Dropdown>
             </Navbar.Item>
-          </Navbar.Container>
-        </Navbar.Menu>
-      </Navbar>
-      <ConfigModal
-        open={open}
-        setOpen={setOpen}
-        config={props.config}
-        changeConfig={props.changeConfig}
-      />
-    </div>
-  );
+            {raid && raid === "palais" && bossesEP}
+            {raid && raid === "nyalotha" && bossesNA}
+            <Navbar.Container position='end'>
+              {auth && (
+                <a className='navbar-item' href='/candidatures'>
+                  <b>Candidatures</b>
+                </a>
+              )}
+              {auth && (
+                <Navbar.Item dropdown hoverable>
+                  <Navbar.Link>
+                    <b>{auth.displayName}</b>
+                  </Navbar.Link>
+                  <Navbar.Dropdown>
+                    <Navbar.Item href={`/users/${auth.uid}`}>
+                      Mon profil
+                    </Navbar.Item>
+                    <Navbar.Item
+                      href='/'
+                      onClick={() => {
+                        Firebase.auth().signOut();
+                      }}
+                    >
+                      Se déconnecter
+                    </Navbar.Item>
+                  </Navbar.Dropdown>
+                </Navbar.Item>
+              )}
+              {!auth && (
+                <a className='navbar-item' href='/login'>
+                  <b>Login</b>
+                </a>
+              )}
+              <a className='navbar-item' href='/progress'>
+                <b>Progress</b>
+              </a>
+              <a
+                className='navbar-item'
+                href='http://secretdesanciens.guildi.com/fr/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <b>Discord</b>
+              </a>
+              <Navbar.Item onClick={() => setOpen(true)}>
+                <FontAwesomeIcon icon={faWrench} size='lg' />
+              </Navbar.Item>
+            </Navbar.Container>
+          </Navbar.Menu>
+        </Navbar>
+        <ConfigModal
+          open={open}
+          setOpen={setOpen}
+          config={props.config}
+          changeConfig={props.changeConfig}
+        />
+      </div>
+    );
+  } else {
+    return <Navbar color='link' fixed='top' active={active} />;
+  }
 };
 
 export default NavigationBar;

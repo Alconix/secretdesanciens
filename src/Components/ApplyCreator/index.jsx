@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Section, Box } from "react-bulma-components";
 import TextareaAutosize from "react-autosize-textarea";
 import { useLocation, useHistory } from "react-router-dom";
 import { db, Firebase } from "../../firebase";
 
-const ApplyCreator = props => {
+const ApplyCreator = () => {
   const location = useLocation();
   const history = useHistory();
   const [apply, setApply] = useState(
@@ -12,12 +12,49 @@ const ApplyCreator = props => {
       ? location.state.data
       : ["", "", "", "", "", "", "", "", "", ""]
   );
+  const [showError, setShowError] = useState(false);
+  const [classes, setClasses] = useState([
+    "input",
+    "textarea",
+    "textarea",
+    "textarea",
+    "textarea",
+    "textarea",
+    "radio",
+    "textarea",
+    "radio",
+    "textarea",
+  ]);
+
+  const changeClass = (index, value) => {
+    let arr = [...classes];
+    console.log(arr);
+    arr[index] = value;
+    console.log(arr);
+    setClasses(arr);
+  };
 
   const editing = location.state ? true : false;
 
   const onChange = event => {
     const { name, value } = event.target;
     setApply(old => ({ ...old, [name]: value }));
+  };
+
+  const sendNotification = (name, id) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open(
+      "POST",
+      "https://discordapp.com/api/webhooks/648940349342875691/zCsVxqHOUh9tA0rt6RyTpKj_66oe-Y5NGqBAwwtQMGlov-1HQMo45UqSQvpyuf3mP5Ww",
+      true
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(
+      JSON.stringify({
+        content: `Nouvelle candidature de ${name} ! @here\nhttp://localhost:3000/candidatures/${id}`,
+        username: "Secret des Anciens",
+      })
+    );
   };
 
   const validateChange = () => {
@@ -37,25 +74,36 @@ const ApplyCreator = props => {
             content: apply,
             editDate: new Date(),
           });
+        history.goBack();
       } else {
         const ref = db.collection("applies");
-        await ref.add({
+        const newApply = await ref.add({
           author_id: Firebase.auth().currentUser.uid,
           content: apply,
           date: new Date(),
           state: "pending",
         });
+        sendNotification(Firebase.auth().currentUser.displayName, newApply.id);
+        history.push(`/candidatures/${newApply.id}`);
       }
-      history.replace(`/candidatures/${location.state.id}`);
     } else {
-      console.log("KO");
+      setShowError(true);
+      setClasses(0, apply[0] ? "input" : "input is-danger");
+      setClasses(1, apply[1] ? "textarea" : "textarea is-danger");
+      setClasses(2, apply[2] ? "textarea" : "textarea is-danger");
+      setClasses(3, apply[3] ? "textarea" : "textarea is-danger");
+      setClasses(4, apply[4] ? "textarea" : "textarea is-danger");
+      setClasses(5, apply[5] ? "textarea" : "textarea is-danger");
+      setClasses(6, apply[6] ? "radio" : "radio has-text-danger");
+      setClasses(7, apply[7] ? "textarea" : "textarea is-danger");
+      setClasses(8, apply[8] ? "radio" : "radio has-text-danger");
+      setClasses(9, apply[9] ? "textarea" : "textarea is-danger");
     }
   };
 
+  console.log(classes);
   const onCancel = () => {
-    if (editing) {
-      history.replace(`/candidatures/${location.state.id}`);
-    } else history.go(-1);
+    history.goBack();
   };
 
   const sectionStyle = {
@@ -66,7 +114,13 @@ const ApplyCreator = props => {
     width: "50%",
   };
 
-  console.log(apply);
+  const CreationError = () => {
+    return showError ? (
+      <div className='notification is-danger' style={{ position: "relative" }}>
+        Vous devez remplir tous les champs.
+      </div>
+    ) : null;
+  };
 
   return (
     <div className='columns is-centered'>
@@ -86,7 +140,7 @@ const ApplyCreator = props => {
                     <div className='control'>
                       <input
                         style={fieldStyle}
-                        className='input'
+                        className={classes[0]}
                         type='text'
                         placeholder='Nom du personnage'
                         name='0'
@@ -105,7 +159,7 @@ const ApplyCreator = props => {
                     <div className='control'>
                       <TextareaAutosize
                         style={fieldStyle}
-                        className='textarea'
+                        className={classes[1]}
                         placeholder='Depuis combien de temps jouez vous ?'
                         name='1'
                         onChange={onChange}
@@ -120,7 +174,7 @@ const ApplyCreator = props => {
                   </h1>
                   <TextareaAutosize
                     style={fieldStyle}
-                    className='textarea'
+                    className={classes[2]}
                     placeholder='Quelles sont vos motivations pour entrer dans notre guilde ?'
                     rows={5}
                     name='2'
@@ -134,7 +188,7 @@ const ApplyCreator = props => {
                   </h1>
                   <TextareaAutosize
                     style={fieldStyle}
-                    className='textarea'
+                    className={classes[3]}
                     placeholder='Vos anciennes guildes'
                     rows={5}
                     name='3'
@@ -146,7 +200,7 @@ const ApplyCreator = props => {
                   <h1 className='title is-3 has-text-link'>Présentez-vous</h1>
                   <TextareaAutosize
                     style={fieldStyle}
-                    className='textarea'
+                    className={classes[4]}
                     placeholder='Présentez-vous'
                     rows={5}
                     name='4'
@@ -160,7 +214,7 @@ const ApplyCreator = props => {
                   </h1>
                   <TextareaAutosize
                     style={fieldStyle}
-                    className='textarea'
+                    className={classes[5]}
                     placeholder='Présentez-vous en jeu'
                     rows={5}
                     name='5'
@@ -173,7 +227,7 @@ const ApplyCreator = props => {
                     Avez-vous des personnages dans d'autres guildes ?
                   </h1>
                   <div className='control'>
-                    <label className='radio' style={{ marginRight: 10 }}>
+                    <label className={classes[6]} style={{ marginRight: 10 }}>
                       <input
                         type='radio'
                         onChange={onChange}
@@ -201,7 +255,7 @@ const ApplyCreator = props => {
                   </h1>
                   <TextareaAutosize
                     style={fieldStyle}
-                    className='textarea'
+                    className={classes[7]}
                     placeholder='Si oui, indiquez le nom des guildes'
                     name='7'
                     onChange={onChange}
@@ -213,7 +267,7 @@ const ApplyCreator = props => {
                     Avez-vous un casque/micro ?
                   </h1>
                   <div className='control'>
-                    <label className='radio' style={{ marginRight: 10 }}>
+                    <label className={classes[8]} style={{ marginRight: 10 }}>
                       <input
                         type='radio'
                         onChange={onChange}
@@ -241,11 +295,10 @@ const ApplyCreator = props => {
                   </h1>
                   <div className='field'>
                     <div className='control'>
-                      <input
-                        style={{ width: "50%" }}
-                        className='input'
-                        type='text'
-                        placeholder="Combien d'heures jouez-vous par semaine ?"
+                      <TextareaAutosize
+                        style={fieldStyle}
+                        className={classes[9]}
+                        placeholder='Depuis combien de temps jouez vous ?'
                         name='9'
                         onChange={onChange}
                         value={apply[9]}
@@ -256,6 +309,7 @@ const ApplyCreator = props => {
               </form>
             </Section>
           </Box>
+          <CreationError />
           <div className='buttons'>
             <button className='button is-success' onClick={onSubmit}>
               Valider

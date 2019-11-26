@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, Firebase } from "../../firebase";
-
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Box, Section } from "react-bulma-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,17 +17,26 @@ const ApplyList = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [applies, setApplies] = useState([]);
   const [user, setUser] = useState();
+  const [noApply, setNoApply] = useState(false);
+
+  let [auth, init] = useAuthState(Firebase.auth());
 
   useEffect(() => {
     const getData = async () => {
       const ref = db.collection("applies");
       const currentUser = await db
         .collection("users")
-        .doc(Firebase.auth().currentUser.uid)
+        .doc(auth.uid)
         .get();
       setUser(currentUser.data());
+      let myApply = false;
       let appliesRef = await ref.get();
       for (let apply of appliesRef.docs) {
+        if (
+          apply.data().author_id === currentUser.id &&
+          currentUser.data().role === "apply"
+        )
+          myApply = true;
         let upvotes = 0;
         let downvotes = 0;
         let voteRef = await ref
@@ -42,33 +51,48 @@ const ApplyList = () => {
           if (vote.data().value === 1) upvotes++;
           if (vote.data().value === -1) upvotes--;
         }
-        let comments = await ref.doc(apply.id).collection("comments");
+        let comments = ref.doc(apply.id).collection("comments");
         const commentsCount = comments.size;
+
+        const pseudal = userRef.data() ? userRef.data().pseudo : "[deleted]";
 
         let currentApply = {
           id: apply.id,
-          name: userRef.data().pseudo,
+          name: pseudal,
           date: apply.data().date.seconds,
           state: apply.data().state,
           upvotes,
           downvotes,
-          commentsCount,
+          commentsCount: commentsCount || 0,
         };
-
+        if (currentUser.data().role === "apply" && !myApply) setNoApply(true);
         setApplies(old => [...old, currentApply]);
       }
       setPageCount(Math.ceil(appliesRef.size / 10));
       setLoaded(true);
     };
 
-    getData();
-  }, []);
+    if (auth) getData();
+  }, [auth]);
 
   const changeDisplayNumber = e => {
     setDisplayNumber(parseInt(e.target.value));
     setPageNumber(1);
-    console.log(applies.length / displayNumber);
     setPageCount(Math.ceil(applies.length / parseInt(e.target.value)));
+  };
+
+  const Warning = () => {
+    return (
+      <section className='section'>
+        <div
+          className='notification is-danger'
+          style={{ maxWidth: "50vw", position: "relative", left: "25%" }}
+        >
+          Vous devez vous connecter ou créer un compte pour acceder à cette
+          section !
+        </div>
+      </section>
+    );
   };
 
   const getStatus = status => {
@@ -90,8 +114,10 @@ const ApplyList = () => {
       i++
     ) {
       const date = new Date(applies[i].date * 1000);
+      if (user.role === "apply" && applies[i].name !== user.pseudo) continue;
       array.push(
         <tr
+          key={applies[i].id}
           onClick={() =>
             window.location.assign(`/candidatures/${applies[i].id}`)
           }
@@ -107,22 +133,24 @@ const ApplyList = () => {
               minute: "2-digit",
             })}
           </td>
-          <td>{applies[i].commentsCount}</td>
           <td>
-            <span>
+            <p style={{ marginLeft: "10%" }}>{applies[i].commentsCount}</p>
+          </td>
+          <td>
+            <span style={{ fontFamily: "monospaced" }}>
               <FontAwesomeIcon
                 icon={faThumbsUp}
                 style={{ color: "#48c774", marginRight: 4 }}
               />
               {applies[i].upvotes}
             </span>
-            <span style={{ marginLeft: 10, marginRight: 4 }}>
+            <span style={{ marginLeft: 10, fontFamily: "monospaced" }}>
               <FontAwesomeIcon
                 icon={faThumbsDown}
-                style={{ color: "#f14668" }}
+                style={{ color: "#f14668", marginRight: 4 }}
               />
+              {applies[i].downvotes}
             </span>
-            {applies[i].downvotes}
           </td>
           <td>{getStatus(applies[i].state)}</td>
         </tr>
@@ -155,7 +183,9 @@ const ApplyList = () => {
     );
   };
 
-  if (!loaded) {
+  if (!init && !auth) {
+    return <Warning />;
+  } else if (!loaded) {
     return (
       <progress
         className='progress is-link'
@@ -187,39 +217,51 @@ const ApplyList = () => {
                 </div>
               </nav>
               <Section>
-                <table className='table is-fullwidth is-hoverable'>
-                  <thead>
-                    <tr>
-                      <th>Nom</th>
-                      <th>Date</th>
-                      <th>Commentaires</th>
-                      <th>Votes</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>{displayPage()}</tbody>
-                </table>
-                <nav className='level'>
-                  <div className='level-left'>
-                    <Pagination />
+                {!noApply && (
+                  <table className='table is-fullwidth is-hoverable'>
+                    <thead>
+                      <tr>
+                        <th>Nom</th>
+                        <th>Date</th>
+                        <th>Commentaires</th>
+                        <th>Votes</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>{displayPage()}</tbody>
+                  </table>
+                )}
+                {noApply && (
+                  <div>
+                    <em>
+                      Créez une candidature en cliquant sur le bouton en haut à
+                      droite !
+                    </em>
                   </div>
-                  <div className='level-right'>
-                    <div>Resultats par page:</div>
-                    <div
-                      className='select is-small is-pulled-right'
-                      style={{ marginLeft: 15 }}
-                    >
-                      <select onChange={changeDisplayNumber}>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>50</option>
-                      </select>
+                )}
+                {user.role !== "apply" && (
+                  <nav className='level'>
+                    <div className='level-left'>
+                      <Pagination />
                     </div>
-                    <div style={{ marginLeft: 15 }}>
-                      Page {pageNumber} sur {pageCount}
+                    <div className='level-right'>
+                      <div>Resultats par page:</div>
+                      <div
+                        className='select is-small is-pulled-right'
+                        style={{ marginLeft: 15 }}
+                      >
+                        <select onChange={changeDisplayNumber}>
+                          <option>10</option>
+                          <option>20</option>
+                          <option>50</option>
+                        </select>
+                      </div>
+                      <div style={{ marginLeft: 15 }}>
+                        Page {pageNumber} sur {pageCount}
+                      </div>
                     </div>
-                  </div>
-                </nav>
+                  </nav>
+                )}
               </Section>
             </Box>
           </Section>

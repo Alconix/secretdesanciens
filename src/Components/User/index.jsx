@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase";
-import { useParams, useHistory } from "react-router-dom";
+import { db, Firebase } from "../../firebase";
+import { useParams } from "react-router-dom";
 import { Box, Section, Modal } from "react-bulma-components";
-import firebase from "firebase";
 
-const User = props => {
+const User = () => {
   const [user, setUser] = useState({
     pseudo: "",
     role: "",
@@ -20,7 +19,6 @@ const User = props => {
   const [showModal, setShowModal] = useState(false);
 
   const { user_id } = useParams();
-  let history = useHistory();
 
   useEffect(() => {
     const userRef = db.collection("users").doc(user_id);
@@ -47,7 +45,7 @@ const User = props => {
     db.collection("users")
       .doc(user_id)
       .delete();
-    firebase.auth().currentUser.delete();
+    Firebase.auth().currentUser.delete();
     window.location.assign("/");
   };
 
@@ -60,11 +58,11 @@ const User = props => {
 
     if (newPseudo !== user.pseudo) {
       updatedUser["pseudo"] = newPseudo;
-      firebase.auth().currentUser.updateProfile({ displayName: newPseudo });
+      Firebase.auth().currentUser.updateProfile({ displayName: newPseudo });
     }
     if (newURL !== user.img) {
       updatedUser["img"] = newURL;
-      firebase.auth().currentUser.updateProfile({ photoURL: newURL });
+      Firebase.auth().currentUser.updateProfile({ photoURL: newURL });
     }
 
     db.collection("users")
@@ -205,8 +203,8 @@ const User = props => {
                       </form>
                     </section>
                   </div>
-                  {firebase.auth().currentUser &&
-                    firebase.auth().currentUser.uid === user_id && (
+                  {Firebase.auth().currentUser &&
+                    Firebase.auth().currentUser.uid === user_id && (
                       <nav className='level'>
                         <div className='level-left'>
                           <div className='level-item'>

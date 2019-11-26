@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const Raid = props => {
+const Raid = () => {
   const { raid } = useParams();
   const { BossList, name } = require(`../../Content/BossList/${raid}`);
 

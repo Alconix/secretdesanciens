@@ -27,7 +27,7 @@ const heroStyle = {
   marginBottom: "20px",
 };
 
-const Home = props => {
+const Home = () => {
   useEffect(() => {
     document.title = `Secret des Anciens`;
   }, []);

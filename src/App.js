@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import firebase from "firebase";
 
 //#region react-router
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -28,29 +27,14 @@ function App() {
     mythic: true,
   });
 
-  const [user, setUser] = useState();
-
   const changeConfig = (name, value) => {
     setConfig(prevConfig => ({ ...prevConfig, [name]: value }));
   };
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        setUser(user);
-      }
-      console.log(user);
-    });
-  }, []);
-
   return (
     <div className='App'>
       <BrowserRouter>
-        <NavigationBar
-          config={config}
-          changeConfig={changeConfig}
-          user={user}
-        />
+        <NavigationBar config={config} changeConfig={changeConfig} />
         <Switch>
           <Route path='/progress'>
             <Progress />
@@ -65,7 +49,7 @@ function App() {
             <ApplyCreator />
           </Route>
           <Route path='/candidatures/:apply_id'>
-            <Apply user={user} />
+            <Apply />
           </Route>
           <Route path='/users/:user_id'>
             <User />

@@ -3,11 +3,15 @@ import * as firebaseui from "firebaseui";
 import * as firebase from "firebase/app";
 import { db } from "../../firebase";
 
+import { useHistory } from "react-router-dom";
+
 const loginStyle = {
   paddingTop: "50px",
 };
 
-const Login = props => {
+const Login = () => {
+  const history = useHistory();
+
   let uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: (authResult, redirectUrl) => {
@@ -32,6 +36,7 @@ const Login = props => {
               lastSignInTime: user.metadata.lastSignInTime,
             });
         }
+        history.push("/");
         return true;
       },
     },
@@ -51,11 +56,10 @@ const Login = props => {
   if (!firebase.auth().currentUser)
     return <div id='firebaseui-auth-container' style={loginStyle}></div>;
   else {
-    console.log(firebase.auth().currentUser.displayName);
     return (
       <section className='section'>
         <div
-          className='notification is-warning has-text-dark'
+          className='notification is-danger'
           style={{ maxWidth: "50vw", position: "relative", left: "25%" }}
         >
           Vous êtes déjà connecté !

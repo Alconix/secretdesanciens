@@ -5,10 +5,11 @@ import { db, Firebase } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import TextareaAutosize from "react-autosize-textarea";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import Comment from "../Comment";
 
-const Apply = props => {
+const Apply = () => {
   const [loaded, setLoaded] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [author, setAuthor] = useState({});
@@ -22,7 +23,7 @@ const Apply = props => {
   const [showModal, setShowModal] = useState(false);
 
   const { apply_id } = useParams();
-  let auth = Firebase.auth().currentUser;
+  const [auth, init, err] = useAuthState(Firebase.auth());
 
   const sectionStyle = {
     marginTop: 60,
@@ -67,7 +68,13 @@ const Apply = props => {
         .doc(currentApply.data().author_id)
         .get();
 
-      setAuthor(authorRef.data());
+      const thisAuthor = authorRef.data()
+        ? authorRef.data()
+        : {
+            pseudo: "[deleted]",
+            role: "deleted",
+          };
+      setAuthor(thisAuthor);
       setCurrentUser(currentUserRef.data());
       setStatut(currentApply.data().state);
 
@@ -98,22 +105,31 @@ const Apply = props => {
         const authorRef = db.collection("users").doc(comment.author_id);
         const author = await authorRef.get();
 
+        const thisCommentUser = author.data()
+          ? author.data()
+          : {
+              pseudo: "[deleted]",
+              role: "deleted",
+            };
+
         let nameStyle = "";
-        if (author.data().role === "membre") {
+        if (thisCommentUser.role === "membre") {
           nameStyle = "is-3 subtitle has-text-info";
-        } else if (author.data().role === "officier") {
+        } else if (thisCommentUser.role === "officier") {
           nameStyle = "is-3 subtitle has-text-warning";
-        } else if (author.data().role === "admin") {
+        } else if (thisCommentUser.role === "admin") {
           nameStyle = "is-3 subtitle has-text-warning";
-        } else if (author.data().role === "apply") {
+        } else if (thisCommentUser.role === "apply") {
           nameStyle = "is-3 subtitle has-text-link";
+        } else if (thisCommentUser.role === "deleted") {
+          nameStyle = "is-3 subtitle has-text-light";
         }
 
         array.push(
           <Comment
             key={commentRef.id}
-            img={author.data().img}
-            pseudo={author.data().pseudo}
+            img={thisCommentUser.img}
+            pseudo={thisCommentUser.pseudo}
             userId={comment.author_id}
             nameStyle={nameStyle}
             commentDate={commentDate}
@@ -173,8 +189,8 @@ const Apply = props => {
       setLoaded(true);
     };
 
-    if (auth) getData();
-  }, [apply_id, auth]);
+    if (!init) getData();
+  }, [apply_id, auth, init]);
 
   const deleteComment = async id => {
     await db
@@ -430,14 +446,17 @@ const Apply = props => {
       comment.ref.delete();
     }
 
-    //await db.collection("applies").doc(apply_id).delete();
+    await db
+      .collection("applies")
+      .doc(apply_id)
+      .delete();
 
-    //window.location.assign("/candidatures");
+    history.push("/candidatures");
   };
 
   const editApply = () => {
     window.scrollTo(0, 0);
-    history.replace({
+    history.push({
       pathname: "/candidatures/create",
       state: { data: apply.content, id: apply_id },
     });
