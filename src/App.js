@@ -15,6 +15,7 @@ import Login from "./Components/Login";
 import User from "./Components/User";
 import Apply from "./Components/Apply";
 import ApplyList from "./Components/ApplyList";
+import ApplyCreator from "./Components/ApplyCreator";
 
 import "./firebase";
 
@@ -57,11 +58,14 @@ function App() {
           <Route path='/login'>
             <Login />
           </Route>
-          <Route path='/candidatures/:id'>
-            <Apply />
-          </Route>
-          <Route path='/candidatures'>
+          <Route exact path='/candidatures'>
             <ApplyList />
+          </Route>
+          <Route exact path='/candidatures/create'>
+            <ApplyCreator />
+          </Route>
+          <Route path='/candidatures/:apply_id'>
+            <Apply user={user} />
           </Route>
           <Route path='/users/:user_id'>
             <User />

@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Box, Section, Modal } from "react-bulma-components";
 import firebase from "firebase";
 
-const User = () => {
+const User = props => {
   const [user, setUser] = useState({
     pseudo: "",
     role: "",
@@ -29,11 +29,15 @@ const User = () => {
       .then(doc => {
         if (doc.exists) {
           setUser(doc.data());
+          setNewPseudo(doc.data().pseudo);
+          setNewURL(doc.data().img);
+        } else {
+          setUser(null);
         }
         setLoaded(true);
       })
       .catch(error => console.log(error));
-  }, [user_id, user.role, user.pseudo, user.img]);
+  }, [user_id]);
 
   const getGroup = () => {
     return user.role.charAt(0).toUpperCase() + user.role.slice(1);
@@ -44,8 +48,7 @@ const User = () => {
       .doc(user_id)
       .delete();
     firebase.auth().currentUser.delete();
-    history.push("/");
-    window.location.reload();
+    window.location.assign("/");
   };
 
   const toggleEdit = () => {
@@ -55,8 +58,14 @@ const User = () => {
   const commitChanges = () => {
     let updatedUser = {};
 
-    if (newPseudo !== user.pseudo) updatedUser["pseudo"] = newPseudo;
-    if (newURL !== user.img) updatedUser["img"] = newURL;
+    if (newPseudo !== user.pseudo) {
+      updatedUser["pseudo"] = newPseudo;
+      firebase.auth().currentUser.updateProfile({ displayName: newPseudo });
+    }
+    if (newURL !== user.img) {
+      updatedUser["img"] = newURL;
+      firebase.auth().currentUser.updateProfile({ photoURL: newURL });
+    }
 
     db.collection("users")
       .doc(user_id)
@@ -91,7 +100,8 @@ const User = () => {
         <Modal.Content style={{ backgroundColor: "white" }}>
           <Section className='has-text-dark'>
             <h1 className='title has-text-dark'>Suppression du compte</h1>
-            Voulez-vous vraiment supprimer votre compte ?
+            <p>Voulez-vous vraiment supprimer votre compte ?</p>
+            <p>Cette action est irreversible.</p>
             <br />
             <button
               className='button is-danger is-pulled-right'
@@ -120,7 +130,7 @@ const User = () => {
       ></progress>
     );
   } else if (!user) {
-    return <div>User not found ! :(</div>;
+    return <Section>User not found ! :(</Section>;
   } else {
     return (
       <div className='columns is-centered'>
@@ -178,7 +188,7 @@ const User = () => {
                             <input
                               className='input is-small'
                               type='text'
-                              placeholder='Pseudo'
+                              placeholder='Img URL'
                               id='pseudo'
                               style={{ marginLeft: 10, width: "20vw" }}
                               value={newURL}
@@ -195,23 +205,26 @@ const User = () => {
                       </form>
                     </section>
                   </div>
-                  <nav className='level'>
-                    <div className='level-left'>
-                      <div className='level-item'>
-                        <EditButton />
-                      </div>
-                    </div>
-                    <div className='level-right'>
-                      <div className='level-item'>
-                        <button
-                          className='button is-danger'
-                          onClick={() => setShowModal(true)}
-                        >
-                          Supprimer
-                        </button>
-                      </div>
-                    </div>
-                  </nav>
+                  {firebase.auth().currentUser &&
+                    firebase.auth().currentUser.uid === user_id && (
+                      <nav className='level'>
+                        <div className='level-left'>
+                          <div className='level-item'>
+                            <EditButton />
+                          </div>
+                        </div>
+                        <div className='level-right'>
+                          <div className='level-item'>
+                            <button
+                              className='button is-danger'
+                              onClick={() => setShowModal(true)}
+                            >
+                              Supprimer
+                            </button>
+                          </div>
+                        </div>
+                      </nav>
+                    )}
                 </div>
               </article>
             </Box>

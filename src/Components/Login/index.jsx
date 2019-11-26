@@ -14,7 +14,7 @@ const Login = props => {
         let user = authResult.user;
         let isNewUser = authResult.additionalUserInfo.isNewUser;
         if (isNewUser) {
-          //user.sendEmailVerification();
+          user.sendEmailVerification();
           db.collection("users")
             .doc(user.uid)
             .set({
@@ -53,9 +53,14 @@ const Login = props => {
   else {
     console.log(firebase.auth().currentUser.displayName);
     return (
-      <div className='notification is-warning has-text-dark'>
-        Vous êtes déjà connecté !
-      </div>
+      <section className='section'>
+        <div
+          className='notification is-warning has-text-dark'
+          style={{ maxWidth: "50vw", position: "relative", left: "25%" }}
+        >
+          Vous êtes déjà connecté !
+        </div>
+      </section>
     );
   }
 };
