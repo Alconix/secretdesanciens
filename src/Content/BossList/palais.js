@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Section, Tile, Heading, Box } from "react-bulma-components";
-import { Link } from "react-router-dom";
 
 const tileStyle = {
   height: "13vh",
@@ -36,7 +35,7 @@ export const BossList = () => {
               </div>
             </section>
             <Tile kind='ancestor'>
-              <Link className='tile is-parent' to='/palais/sivara'>
+              <a className='tile is-parent' href='/palais/sivara'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -48,8 +47,8 @@ export const BossList = () => {
                   <Heading subtitle>Commandant abyssal</Heading>
                   <Heading>Sivara</Heading>
                 </Tile>
-              </Link>
-              <Link className='tile is-parent' to='/palais/behemoth'>
+              </a>
+              <a className='tile is-parent' href='/palais/behemoth'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -61,8 +60,8 @@ export const BossList = () => {
                   <Heading>Béhémoth</Heading>
                   <Heading subtitle>Des flots noirs</Heading>
                 </Tile>
-              </Link>
-              <Link className='tile is-parent' to='/palais/radiance'>
+              </a>
+              <a className='tile is-parent' href='/palais/radiance'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -74,10 +73,10 @@ export const BossList = () => {
                   <Heading>Radiance</Heading>
                   <Heading subtitle>d'Azshara</Heading>
                 </Tile>
-              </Link>
+              </a>
             </Tile>
             <Tile kind='ancestor'>
-              <Link className='tile is-parent' to='/palais/corsandre'>
+              <a className='tile is-parent' href='/palais/corsandre'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -89,8 +88,8 @@ export const BossList = () => {
                   <Heading subtitle>Dame</Heading>
                   <Heading>Corsandre</Heading>
                 </Tile>
-              </Link>
-              <Link className='tile is-parent' to='/palais/orgozoa'>
+              </a>
+              <a className='tile is-parent' href='/palais/orgozoa'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -101,8 +100,8 @@ export const BossList = () => {
                 >
                   <Heading>Orgozoa</Heading>
                 </Tile>
-              </Link>
-              <Link className='tile is-parent' to='/palais/cour'>
+              </a>
+              <a className='tile is-parent' href='/palais/cour'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -114,10 +113,10 @@ export const BossList = () => {
                   <Heading>Cour</Heading>
                   <Heading subtitle>de la reine</Heading>
                 </Tile>
-              </Link>
+              </a>
             </Tile>
             <Tile kind='ancestor'>
-              <Link className='tile is-parent' to='/palais/zaqul'>
+              <a className='tile is-parent' href='/palais/zaqul'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -129,8 +128,8 @@ export const BossList = () => {
                   <Heading>Za'qul</Heading>
                   <Heading subtitle>héraut de Ny'alotha</Heading>
                 </Tile>
-              </Link>
-              <Link className='tile is-parent' to='/palais/azshara'>
+              </a>
+              <a className='tile is-parent' href='/palais/azshara'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -142,7 +141,7 @@ export const BossList = () => {
                   <Heading subtitle>Reine</Heading>
                   <Heading>Azshara</Heading>
                 </Tile>
-              </Link>
+              </a>
               <div className='tile is-parent' />
             </Tile>
           </Section>

@@ -22,6 +22,8 @@ const ApplyList = () => {
   let [auth, init] = useAuthState(Firebase.auth());
 
   useEffect(() => {
+    document.title = "Candidatures - Secret des Anciens";
+
     const getData = async () => {
       const ref = db.collection("applies");
       const currentUser = await db
@@ -185,7 +187,7 @@ const ApplyList = () => {
 
   if (!init && !auth) {
     return <Warning />;
-  } else if (!loaded) {
+  } else if (!loaded && !init) {
     return (
       <progress
         className='progress is-link'
@@ -198,7 +200,7 @@ const ApplyList = () => {
         }}
       ></progress>
     );
-  } else {
+  } else if (!init) {
     return (
       <div className='columns is-centered'>
         <div className='column is-6'>
@@ -268,7 +270,7 @@ const ApplyList = () => {
         </div>
       </div>
     );
-  }
+  } else return null;
 };
 
 export default ApplyList;

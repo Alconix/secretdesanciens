@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db, Firebase } from "../../firebase";
 import { useParams } from "react-router-dom";
 import { Box, Section, Modal } from "react-bulma-components";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const User = () => {
   const [user, setUser] = useState({
@@ -10,11 +11,14 @@ const User = () => {
     img: "",
   });
 
+  const [auth, init] = useAuthState(Firebase.auth());
+
   const [loaded, setLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
+  const [newRole, setNewRole] = useState("");
   const [newPseudo, setNewPseudo] = useState("");
   const [newURL, setNewURL] = useState("");
+  const [currentUser, setCurrentUser] = useState();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -26,16 +30,42 @@ const User = () => {
       .get()
       .then(doc => {
         if (doc.exists) {
+          document.title = `${doc.data().pseudo} - Secret des Anciens`;
           setUser(doc.data());
           setNewPseudo(doc.data().pseudo);
           setNewURL(doc.data().img);
+          setNewRole(doc.data().role);
         } else {
           setUser(null);
         }
         setLoaded(true);
       })
       .catch(error => console.log(error));
-  }, [user_id]);
+
+    const fetchData = async () => {
+      const userDoc = await db
+        .collection("users")
+        .doc(user_id)
+        .get();
+      if (userDoc.exists) {
+        document.title = `${userDoc.data().pseudo} - Secret des Anciens`;
+        setUser(userDoc.data());
+        setNewPseudo(userDoc.data().pseudo);
+        setNewURL(userDoc.data().img);
+        setNewRole(userDoc.data().role);
+      }
+
+      const currentUserDoc = await db
+        .collection("users")
+        .doc(auth.uid)
+        .get();
+      setCurrentUser(currentUserDoc.data());
+
+      setLoaded(true);
+    };
+
+    if (!init) fetchData();
+  }, [user_id, init, auth]);
 
   const getGroup = () => {
     return user.role.charAt(0).toUpperCase() + user.role.slice(1);
@@ -45,7 +75,7 @@ const User = () => {
     db.collection("users")
       .doc(user_id)
       .delete();
-    Firebase.auth().currentUser.delete();
+    auth.delete();
     window.location.assign("/");
   };
 
@@ -53,19 +83,25 @@ const User = () => {
     setEditMode(!editMode);
   };
 
-  const commitChanges = () => {
+  const commitChanges = async () => {
     let updatedUser = {};
 
     if (newPseudo !== user.pseudo) {
       updatedUser["pseudo"] = newPseudo;
-      Firebase.auth().currentUser.updateProfile({ displayName: newPseudo });
-    }
-    if (newURL !== user.img) {
-      updatedUser["img"] = newURL;
-      Firebase.auth().currentUser.updateProfile({ photoURL: newURL });
+      auth.updateProfile({ displayName: newPseudo });
     }
 
-    db.collection("users")
+    if (newURL !== user.img) {
+      updatedUser["img"] = newURL;
+      auth.updateProfile({ photoURL: newURL });
+    }
+
+    if (newRole !== user.role) {
+      updatedUser["role"] = newRole;
+    }
+
+    await db
+      .collection("users")
       .doc(user_id)
       .update(updatedUser);
 
@@ -114,7 +150,9 @@ const User = () => {
     );
   };
 
-  if (!loaded) {
+  console.log(newRole);
+
+  if (!loaded && !init) {
     return (
       <progress
         className='progress is-link'
@@ -127,9 +165,9 @@ const User = () => {
         }}
       ></progress>
     );
-  } else if (!user) {
+  } else if (!user && !init) {
     return <Section>User not found ! :(</Section>;
-  } else {
+  } else if (!init) {
     return (
       <div className='columns is-centered'>
         <DeleteModal />
@@ -170,7 +208,36 @@ const User = () => {
                         </div>
                         <br />
                         <div style={{ height: "2.25em" }}>
-                          <b>Groupe: </b> {getGroup()}
+                          <b>Groupe: </b> {!editMode && getGroup()}{" "}
+                          {editMode &&
+                            (currentUser.role === "admin" ||
+                              currentUser.role === "officier") && (
+                              <div
+                                className='select is-link is-small'
+                                style={{ marginRight: 7, marginLeft: 7 }}
+                              >
+                                <select
+                                  onChange={e => {
+                                    console.log(e.target.value.toLowerCase());
+                                    setNewRole(e.target.value.toLowerCase());
+                                  }}
+                                  value={
+                                    newRole.charAt(0).toUpperCase() +
+                                    newRole.slice(1)
+                                  }
+                                >
+                                  {currentUser.role === "admin" && (
+                                    <option>Admin</option>
+                                  )}
+                                  {(currentUser.role === "officier" ||
+                                    currentUser.role === "admin") && (
+                                    <option>Officier</option>
+                                  )}
+                                  <option>Membre</option>
+                                  <option>Apply</option>
+                                </select>
+                              </div>
+                            )}
                         </div>
                         <div style={{ marginTop: 10 }}>
                           <b>Inscription: </b>
@@ -203,26 +270,25 @@ const User = () => {
                       </form>
                     </section>
                   </div>
-                  {Firebase.auth().currentUser &&
-                    Firebase.auth().currentUser.uid === user_id && (
-                      <nav className='level'>
-                        <div className='level-left'>
-                          <div className='level-item'>
-                            <EditButton />
-                          </div>
+                  {auth && auth.uid === user_id && (
+                    <nav className='level'>
+                      <div className='level-left'>
+                        <div className='level-item'>
+                          <EditButton />
                         </div>
-                        <div className='level-right'>
-                          <div className='level-item'>
-                            <button
-                              className='button is-danger'
-                              onClick={() => setShowModal(true)}
-                            >
-                              Supprimer
-                            </button>
-                          </div>
+                      </div>
+                      <div className='level-right'>
+                        <div className='level-item'>
+                          <button
+                            className='button is-danger'
+                            onClick={() => setShowModal(true)}
+                          >
+                            Supprimer
+                          </button>
                         </div>
-                      </nav>
-                    )}
+                      </div>
+                    </nav>
+                  )}
                 </div>
               </article>
             </Box>
@@ -230,7 +296,7 @@ const User = () => {
         </div>
       </div>
     );
-  }
+  } else return null;
 };
 
 export default User;

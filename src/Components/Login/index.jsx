@@ -1,7 +1,8 @@
 import React from "react";
 import * as firebaseui from "firebaseui";
-import * as firebase from "firebase/app";
-import { db } from "../../firebase";
+import firebase from "firebase/app";
+import { db, Firebase } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { useHistory } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const loginStyle = {
 
 const Login = () => {
   const history = useHistory();
+  const [auth, init] = useAuthState(Firebase.auth());
 
   let uiConfig = {
     callbacks: {
@@ -47,15 +49,12 @@ const Login = () => {
 
   if (firebaseui.auth.AuthUI.getInstance()) {
     const ui = firebaseui.auth.AuthUI.getInstance();
-    ui.start("#firebaseui-auth-container", uiConfig);
+    if (!auth && !init) ui.start("#firebaseui-auth-container", uiConfig);
   } else {
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start("#firebaseui-auth-container", uiConfig);
+    const ui = new firebaseui.auth.AuthUI(Firebase.auth());
+    if (!auth && !init) ui.start("#firebaseui-auth-container", uiConfig);
   }
-
-  if (!firebase.auth().currentUser)
-    return <div id='firebaseui-auth-container' style={loginStyle}></div>;
-  else {
+  if (auth && !init) {
     return (
       <section className='section'>
         <div
@@ -66,7 +65,9 @@ const Login = () => {
         </div>
       </section>
     );
-  }
+  } else if (!auth && !init)
+    return <div id='firebaseui-auth-container' style={loginStyle}></div>;
+  else return <div id='firebaseui-auth-container' style={loginStyle}></div>;
 };
 
 export default Login;

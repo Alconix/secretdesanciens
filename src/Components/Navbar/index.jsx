@@ -16,8 +16,8 @@ const DropItem = props => {
   if (paramsItem.length === 1 && paramsLocation[0] === paramsItem[0]) {
     classActivity = "navbar-item is-active";
   } else if (
-    paramsItem.length === 2 &&
-    paramsLocation.length === 2 &&
+    paramsItem.length >= 2 &&
+    paramsLocation.length >= 2 &&
     paramsLocation[1] === paramsItem[1]
   ) {
     classActivity = "navbar-item is-active";

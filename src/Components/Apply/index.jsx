@@ -23,7 +23,7 @@ const Apply = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { apply_id } = useParams();
-  const [auth, init, err] = useAuthState(Firebase.auth());
+  const [auth, init] = useAuthState(Firebase.auth());
 
   const sectionStyle = {
     marginTop: 60,
@@ -185,11 +185,11 @@ const Apply = () => {
         author_id: currentApply.data().author_id,
         editDate: formattedEditDate,
       });
-
+      document.title = `Candidature de ${thisAuthor.pseudo} - Secret des Anciens`;
       setLoaded(true);
     };
 
-    if (!init) getData();
+    if (!init && auth) getData();
   }, [apply_id, auth, init]);
 
   const deleteComment = async id => {
@@ -486,7 +486,19 @@ const Apply = () => {
     );
   };
 
-  if (!loaded) {
+  if (!init && !auth) {
+    return (
+      <section className='section'>
+        <div
+          className='notification is-danger'
+          style={{ maxWidth: "50vw", position: "relative", left: "25%" }}
+        >
+          Vous devez vous connecter ou créer un compte pour acceder à cette
+          section !
+        </div>
+      </section>
+    );
+  } else if (!init && !loaded) {
     return (
       <progress
         className='progress is-link'
@@ -499,9 +511,9 @@ const Apply = () => {
         }}
       ></progress>
     );
-  } else if (!apply) {
+  } else if (!apply && !init) {
     return <Section>Apply not found !</Section>;
-  } else if (apply.content) {
+  } else if (!init && apply.content) {
     return (
       <div className='columns is-centered'>
         <DeleteModal />
@@ -719,7 +731,7 @@ const Apply = () => {
         </div>
       </div>
     );
-  }
+  } else return null;
 };
 
 export default Apply;
