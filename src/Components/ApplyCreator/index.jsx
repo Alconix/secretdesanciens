@@ -45,7 +45,7 @@ const ApplyCreator = () => {
     let xhr = new XMLHttpRequest();
     xhr.open(
       "POST",
-      "https://discordapp.com/api/webhooks/648940349342875691/zCsVxqHOUh9tA0rt6RyTpKj_66oe-Y5NGqBAwwtQMGlov-1HQMo45UqSQvpyuf3mP5Ww",
+      "url",
       true
     );
     xhr.setRequestHeader("Content-Type", "application/json");
