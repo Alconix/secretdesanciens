@@ -121,38 +121,42 @@ const Boss = props => {
               <ul>
                 <li className={active === "overview" ? "is-active" : ""}>
                   {strat.overview && (
-                    <a href={`/${raid}/${boss}/overview`}>Overview</a>
+                    <a href={`/strats/${raid}/${boss}/overview`}>Overview</a>
                   )}
                 </li>
                 <li className={active === "details" ? "is-active" : ""}>
                   {strat.details && (
-                    <a href={`/${raid}/${boss}/details`}>Details</a>
+                    <a href={`/strats/${raid}/${boss}/details`}>Details</a>
                   )}
                 </li>
                 <li className={active === "info" ? "is-active" : ""}>
-                  {strat.info && <a href={`/${raid}/${boss}/info`}>Infos</a>}
+                  {strat.info && (
+                    <a href={`/strats/${raid}/${boss}/info`}>Infos</a>
+                  )}
                 </li>
                 <li className={active === "video" ? "is-active" : ""}>
-                  {strat.video && <a href={`/${raid}/${boss}/video`}>Video</a>}
+                  {strat.video && (
+                    <a href={`/strats/${raid}/${boss}/video`}>Video</a>
+                  )}
                 </li>
                 <li className={active === "schema" ? "is-active" : ""}>
                   {strat.schema && (
-                    <a href={`/${raid}/${boss}/schema`}>Schema</a>
+                    <a href={`/strats/${raid}/${boss}/schema`}>Schema</a>
                   )}
                 </li>
               </ul>
             </div>
             <Section>
               <Switch>
-                <Route path='/:raid/:boss/info'>{strat.info}</Route>
-                <Route path='/:raid/:boss/video'>{strat.video}</Route>
-                <Route path='/:raid/:boss/schema'>{strat.schema}</Route>
-                <Route path='/:raid/:boss/details'>
+                <Route path='/strats/:raid/:boss/info'>{strat.info}</Route>
+                <Route path='/strats/:raid/:boss/video'>{strat.video}</Route>
+                <Route path='/strats/:raid/:boss/schema'>{strat.schema}</Route>
+                <Route path='/strats/:raid/:boss/details'>
                   <div className='content has-text-left'>
                     <GetContent content={strat.details} />
                   </div>
                 </Route>
-                <Route path='/:raid/:boss/'>
+                <Route path='/strats/:raid/:boss/'>
                   <div className='content'>
                     <Section>
                       <GeneralContent />

@@ -13,12 +13,12 @@ const DropItem = props => {
 
   let classActivity = "";
 
-  if (paramsItem.length === 1 && paramsLocation[0] === paramsItem[0]) {
+  if (paramsItem.length === 2 && paramsLocation[1] === paramsItem[1]) {
     classActivity = "navbar-item is-active";
   } else if (
-    paramsItem.length >= 2 &&
-    paramsLocation.length >= 2 &&
-    paramsLocation[1] === paramsItem[1]
+    paramsItem.length >= 3 &&
+    paramsLocation.length >= 3 &&
+    paramsLocation[2] === paramsItem[2]
   ) {
     classActivity = "navbar-item is-active";
   } else {
@@ -39,14 +39,14 @@ const bossesEP = (
       <b>Boss</b>
     </Navbar.Link>
     <Navbar.Dropdown>
-      <DropItem name='Commandant Abyssal Sivara' to='/palais/sivara' />
-      <DropItem name='Béhémoth des flots noirs' to='/palais/behemoth' />
-      <DropItem name="Radiance d'Azshara" to='/palais/radiance' />
-      <DropItem name='Dame Corsandre' to='/palais/corsandre' />
-      <DropItem name='Orgozoa' to='/palais/orgozoa' />
-      <DropItem name='Cour de la reine' to='/palais/cour' />
-      <DropItem name="Za'qul, héraut de Ny'alotha" to='/palais/zaqul' />
-      <DropItem name='Reine Azshara' to='/palais/azshara' />
+      <DropItem name='Commandant Abyssal Sivara' to='/strats/palais/sivara' />
+      <DropItem name='Béhémoth des flots noirs' to='/strats/palais/behemoth' />
+      <DropItem name="Radiance d'Azshara" to='/strats/palais/radiance' />
+      <DropItem name='Dame Corsandre' to='/strats/palais/corsandre' />
+      <DropItem name='Orgozoa' to='/strats/palais/orgozoa' />
+      <DropItem name='Cour de la reine' to='/strats/palais/cour' />
+      <DropItem name="Za'qul, héraut de Ny'alotha" to='/strats/palais/zaqul' />
+      <DropItem name='Reine Azshara' to='/strats/palais/azshara' />
     </Navbar.Dropdown>
   </Navbar.Item>
 );
@@ -57,15 +57,21 @@ const bossesNA = (
       <b>Boss</b>
     </Navbar.Link>
     <Navbar.Dropdown>
-      <DropItem name="Irion, l'empereur noir" to='/nyalotha/irion' />
-      <DropItem name='Maut' to='/nyalotha/maut' />
-      <DropItem name='Prophète Skitra' to='/nyalotha/skitra' />
-      <DropItem name='Sombre inquisitrice Xanesh' to='/nyalotha/xanesh' />
-      <DropItem name='La conscience collective' to='/nyalotha/conscience' />
-      <DropItem name="Shad'har l'insatiable" to='/nyalotha/shad-har' />
-      <DropItem name="Drest'agath" to='/nyalotha/drest-agath' />
-      <DropItem name='Vexiona' to='/nyalotha/vexiona' />
-      <DropItem name='Ra-den le dépouillé' to='/nyalotha/ra-den' />
+      <DropItem name="Irion, l'empereur noir" to='/strats/nyalotha/irion' />
+      <DropItem name='Maut' to='/strats/nyalotha/maut' />
+      <DropItem name='Prophète Skitra' to='/strats/nyalotha/skitra' />
+      <DropItem
+        name='Sombre inquisitrice Xanesh'
+        to='/strats/nyalotha/xanesh'
+      />
+      <DropItem
+        name='La conscience collective'
+        to='/strats/nyalotha/conscience'
+      />
+      <DropItem name="Shad'har l'insatiable" to='/strats/nyalotha/shad-har' />
+      <DropItem name="Drest'agath" to='/strats/nyalotha/drest-agath' />
+      <DropItem name='Vexiona' to='/strats/nyalotha/vexiona' />
+      <DropItem name='Ra-den le dépouillé' to='/strats/nyalotha/ra-den' />
       <DropItem
         name="Il'gynoth, la corruption ressucitée"
         to='/nyalotha/il-gynoth'
@@ -171,8 +177,8 @@ const NavigationBar = props => {
 
   let raid = "";
 
-  if (params.length >= 1) {
-    raid = params[0];
+  if (params.length >= 2) {
+    raid = params[1];
   }
 
   if (!init) {
@@ -201,8 +207,8 @@ const NavigationBar = props => {
                 <b>Raids</b>
               </Navbar.Link>
               <Navbar.Dropdown>
-                <DropItem name="Ny'alotha" to='/nyalotha' />
-                <DropItem name='Palais Eternel' to='/palais' />
+                <DropItem name="Ny'alotha" to='/strats/nyalotha' />
+                <DropItem name='Palais Eternel' to='/strats/palais' />
               </Navbar.Dropdown>
             </Navbar.Item>
             {raid && raid === "palais" && bossesEP}

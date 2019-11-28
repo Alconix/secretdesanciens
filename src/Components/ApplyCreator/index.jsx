@@ -41,11 +41,7 @@ const ApplyCreator = () => {
 
   const sendNotification = (name, id) => {
     let xhr = new XMLHttpRequest();
-    xhr.open(
-      "POST",
-      "url",
-      true
-    );
+    xhr.open("POST", "HOOK_URL", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(
       JSON.stringify({

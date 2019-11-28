@@ -9,7 +9,7 @@ import NavigationBar from "./Components/Navbar";
 import Progress from "./Components/Progress";
 import Raid from "./Components/Raid";
 import Boss from "./Components/Boss";
-import Home from "./Components/Home";
+import Strats from "./Components/Strats";
 import Login from "./Components/Login";
 import User from "./Components/User";
 import Apply from "./Components/Apply";
@@ -54,14 +54,14 @@ function App() {
           <Route path='/users/:user_id'>
             <User />
           </Route>
-          <Route path='/:raid/:boss'>
+          <Route path='/strats/:raid/:boss'>
             <Boss config={config} />
           </Route>
-          <Route path='/:raid'>
+          <Route path='/strats/:raid'>
             <Raid />
           </Route>
-          <Route exact path='/'>
-            <Home />
+          <Route exact path='/strats'>
+            <Strats />
           </Route>
         </Switch>
       </BrowserRouter>

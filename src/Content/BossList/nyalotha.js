@@ -33,7 +33,7 @@ export const BossList = () => {
               </div>
             </section>
             <Tile kind='ancestor'>
-              <a className='tile is-parent' href='/nyalotha/irion'>
+              <a className='tile is-parent' href='/strats/nyalotha/irion'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -45,7 +45,7 @@ export const BossList = () => {
                   <Heading subtitle>L'Empereur Noir</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/maut'>
+              <a className='tile is-parent' href='/strats/nyalotha/maut'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -56,7 +56,7 @@ export const BossList = () => {
                   <Heading>Maut</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/skitra'>
+              <a className='tile is-parent' href='/strats/nyalotha/skitra'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -70,7 +70,7 @@ export const BossList = () => {
               </a>
             </Tile>
             <Tile kind='ancestor'>
-              <a className='tile is-parent' href='/nyalotha/xanesh'>
+              <a className='tile is-parent' href='/strats/nyalotha/xanesh'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -82,7 +82,7 @@ export const BossList = () => {
                   <Heading>Xanesh</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/conscience'>
+              <a className='tile is-parent' href='/strats/nyalotha/conscience'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -94,7 +94,7 @@ export const BossList = () => {
                   <Heading subtitle>Collective</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/shad-har'>
+              <a className='tile is-parent' href='/strats/nyalotha/shad-har'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -108,7 +108,7 @@ export const BossList = () => {
               </a>
             </Tile>
             <Tile kind='ancestor'>
-              <a className='tile is-parent' href='/nyalotha/drest-agath'>
+              <a className='tile is-parent' href='/strats/nyalotha/drest-agath'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -119,7 +119,7 @@ export const BossList = () => {
                   <Heading>Drest'agath</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/vexiona'>
+              <a className='tile is-parent' href='/strats/nyalotha/vexiona'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -130,7 +130,7 @@ export const BossList = () => {
                   <Heading>Vexiona</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/ra-den'>
+              <a className='tile is-parent' href='/strats/nyalotha/ra-den'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -144,7 +144,7 @@ export const BossList = () => {
               </a>
             </Tile>
             <Tile kind='ancestor'>
-              <a className='tile is-parent' href='/nyalotha/il-gynoth'>
+              <a className='tile is-parent' href='/strats/nyalotha/il-gynoth'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -156,7 +156,7 @@ export const BossList = () => {
                   <Heading subtitle>Corruption réssucitée</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/carapace'>
+              <a className='tile is-parent' href='/strats/nyalotha/carapace'>
                 <Tile
                   renderAs='article'
                   kind='child'
@@ -168,7 +168,7 @@ export const BossList = () => {
                   <Heading subtitle>de N'Zoth</Heading>
                 </Tile>
               </a>
-              <a className='tile is-parent' href='/nyalotha/nzoth'>
+              <a className='tile is-parent' href='/strats/nyalotha/nzoth'>
                 <Tile
                   renderAs='article'
                   kind='child'
