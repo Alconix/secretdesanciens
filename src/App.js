@@ -15,6 +15,7 @@ import User from "./Components/User";
 import Apply from "./Components/Apply";
 import ApplyList from "./Components/ApplyList";
 import ApplyCreator from "./Components/ApplyCreator";
+import Home from "./Components/Home";
 
 import "./firebase";
 
@@ -62,6 +63,9 @@ function App() {
           </Route>
           <Route exact path='/strats'>
             <Strats />
+          </Route>
+          <Route exact path='/'>
+            <Home />
           </Route>
         </Switch>
       </BrowserRouter>
