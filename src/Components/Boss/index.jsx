@@ -8,7 +8,7 @@ const Boss = props => {
   const { pathname } = useLocation();
 
   const params = pathname.split("/").filter(e => e !== "");
-  const active = params.length === 3 ? params[params.length - 1] : "overview";
+  const active = params.length === 4 ? params[params.length - 1] : "overview";
 
   const strat = require(`../../Content/Boss/${raid}/${boss}/${boss}`);
 

@@ -10,7 +10,10 @@ const Home = () => {
         <div className='columns'>
           <div className='column'>
             <button
-              className='button is-link is-fullwidth'
+              className={
+                "button is-link is-fullwidth" +
+                (section === "description" ? " is-active" : "")
+              }
               onClick={() => {
                 setSection("description");
               }}
@@ -20,7 +23,10 @@ const Home = () => {
           </div>
           <div className='column'>
             <button
-              className='button is-link is-fullwidth'
+              className={
+                "button is-link is-fullwidth" +
+                (section === "recrutement" ? " is-active" : "")
+              }
               onClick={() => {
                 setSection("recrutement");
               }}
@@ -30,7 +36,10 @@ const Home = () => {
           </div>
           <div className='column'>
             <button
-              className='button is-link is-fullwidth'
+              className={
+                "button is-link is-fullwidth" +
+                (section === "charte" ? " is-active" : "")
+              }
               onClick={() => {
                 setSection("charte");
               }}
@@ -40,7 +49,10 @@ const Home = () => {
           </div>
           <div className='column'>
             <button
-              className='button is-link is-fullwidth'
+              className={
+                "button is-link is-fullwidth" +
+                (section === "screenshots" ? " is-active" : "")
+              }
               onClick={() => {
                 setSection("screenshots");
               }}

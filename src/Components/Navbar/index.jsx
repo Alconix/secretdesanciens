@@ -190,7 +190,7 @@ const NavigationBar = props => {
               <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
               <h3
                 className='title is-4'
-                style={{ paddingLeft: "15px", paddingBottom: "5px" }}
+                style={{ paddingLeft: "10px", paddingBottom: "2px" }}
               >
                 <b>Secret des Anciens</b>
               </h3>
