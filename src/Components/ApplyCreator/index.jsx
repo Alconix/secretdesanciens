@@ -45,7 +45,7 @@ const ApplyCreator = () => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(
       JSON.stringify({
-        content: `Nouvelle candidature de ${name} ! @here\nhttp://localhost:3000/candidatures/${id}`,
+        content: `Nouvelle candidature de ${name} ! @here\nhttp://secretdesanciens.fr/candidatures/${id}`,
         username: "Secret des Anciens",
       })
     );
