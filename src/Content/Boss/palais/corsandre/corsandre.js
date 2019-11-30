@@ -1,5 +1,7 @@
-export const name = "corsandre";
-export const title = "corsandre";
+export const name = "Corsandre";
+export const title = "Dame";
+
+export const inverted = true;
 
 export const overview = {
   general: require("./corsandre-general.html"),

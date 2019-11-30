@@ -1,5 +1,5 @@
-export const name = "radiance";
-export const title = "radiance";
+export const name = "Radiance";
+export const title = "d'Azshara";
 
 export const overview = {
   general: require("./radiance-general.html"),
