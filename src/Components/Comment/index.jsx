@@ -34,29 +34,31 @@ const Comment = props => {
                 className='container has-text-justified'
                 style={{ whiteSpace: "pre-line" }}
               >
-                {props.content} {/* TODO : Edition here */}
+                {props.content} {/* TODO : Edition inline */}
               </div>
             </div>
           </div>
-          <div className='media-right'>
-            <FontAwesomeIcon
-              icon={faEdit}
-              onClick={props.onEdit}
-              style={{
-                marginRight: 10,
-                cursor: "pointer",
-                color: "#209cee",
-              }}
-            />
-            <FontAwesomeIcon
-              icon={faTrashAlt}
-              onClick={props.onDelete}
-              style={{
-                cursor: "pointer",
-                color: "#e74c3c",
-              }}
-            />
-          </div>
+          {props.controlButtons && (
+            <div className='media-right'>
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={props.onEdit}
+                style={{
+                  marginRight: 10,
+                  cursor: "pointer",
+                  color: "#209cee",
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                onClick={props.onDelete}
+                style={{
+                  cursor: "pointer",
+                  color: "#e74c3c",
+                }}
+              />
+            </div>
+          )}
         </article>
       </div>
     </Box>

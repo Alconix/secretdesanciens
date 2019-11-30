@@ -135,6 +135,7 @@ const Apply = () => {
             commentDate={commentDate}
             editDate={commentEditDate}
             content={comment.content}
+            controlButtons={auth.uid === comment.author_id}
             onEdit={() => {
               setEditing(commentRef.id);
               setEditContent(comment.content);
@@ -270,6 +271,7 @@ const Apply = () => {
         commentDate={formattedOriginDate}
         editDate={formattedDate}
         content={editContent}
+        controlButtons={true}
         onEdit={() => {
           setEditing(commentRef.id);
           setEditContent(editContent);
@@ -321,6 +323,7 @@ const Apply = () => {
         nameStyle={getNameStyle(currentUser.role)}
         commentDate={formattedDate}
         editDate={null}
+        controlButtons={true}
         content={newComment}
         onEdit={() => {
           setEditing(commentRef.id);

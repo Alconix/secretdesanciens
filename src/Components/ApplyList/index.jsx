@@ -22,6 +22,7 @@ const ApplyList = () => {
   let [auth, init] = useAuthState(Firebase.auth());
 
   useEffect(() => {
+    let thisNoApply = true;
     document.title = "Candidatures - Secret des Anciens";
 
     const getData = async () => {
@@ -32,7 +33,7 @@ const ApplyList = () => {
         .get();
       setUser(currentUser.data());
       let myApply = false;
-      let appliesRef = await ref.get();
+      let appliesRef = await ref.orderBy("date", "desc").get();
       for (let apply of appliesRef.docs) {
         if (
           apply.data().author_id === currentUser.id &&
@@ -51,9 +52,12 @@ const ApplyList = () => {
           .get();
         for (let vote of voteRef.docs) {
           if (vote.data().value === 1) upvotes++;
-          if (vote.data().value === -1) upvotes--;
+          if (vote.data().value === -1) downvotes++;
         }
-        let comments = ref.doc(apply.id).collection("comments");
+        let comments = await ref
+          .doc(apply.id)
+          .collection("comments")
+          .get();
         const commentsCount = comments.size;
 
         const pseudal = userRef.data() ? userRef.data().pseudo : "[deleted]";
@@ -67,9 +71,11 @@ const ApplyList = () => {
           downvotes,
           commentsCount: commentsCount || 0,
         };
-        if (currentUser.data().role === "apply" && !myApply) setNoApply(true);
+        if (currentUser.data().role === "apply" && (myApply || !thisNoApply))
+          thisNoApply = false;
         setApplies(old => [...old, currentApply]);
       }
+      if (currentUser.data().role === "apply") setNoApply(thisNoApply);
       setPageCount(Math.ceil(appliesRef.size / 10));
       setLoaded(true);
     };

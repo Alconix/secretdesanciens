@@ -150,8 +150,6 @@ const User = () => {
     );
   };
 
-  console.log(newRole);
-
   if (!loaded && !init) {
     return (
       <progress
@@ -210,6 +208,10 @@ const User = () => {
                         <div style={{ height: "2.25em" }}>
                           <b>Groupe: </b> {!editMode && getGroup()}{" "}
                           {editMode &&
+                            (currentUser.role === "apply" ||
+                              currentUser.role === "membre") &&
+                            getGroup()}
+                          {editMode &&
                             (currentUser.role === "admin" ||
                               currentUser.role === "officier") && (
                               <div
@@ -218,7 +220,6 @@ const User = () => {
                               >
                                 <select
                                   onChange={e => {
-                                    console.log(e.target.value.toLowerCase());
                                     setNewRole(e.target.value.toLowerCase());
                                   }}
                                   value={
@@ -270,13 +271,16 @@ const User = () => {
                       </form>
                     </section>
                   </div>
-                  {auth && auth.uid === user_id && (
-                    <nav className='level'>
-                      <div className='level-left'>
-                        <div className='level-item'>
-                          <EditButton />
-                        </div>
+                  <nav className='level'>
+                    <div className='level-left'>
+                      <div className='level-item'>
+                        {currentUser &&
+                          ((auth && auth.uid === user_id) ||
+                            currentUser.role === "admin" ||
+                            currentUser.role === "officier") && <EditButton />}
                       </div>
+                    </div>
+                    {auth && auth.uid === user_id && (
                       <div className='level-right'>
                         <div className='level-item'>
                           <button
@@ -287,8 +291,8 @@ const User = () => {
                           </button>
                         </div>
                       </div>
-                    </nav>
-                  )}
+                    )}
+                  </nav>
                 </div>
               </article>
             </Box>
