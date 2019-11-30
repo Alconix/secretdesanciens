@@ -203,7 +203,11 @@ const NavigationBar = props => {
           <Navbar.Divider />
           <Navbar.Menu>
             <Navbar.Item dropdown hoverable>
-              <Navbar.Link>
+              <Navbar.Link
+                onClick={() => {
+                  window.location.assign("/strats");
+                }}
+              >
                 <b>Raids</b>
               </Navbar.Link>
               <Navbar.Dropdown>

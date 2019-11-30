@@ -1,8 +1,140 @@
 import React, { useState } from "react";
 import { Section, Box } from "react-bulma-components";
+import Carousel from "nuka-carousel";
 
 const Home = () => {
   const [section, setSection] = useState("description");
+  const [index, setIndex] = useState(0);
+
+  const footerStyle = {
+    marginLeft: "5%",
+    marginBottom: "5%",
+  };
+
+  const nyalothaStyle = {
+    height: "40vh",
+    width: 1000,
+    backgroundImage:
+      "url(https://wow.zamimg.com/uploads/blog/images/17423-upcoming-nyalotha-raid-testing-on-8-3-ptr-wrathion-maut-prophet-skitra-ra-den.jpg)",
+    backgroundSize: "cover",
+  };
+
+  const epStyle = {
+    height: "40vh",
+    width: 1000,
+    backgroundImage:
+      "url(https://warcraft-secrets.com/wp-content/uploads/The-Eternal-Palace-Raid.jpg)",
+    backgroundSize: "cover",
+  };
+
+  const cosStyle = {
+    height: "40vh",
+    width: 1000,
+    backgroundImage:
+      "url(https://wow.zamimg.com/uploads/screenshots/normal/843656-creuset-des-tempetes-les-reliques-de-l-ombre.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+
+  const bodStyle = {
+    height: "40vh",
+    width: 1000,
+    backgroundImage:
+      "url(https://www.mamytwink.com/upload/news/2018/octobre/09/trone-1.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+
+  const uldirStyle = {
+    height: "40vh",
+    width: 1000,
+    backgroundImage:
+      "url(https://wow.zamimg.com/uploads/blog/images/14592-guides-strategiques-pour-tous-les-boss-du-raid-duldir-par-fatbosstv-maintenant-d.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+
+  const HomeCarousel = () => {
+    return (
+      <Carousel
+        heightMode='first'
+        style={{ marginBottom: "30px" }}
+        pauseOnHover
+        wrapAround
+        autoplay
+        slideIndex={index}
+        afterSlide={slideIndex => setIndex(slideIndex)}
+      >
+        <section
+          className='hero'
+          style={nyalothaStyle}
+          onClick={() => {
+            window.location.assign("/strats/nyalotha");
+          }}
+        >
+          <div className='hero-body'></div>
+          <div className='hero-footer' style={footerStyle}>
+            <div className='container'>
+              <h1 className='title is-1'>
+                <b>Ny'Alotha</b>
+              </h1>
+              <h2 className='subtitle is-3'>Nouveau raid du path 8.3</h2>
+            </div>
+          </div>
+        </section>
+        <section
+          className='hero'
+          style={epStyle}
+          onClick={() => {
+            window.location.assign("/strats/palais");
+          }}
+        >
+          <div className='hero-body'></div>
+          <div className='hero-footer' style={footerStyle}>
+            <div className='container'>
+              <h1 className='title is-1'>
+                <b>Palais Eternel</b>
+              </h1>
+              <h2 className='subtitle is-3'>Raid du path 8.2</h2>
+            </div>
+          </div>
+        </section>
+        <section className='hero' style={cosStyle}>
+          <div className='hero-body'></div>
+          <div className='hero-footer' style={footerStyle}>
+            <div className='container'>
+              <h1 className='title is-1'>
+                <b>Creuset des Tempêtes</b>
+              </h1>
+              <h2 className='subtitle is-3'>Raid du path 8.1.5</h2>
+            </div>
+          </div>
+        </section>
+        <section className='hero' style={bodStyle}>
+          <div className='hero-body'></div>
+          <div className='hero-footer' style={footerStyle}>
+            <div className='container'>
+              <h1 className='title is-1'>
+                <b>Bataille de Dazar'Alor</b>
+              </h1>
+              <h2 className='subtitle is-3'>Raid du path 8.1</h2>
+            </div>
+          </div>
+        </section>
+        <section className='hero' style={uldirStyle}>
+          <div className='hero-body'></div>
+          <div className='hero-footer' style={footerStyle}>
+            <div className='container'>
+              <h1 className='title is-1'>
+                <b>Uldir</b>
+              </h1>
+              <h2 className='subtitle is-3'>Raid du path 8.0</h2>
+            </div>
+          </div>
+        </section>
+      </Carousel>
+    );
+  };
 
   const ButtonList = () => {
     return (
@@ -108,6 +240,8 @@ const Home = () => {
           <h1 className='title is-1'>
             <b>Secret des Anciens</b>
           </h1>
+
+          <HomeCarousel />
 
           <ButtonList />
 

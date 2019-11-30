@@ -10,6 +10,7 @@
     "bulma": "^0.8.0",
     "firebase": "^7.4.0",
     "firebaseui": "^4.3.0",
+    "nuka-carousel": "^4.5.13",
     "patch-package": "^6.2.0",
     "postinstall-prepare": "^1.0.1",
     "react": "^16.11.0",
