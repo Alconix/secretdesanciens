@@ -8,50 +8,65 @@ const Home = () => {
 
   const footerStyle = {
     marginLeft: "5%",
+    marginTop: "20%",
     marginBottom: "5%",
   };
 
   const nyalothaStyle = {
-    height: "40vh",
+    maxHeight: "50vh",
     width: 1000,
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/blog/images/17423-upcoming-nyalotha-raid-testing-on-8-3-ptr-wrathion-maut-prophet-skitra-ra-den.jpg)",
     backgroundSize: "cover",
+    display: "table",
+    margin: "0 auto",
   };
 
   const epStyle = {
+    maxHeight: "50vh",
     height: "40vh",
     width: 1000,
     backgroundImage:
       "url(https://warcraft-secrets.com/wp-content/uploads/The-Eternal-Palace-Raid.jpg)",
     backgroundSize: "cover",
+    display: "table",
+    margin: "0 auto",
   };
 
   const cosStyle = {
+    maxHeight: "50vh",
     height: "40vh",
     width: 1000,
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/screenshots/normal/843656-creuset-des-tempetes-les-reliques-de-l-ombre.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    display: "table",
+    margin: "0 auto",
   };
 
   const bodStyle = {
+    maxHeight: "50vh",
     height: "40vh",
     width: 1000,
     backgroundImage:
       "url(https://www.mamytwink.com/upload/news/2018/octobre/09/trone-1.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    display: "table",
+    margin: "0 auto",
   };
 
   const uldirStyle = {
+    maxHeight: "50vh",
     height: "40vh",
     width: 1000,
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/blog/images/14592-guides-strategiques-pour-tous-les-boss-du-raid-duldir-par-fatbosstv-maintenant-d.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    display: "table",
+    margin: "0 auto",
   };
 
   const HomeCarousel = () => {
@@ -64,6 +79,7 @@ const Home = () => {
         autoplay
         slideIndex={index}
         afterSlide={slideIndex => setIndex(slideIndex)}
+        width='100%'
       >
         <section
           className='hero'
