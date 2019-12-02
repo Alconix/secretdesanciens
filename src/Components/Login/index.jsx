@@ -40,7 +40,6 @@ const Login = () => {
               lastSignInTime: user.metadata.lastSignInTime,
             });
         }
-        history.push("/");
         return true;
       },
     },
