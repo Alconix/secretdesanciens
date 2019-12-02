@@ -16,12 +16,12 @@ const Login = () => {
 
   let uiConfig = {
     callbacks: {
-      signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+      signInSuccessWithAuthResult: async (authResult, redirectUrl) => {
         let user = authResult.user;
         let isNewUser = authResult.additionalUserInfo.isNewUser;
         if (isNewUser) {
-          user.sendEmailVerification();
-          db.collection("users")
+          await db
+            .collection("users")
             .doc(user.uid)
             .set({
               pseudo: user.displayName,
@@ -31,8 +31,10 @@ const Login = () => {
               creationTime: user.metadata.creationTime,
               lastSignInTime: user.metadata.lastSignInTime,
             });
+          user.sendEmailVerification();
         } else {
-          db.collection("users")
+          await db
+            .collection("users")
             .doc(user.uid)
             .update({
               lastSignInTime: user.metadata.lastSignInTime,
