@@ -4,6 +4,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import { useLocation, useHistory } from "react-router-dom";
 import { db, Firebase } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { applyHookUrl } from "../../discord";
 
 const ApplyCreator = () => {
   let [auth, init] = useAuthState(Firebase.auth());
@@ -41,7 +42,7 @@ const ApplyCreator = () => {
 
   const sendNotification = (name, id) => {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "HOOK_URL", true);
+    xhr.open("POST", applyHookUrl, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(
       JSON.stringify({

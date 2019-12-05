@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
 import { Firebase } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { invitationUrl } from "../../discord";
 
 const DropItem = props => {
   const location = useLocation();
@@ -251,9 +252,10 @@ const NavigationBar = props => {
               <a className='navbar-item' href='/progress'>
                 <b>Progress</b>
               </a>
+
               <a
                 className='navbar-item'
-                href='http://secretdesanciens.guildi.com/fr/'
+                href={invitationUrl}
                 target='_blank'
                 rel='noopener noreferrer'
               >

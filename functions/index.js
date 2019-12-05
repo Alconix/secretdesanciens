@@ -6,26 +6,24 @@ const admin = require("firebase-admin");
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+/* 
+admin.initializeApp();
 
-/* admin.initializeApp();
-
-exports.createUser = functions.auth.user().onCreate(user => {
+exports.createUser = functions.auth.user().onCreate(async user => {
   const newUser = {
     email: user.email,
-    name: user.displayName,
+    pseudo: user.email.match(/^([^@]*)@/)[1],
     role: "apply",
     img: "",
+    creationTime: new Date(),
   };
-  console.log(user);
-  console.log(newUser);
 
-  const doc = admin
+  return await admin
     .firestore()
     .collection("users")
-    .doc(user.uid);
-  console.log(doc);
-  return doc
+    .doc(user.uid)
     .set(newUser)
-    .then(() => console.log(`Created user: ${user.email}`))
+    .then(() => console.log(`User created: ${user.email}`))
     .catch(error => console.log(`Error: ${error}`));
-}); */
+});
+ */

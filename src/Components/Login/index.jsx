@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as firebaseui from "firebaseui";
 import firebase from "firebase/app";
 import { db, Firebase } from "../../firebase";
@@ -13,15 +13,17 @@ const loginStyle = {
 const Login = () => {
   const history = useHistory();
   const [auth, init] = useAuthState(Firebase.auth());
+  const [logging, setLogging] = useState(false);
 
   let uiConfig = {
+    signInFlow: "popup",
     callbacks: {
-      signInSuccessWithAuthResult: async (authResult, redirectUrl) => {
+      signInSuccessWithAuthResult: (authResult, redirectUrl) => {
         let user = authResult.user;
         let isNewUser = authResult.additionalUserInfo.isNewUser;
+        setLogging(true);
         if (isNewUser) {
-          await db
-            .collection("users")
+          db.collection("users")
             .doc(user.uid)
             .set({
               pseudo: user.displayName,
@@ -30,20 +32,24 @@ const Login = () => {
               role: "apply",
               creationTime: user.metadata.creationTime,
               lastSignInTime: user.metadata.lastSignInTime,
+            })
+            .then(() => {
+              user.sendEmailVerification();
+              history.push("/");
             });
-          user.sendEmailVerification();
         } else {
-          await db
-            .collection("users")
+          db.collection("users")
             .doc(user.uid)
             .update({
               lastSignInTime: user.metadata.lastSignInTime,
+            })
+            .then(() => {
+              history.push("/");
             });
         }
         return true;
       },
     },
-    signInSuccessUrl: "/",
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   };
@@ -55,7 +61,7 @@ const Login = () => {
     const ui = new firebaseui.auth.AuthUI(Firebase.auth());
     if (!auth && !init) ui.start("#firebaseui-auth-container", uiConfig);
   }
-  if (auth && !init) {
+  if (auth && !init && !logging) {
     return (
       <section className='section'>
         <div
