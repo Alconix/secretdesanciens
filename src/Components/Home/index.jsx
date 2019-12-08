@@ -13,59 +13,45 @@ const Home = () => {
   };
 
   const nyalothaStyle = {
-    maxHeight: "50vh",
-    width: 1000,
+    height: "40vh",
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/blog/images/17423-upcoming-nyalotha-raid-testing-on-8-3-ptr-wrathion-maut-prophet-skitra-ra-den.jpg)",
     backgroundSize: "cover",
-    display: "table",
     margin: "0 auto",
   };
 
   const epStyle = {
-    maxHeight: "50vh",
     height: "40vh",
-    width: 1000,
     backgroundImage:
       "url(https://warcraft-secrets.com/wp-content/uploads/The-Eternal-Palace-Raid.jpg)",
     backgroundSize: "cover",
-    display: "table",
     margin: "0 auto",
   };
 
   const cosStyle = {
-    maxHeight: "50vh",
     height: "40vh",
-    width: 1000,
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/screenshots/normal/843656-creuset-des-tempetes-les-reliques-de-l-ombre.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    display: "table",
     margin: "0 auto",
   };
 
   const bodStyle = {
-    maxHeight: "50vh",
     height: "40vh",
-    width: 1000,
     backgroundImage:
       "url(https://www.mamytwink.com/upload/news/2018/octobre/09/trone-1.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    display: "table",
     margin: "0 auto",
   };
 
   const uldirStyle = {
-    maxHeight: "50vh",
     height: "40vh",
-    width: 1000,
     backgroundImage:
       "url(https://wow.zamimg.com/uploads/blog/images/14592-guides-strategiques-pour-tous-les-boss-du-raid-duldir-par-fatbosstv-maintenant-d.jpg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    display: "table",
     margin: "0 auto",
   };
 
@@ -240,156 +226,158 @@ const Home = () => {
           <b>Recrutement</b>
         </h1>
         <Box className='has-text-justified is-size-5'>
-          <div>
+          <Section>
+            <div>
+              <br />
+              <p>
+                Merci de lire la <b>Charte</b> avant de postuler.
+              </p>
+              <br />
+              <p>
+                Essayez d'avoir équipement un minimum en adéquation avec le
+                contenu visé avant de postuler, merci.
+              </p>
+              <br />
+              <p>
+                Pour créer une candidature, créez un compte avec le bouton
+                <i> Login</i> puis cliquez sur le bouton <i>Candidatures </i>
+                dans la barre de navigation.
+              </p>
+            </div>
             <br />
-            <p>
-              Merci de lire la <b>Charte</b> avant de postuler.
-            </p>
-            <br />
-            <p>
-              Essayez d'avoir équipement un minimum en adéquation avec le
-              contenu visé avant de postuler, merci.
-            </p>
-            <br />
-            <p>
-              Pour créer une candidature, créez un compte avec le bouton
-              <i> Login</i> puis cliquez sur le bouton <i>Candidatures </i>
-              dans la barre de navigation.
-            </p>
-          </div>
-          <br />
-          <table className='table is-hoverable' style={{ margin: "0 auto" }}>
-            <thead>
-              <tr>
-                <th>Classe</th>
-                <th>Tank</th>
-                <th>Heal</th>
-                <th>DPS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ color: "#A330C9" }}>Chasseur de démons</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-danger has-text-centered'>
-                    Fort
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#C41F3B" }}>Chevalier de la mort</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#8787ED" }}>Démoniste</td>
-                <td>/</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-danger'>Fort</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#0070DE" }}>Chaman</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#FF7D0A" }}>Druide</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#40C7EB" }}>Mage</td>
-                <td>/</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-danger'>Fort</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#00FF96" }}>Moine</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-                <td>
-                  <span className='has-text-danger'>Fort</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#F58CBA" }}>Paladin</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#FFFFFF" }}>Prêtre</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#FFF569" }}>Voleur</td>
-                <td>/</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#A9D271" }}>Chasseur</td>
-                <td>/</td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ color: "#C79C6E" }}>Guerrier</td>
-                <td>
-                  <span className='has-text-success'>Faible</span>
-                </td>
-                <td>/</td>
-                <td>
-                  <span className='has-text-warning'>Moyen</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <table className='table is-hoverable' style={{ margin: "0 auto" }}>
+              <thead>
+                <tr>
+                  <th>Classe</th>
+                  <th>Tank</th>
+                  <th>Heal</th>
+                  <th>DPS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={{ color: "#A330C9" }}>Chasseur de démons</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-danger has-text-centered'>
+                      Fort
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#C41F3B" }}>Chevalier de la mort</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#8787ED" }}>Démoniste</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-danger'>Fort</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#0070DE" }}>Chaman</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#FF7D0A" }}>Druide</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#40C7EB" }}>Mage</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-danger'>Fort</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#00FF96" }}>Moine</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                  <td>
+                    <span className='has-text-danger'>Fort</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#F58CBA" }}>Paladin</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#FFFFFF" }}>Prêtre</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#FFF569" }}>Voleur</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#A9D271" }}>Chasseur</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ color: "#C79C6E" }}>Guerrier</td>
+                  <td>
+                    <span className='has-text-success'>Faible</span>
+                  </td>
+                  <td>/</td>
+                  <td>
+                    <span className='has-text-warning'>Moyen</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Section>
         </Box>
       </>
     );
@@ -402,10 +390,10 @@ const Home = () => {
           <b>Screenshots</b>
         </h1>
         <Box>
-          <h1 className='title is-3'>
-            <i>Azshara Héroïque le 13/08/2019</i>
-          </h1>
-          <figure>
+          <figure className='image container'>
+            <h1 className='subtitle is-3'>
+              <i>Azshara Héroïque le 13/08/2019</i>
+            </h1>
             <img
               src='http://www.guildpics.fr/upload/big/2019/08/14/5d53403097c9e.png'
               alt='Azshara HC'
