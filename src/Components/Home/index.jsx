@@ -217,11 +217,11 @@ const Home = () => {
   const Description = () => {
     return (
       <>
-        <h1 className='title is-1'>
+        <h1 className='title is-2'>
           <b>Description</b>
         </h1>
         <Box>
-          <p className='has-text-justified is-size-4'>
+          <p className='has-text-justified is-size-5'>
             Nous sommes une guilde HL ayant pour objectif de clean chaque raid
             en HM.
             <br />
@@ -236,10 +236,10 @@ const Home = () => {
   const Recrutement = () => {
     return (
       <>
-        <h1 className='title is-1'>
+        <h1 className='title is-2'>
           <b>Recrutement</b>
         </h1>
-        <Box className='has-text-justified is-size-4'>
+        <Box className='has-text-justified is-size-5'>
           <div>
             <br />
             <p>
@@ -398,7 +398,7 @@ const Home = () => {
   const Screenshots = () => {
     return (
       <>
-        <h1 className='title is-1'>
+        <h1 className='title is-2'>
           <b>Screenshots</b>
         </h1>
         <Box>
@@ -419,11 +419,11 @@ const Home = () => {
   const Charte = () => {
     return (
       <>
-        <h1 className='title is-1'>
+        <h1 className='title is-2'>
           <b>Charte</b>
         </h1>
         <Box>
-          <Section className='has-text-justified is-size-4'>
+          <Section className='has-text-justified is-size-5'>
             <h1 className='subtitle is-2'>Règles Générales</h1>
             <div>
               <p>
