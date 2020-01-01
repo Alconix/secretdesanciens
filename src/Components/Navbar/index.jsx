@@ -33,6 +33,97 @@ const DropItem = props => {
   );
 };
 
+const LightRope = () => {
+  return (
+    <ul className='lightrope' style={{ position: "sticky", top: "50px" }}>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  );
+};
+
 // #region bosses
 const bossesEP = (
   <Navbar.Item dropdown hoverable href='#'>
@@ -169,7 +260,10 @@ const ConfigModal = props => {
 // #endregion
 
 const NavigationBar = props => {
-  const [auth, init] = useAuthState(Firebase.auth());
+  let auth = null;
+  const [user, init] = useAuthState(Firebase.auth());
+  if (init) auth = JSON.parse(localStorage.getItem("authUser"));
+  else auth = user;
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
 
@@ -182,9 +276,9 @@ const NavigationBar = props => {
     raid = params[1];
   }
 
-  if (!init) {
+  if (!init || auth) {
     return (
-      <div>
+      <>
         <Navbar color='link' fixed='top' active={active}>
           <div className='navbar-brand'>
             <a href='/' className='navbar-item'>
@@ -273,10 +367,16 @@ const NavigationBar = props => {
           config={props.config}
           changeConfig={props.changeConfig}
         />
-      </div>
+        <LightRope />
+      </>
     );
   } else {
-    return <Navbar color='link' fixed='top' active={active} />;
+    return (
+      <>
+        <Navbar color='link' fixed='top' active={active} />
+        <LightRope />
+      </>
+    );
   }
 };
 

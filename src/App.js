@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import SnowStorm from "react-snowstorm";
+import firebase from "firebase";
 import "./App.css";
 
 //#region react-router
@@ -32,8 +34,19 @@ function App() {
     setConfig(prevConfig => ({ ...prevConfig, [name]: value }));
   };
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        localStorage.setItem("authUser", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("authUser");
+      }
+    });
+  }, []);
+
   return (
     <div className='App'>
+      <SnowStorm snowStick={false} />
       <BrowserRouter>
         <NavigationBar config={config} changeConfig={changeConfig} />
         <Switch>
