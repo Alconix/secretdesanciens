@@ -276,108 +276,99 @@ const NavigationBar = props => {
     raid = params[1];
   }
 
-  if (!init || auth) {
-    return (
-      <>
-        <Navbar color='link' fixed='top' active={active}>
-          <div className='navbar-brand'>
-            <a href='/' className='navbar-item'>
-              <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
-              <h3
-                className='title is-4'
-                style={{ paddingLeft: "10px", paddingBottom: "2px" }}
-              >
-                <b>Secret des Anciens</b>
-              </h3>
-            </a>
-            <Navbar.Burger
-              active={active.toString()}
-              onClick={() => setActive(!active)}
-            />
-          </div>
-          <Navbar.Divider />
-          <Navbar.Menu>
-            <Navbar.Item dropdown hoverable>
-              <Navbar.Link
-                onClick={() => {
-                  window.location.assign("/strats");
-                }}
-              >
-                <b>Raids</b>
-              </Navbar.Link>
-              <Navbar.Dropdown>
-                <DropItem name="Ny'alotha" to='/strats/nyalotha' />
-                <DropItem name='Palais Eternel' to='/strats/palais' />
-              </Navbar.Dropdown>
-            </Navbar.Item>
-            {raid && raid === "palais" && bossesEP}
-            {raid && raid === "nyalotha" && bossesNA}
-            <Navbar.Container position='end'>
-              {auth && (
-                <a className='navbar-item' href='/candidatures'>
-                  <b>Candidatures</b>
-                </a>
-              )}
-              {auth && (
-                <Navbar.Item dropdown hoverable>
-                  <Navbar.Link>
-                    <b>{auth.displayName}</b>
-                  </Navbar.Link>
-                  <Navbar.Dropdown>
-                    <Navbar.Item href={`/users/${auth.uid}`}>
-                      Mon profil
-                    </Navbar.Item>
-                    <Navbar.Item
-                      href='/'
-                      onClick={() => {
-                        Firebase.auth().signOut();
-                      }}
-                    >
-                      Se déconnecter
-                    </Navbar.Item>
-                  </Navbar.Dropdown>
-                </Navbar.Item>
-              )}
-              {!auth && (
-                <a className='navbar-item' href='/login'>
-                  <b>Login</b>
-                </a>
-              )}
-              <a className='navbar-item' href='/progress'>
-                <b>Progress</b>
+  return (
+    <>
+      <Navbar color='link' fixed='top' active={active}>
+        <div className='navbar-brand'>
+          <a href='/' className='navbar-item'>
+            <img src='https://puu.sh/EyPRK/a0ff96251c.png' alt='wow' />
+            <h3
+              className='title is-4'
+              style={{ paddingLeft: "10px", paddingBottom: "2px" }}
+            >
+              <b>Secret des Anciens</b>
+            </h3>
+          </a>
+          <Navbar.Burger
+            active={active.toString()}
+            onClick={() => setActive(!active)}
+          />
+        </div>
+        <Navbar.Divider />
+        <Navbar.Menu>
+          <Navbar.Item dropdown hoverable>
+            <Navbar.Link
+              onClick={() => {
+                window.location.assign("/strats");
+              }}
+            >
+              <b>Raids</b>
+            </Navbar.Link>
+            <Navbar.Dropdown>
+              <DropItem name="Ny'alotha" to='/strats/nyalotha' />
+              <DropItem name='Palais Eternel' to='/strats/palais' />
+            </Navbar.Dropdown>
+          </Navbar.Item>
+          {raid && raid === "palais" && bossesEP}
+          {raid && raid === "nyalotha" && bossesNA}
+          <Navbar.Container position='end'>
+            {auth && (
+              <a className='navbar-item' href='/candidatures'>
+                <b>Candidatures</b>
               </a>
-
-              <a
-                className='navbar-item'
-                href={invitationUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <b>Discord</b>
-              </a>
-              <Navbar.Item onClick={() => setOpen(true)}>
-                <FontAwesomeIcon icon={faWrench} size='lg' />
+            )}
+            {auth && (
+              <Navbar.Item dropdown hoverable>
+                <Navbar.Link>
+                  <b>{auth.displayName}</b>
+                </Navbar.Link>
+                <Navbar.Dropdown>
+                  <Navbar.Item href={`/users/${auth.uid}`}>
+                    Mon profil
+                  </Navbar.Item>
+                  <Navbar.Item
+                    href='/'
+                    onClick={() => {
+                      Firebase.auth().signOut();
+                    }}
+                  >
+                    Se déconnecter
+                  </Navbar.Item>
+                </Navbar.Dropdown>
               </Navbar.Item>
-            </Navbar.Container>
-          </Navbar.Menu>
-        </Navbar>
-        <ConfigModal
-          open={open}
-          setOpen={setOpen}
-          config={props.config}
-          changeConfig={props.changeConfig}
-        />
-        <LightRope />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Navbar color='link' fixed='top' active={active} />
-        <LightRope />
-      </>
-    );
-  }
+            )}
+            {!auth && (
+              <a className='navbar-item' href='/login'>
+                <b>Login</b>
+              </a>
+            )}
+            <a className='navbar-item' href='/progress'>
+              <b>Progress</b>
+            </a>
+
+            <a
+              className='navbar-item'
+              href={invitationUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <b>Discord</b>
+            </a>
+            <Navbar.Item onClick={() => setOpen(true)}>
+              <FontAwesomeIcon icon={faWrench} size='lg' />
+            </Navbar.Item>
+          </Navbar.Container>
+        </Navbar.Menu>
+      </Navbar>
+      <ConfigModal
+        open={open}
+        setOpen={setOpen}
+        config={props.config}
+        changeConfig={props.changeConfig}
+      />
+      <LightRope />
+    </>
+  );
 };
 
 export default NavigationBar;
