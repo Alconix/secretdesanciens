@@ -22,9 +22,9 @@ const Boss = props => {
 
   const heroStyle = {
     backgroundImage:
-      "url(https://momentus.wtf/images/progress/30-07-19-10-bfa-the-eternal-palace-banner.jpg)",
-    backgroundSize: "contain no-repeat",
-    backgroundPosition: "right 50% bottom 100%",
+      "url(https://wow.zamimg.com/uploads/blog/images/17423-upcoming-nyalotha-raid-testing-on-8-3-ptr-wrathion-maut-prophet-skitra-ra-den.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "right 50%",
     backgroundRepeat: "no-repeat",
     backgroundColor: "black",
     marginBottom: "20px",
