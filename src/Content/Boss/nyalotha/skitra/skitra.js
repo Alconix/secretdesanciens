@@ -1,5 +1,7 @@
-export const name = "skitra";
-export const title = "L'Empereur noir";
+export const name = "Skitra";
+export const title = "Le prophète";
+
+export const inverted = true;
 
 export const overview = {
   general: require("./skitra-general.html"),
