@@ -1,7 +1,6 @@
 import React from "react";
 
-export const name = "maut";
-export const title = "L'Empereur noir";
+export const name = "Maut";
 
 export const overview = {
   general: require("./maut-general.html"),
