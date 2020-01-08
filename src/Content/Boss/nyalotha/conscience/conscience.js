@@ -1,5 +1,5 @@
 export const name = "Conscience Collective";
-export const title = "L'Empereur noir";
+export const title = "";
 
 export const overview = {
   general: require("./conscience-general.html"),

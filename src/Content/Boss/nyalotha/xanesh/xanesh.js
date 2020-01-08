@@ -1,5 +1,7 @@
-export const name = "xanesh";
-export const title = "L'Empereur noir";
+export const name = "Xanesh";
+export const title = "Sombre inquisitrice";
+
+export const inverted = true;
 
 export const overview = {
   general: require("./xanesh-general.html"),
