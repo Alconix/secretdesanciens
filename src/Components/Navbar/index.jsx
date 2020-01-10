@@ -337,7 +337,7 @@ const NavigationBar = props => {
                 </Navbar.Dropdown>
               </Navbar.Item>
             )}
-            {!auth && (
+            {false && !auth && (
               <a className='navbar-item' href='/login'>
                 <b>Login</b>
               </a>
