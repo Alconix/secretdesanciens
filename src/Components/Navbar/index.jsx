@@ -165,7 +165,7 @@ const bossesNA = (
       <DropItem name='Vexiona' to='/strats/nyalotha/vexiona' />
       <DropItem name='Ra-den le dépouillé' to='/strats/nyalotha/ra-den' />
       <DropItem
-        name="Il'gynoth, la corruption ressucitée"
+        name="Il'gynoth, la corruption ressuscitée"
         to='/nyalotha/il-gynoth'
       />
       <DropItem name="Carapace de N'Zoth" to='/nyalotha/carapace' />
@@ -175,96 +175,11 @@ const bossesNA = (
 );
 // #endregion
 
-// #region config modal
-const ConfigModal = props => {
-  const handleClickTank = () => {
-    props.changeConfig("tank", !props.config.tank);
-  };
-
-  const handleClickDps = () => {
-    props.changeConfig("dps", !props.config.dps);
-  };
-
-  const handleClickHeal = () => {
-    props.changeConfig("heal", !props.config.heal);
-  };
-
-  return (
-    <Modal show={props.open} onClose={() => props.setOpen(false)} closeOnBlur>
-      <Modal.Content style={{ backgroundColor: "white" }}>
-        <Section>
-          <h1 className='subtitle'>Configuration</h1>
-        </Section>
-        <div
-          className='columns is-vcentered is-centered'
-          style={{ maxWidth: "640px" }}
-        >
-          <div className='column has-text-centered is-2'>
-            <img
-              className='is-rounded'
-              src={
-                props.config.tank
-                  ? "https://puu.sh/EyPQR/f264ef6a6c.png"
-                  : "https://puu.sh/EyPQT/e46ac777be.png"
-              }
-              onClick={handleClickTank}
-              alt='tank'
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <div className='column has-text-centered is-2'>
-            <img
-              className='is-rounded'
-              src={
-                props.config.heal
-                  ? "https://puu.sh/EyPR5/5cc97e33c9.png"
-                  : "https://puu.sh/EyPR3/6a4316f42f.png"
-              }
-              onClick={handleClickHeal}
-              alt='heal'
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <div className='column has-text-centered is-2'>
-            <img
-              className='is-rounded'
-              src={
-                props.config.dps
-                  ? "https://puu.sh/EyPQY/7c4771a50f.png"
-                  : "https://puu.sh/EyPQU/d93df5421c.png"
-              }
-              onClick={handleClickDps}
-              alt='dps'
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-        </div>
-        <br />
-        <Button
-          color='success'
-          pull='right'
-          style={{
-            marginLeft: "20px",
-            marginBottom: "20px",
-            marginRight: "20px",
-            textAlign: "right",
-          }}
-          onClick={() => props.setOpen(false)}
-        >
-          Valider
-        </Button>
-      </Modal.Content>
-    </Modal>
-  );
-};
-// #endregion
-
 const NavigationBar = props => {
   let auth = null;
   const [user, init] = useAuthState(Firebase.auth());
   if (init) auth = JSON.parse(localStorage.getItem("authUser"));
   else auth = user;
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
 
   let location = useLocation();
@@ -354,18 +269,9 @@ const NavigationBar = props => {
             >
               <b>Discord</b>
             </a>
-            <Navbar.Item onClick={() => setOpen(true)}>
-              <FontAwesomeIcon icon={faWrench} size='lg' />
-            </Navbar.Item>
           </Navbar.Container>
         </Navbar.Menu>
       </Navbar>
-      <ConfigModal
-        open={open}
-        setOpen={setOpen}
-        config={props.config}
-        changeConfig={props.changeConfig}
-      />
       <LightRope />
     </>
   );

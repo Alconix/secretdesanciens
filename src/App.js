@@ -22,18 +22,6 @@ import Home from "./Components/Home";
 import "./firebase";
 
 function App() {
-  const [config, setConfig] = useState({
-    dps: true,
-    heal: true,
-    tank: true,
-    heroic: true,
-    mythic: true,
-  });
-
-  const changeConfig = (name, value) => {
-    setConfig(prevConfig => ({ ...prevConfig, [name]: value }));
-  };
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -48,7 +36,7 @@ function App() {
     <div className='App'>
       <SnowStorm snowStick={false} />
       <BrowserRouter>
-        <NavigationBar config={config} changeConfig={changeConfig} />
+        <NavigationBar />
         <Switch>
           <Route path='/progress'>
             <Progress />
