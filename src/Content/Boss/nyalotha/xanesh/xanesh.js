@@ -34,4 +34,10 @@ export const video = (
   </div>
 );
 
+export const prev = "skitra";
+export const displayPrev = "Skitra";
+
+export const next = "conscience";
+export const displayNext = "Conscience";
+
 export let details = require("./xanesh-details.html");

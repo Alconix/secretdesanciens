@@ -32,4 +32,10 @@ export const video = (
   </div>
 );
 
+export const prev = "ra-den";
+export const displayPrev = "Ra-den";
+
+export const next = "carapace";
+export const displayNext = "Carapace de N'Zoth";
+
 export let details = require("./il-gynoth-details.html");

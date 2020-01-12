@@ -8,4 +8,10 @@ export const overview = {
   heal: require("./drest-agath-heal.html"),
 };
 
+export const prev = "shad-har";
+export const displayPrev = "Shad'har";
+
+export const next = "vexiona";
+export const displayNext = "Vexiona";
+
 export let details = require("./drest-agath-details.html");

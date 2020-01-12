@@ -32,4 +32,10 @@ export const video = (
   </div>
 );
 
+export const prev = "conscience";
+export const displayPrev = "Conscience";
+
+export const next = "drest-agath";
+export const displayNext = "Drest'agath";
+
 export let details = require("./shad-har-details.html");

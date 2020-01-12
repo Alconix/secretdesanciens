@@ -34,4 +34,10 @@ export const video = (
   </div>
 );
 
+export const prev = "maut";
+export const displayPrev = "Maut";
+
+export const next = "xanesh";
+export const displayNext = "Xanesh";
+
 export let details = require("./skitra-details.html");

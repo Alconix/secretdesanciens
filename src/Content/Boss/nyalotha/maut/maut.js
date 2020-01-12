@@ -31,4 +31,10 @@ export const video = (
   </div>
 );
 
+export const prev = "irion";
+export const displayPrev = "Irion";
+
+export const next = "skitra";
+export const displayNext = "Skitra";
+
 export let details = require("./maut-details.html");

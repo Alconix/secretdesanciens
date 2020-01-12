@@ -32,4 +32,7 @@ export const video = (
   </div>
 );
 
+export const next = "maut";
+export const displayNext = "Maut";
+
 export let details = require("./irion-details.html");

@@ -8,4 +8,10 @@ export const overview = {
   heal: require("./conscience-heal.html"),
 };
 
+export const prev = "xanesh";
+export const displayPrev = "Xanesh";
+
+export const next = "shad-har";
+export const displayNext = "Shad'har";
+
 export let details = require("./conscience-details.html");

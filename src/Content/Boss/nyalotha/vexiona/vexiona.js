@@ -32,4 +32,10 @@ export const video = (
   </div>
 );
 
+export const prev = "drest-agath";
+export const displayPrev = "Drest'agath";
+
+export const next = "ra-den";
+export const displayNext = "Ra-den";
+
 export let details = require("./vexiona-details.html");

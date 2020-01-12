@@ -3,6 +3,12 @@ import React, { useEffect } from "react";
 import { useParams, useLocation, Route, Switch } from "react-router-dom";
 import { Section, Box } from "react-bulma-components";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
+
 const Boss = props => {
   const { raid, boss } = useParams();
   const { pathname } = useLocation();
@@ -85,6 +91,14 @@ const Boss = props => {
     );
   };
   // #endregion
+
+  const goPrev = () => {
+    window.location.assign(`/strats/${raid}/${strat.prev}`);
+  };
+
+  const goNext = () => {
+    window.location.assign(`/strats/${raid}/${strat.next}`);
+  };
 
   return (
     <div>
@@ -181,6 +195,30 @@ const Boss = props => {
                 </Route>
               </Switch>
             </Section>
+            <nav className='level'>
+              <div className='level-left'>
+                {strat.prev && (
+                  <button className='level-item button' onClick={goPrev}>
+                    <FontAwesomeIcon
+                      style={{ paddingRight: "5px" }}
+                      icon={faChevronLeft}
+                    />
+                    {strat.displayPrev}
+                  </button>
+                )}
+              </div>
+              <div className='level-right'>
+                {strat.next && (
+                  <button className='level-item button' onClick={goNext}>
+                    {strat.displayNext}
+                    <FontAwesomeIcon
+                      style={{ paddingLeft: "5px" }}
+                      icon={faChevronRight}
+                    />
+                  </button>
+                )}
+              </div>
+            </nav>
           </Box>
         </div>
       </div>
