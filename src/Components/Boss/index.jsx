@@ -162,17 +162,17 @@ const Boss = props => {
                       <GeneralContent />
                     </Section>
 
-                    {props.config.tank && strat.overview.tank !== "" && (
+                    {strat.overview.tank !== "" && (
                       <Section>
                         <TankContent />
                       </Section>
                     )}
-                    {props.config.heal && strat.overview.heal !== "" && (
+                    {strat.overview.heal !== "" && (
                       <Section>
                         <HealContent />
                       </Section>
                     )}
-                    {props.config.dps && strat.overview.dps !== "" && (
+                    {strat.overview.dps !== "" && (
                       <Section>
                         <DpsContent />
                       </Section>

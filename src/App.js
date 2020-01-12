@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import SnowStorm from "react-snowstorm";
 import firebase from "firebase";
 import "./App.css";
@@ -57,7 +57,7 @@ function App() {
             <User />
           </Route>
           <Route path='/strats/:raid/:boss'>
-            <Boss config={config} />
+            <Boss />
           </Route>
           <Route path='/strats/:raid'>
             <Raid />

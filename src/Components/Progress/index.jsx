@@ -67,7 +67,7 @@ const Progress = () => {
                     <td>Palais Eternel</td>
                     <td style={{ paddingLeft: "1.7em" }}>8/8</td>
                     <td style={{ paddingLeft: "1.7em" }}>8/8</td>
-                    <td style={{ paddingLeft: "1.7em" }}>0/8</td>
+                    <td style={{ paddingLeft: "1.7em" }}>3/8</td>
                   </tr>
                   <tr>
                     <td style={{ paddingLeft: "1.5em" }}>25</td>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Navbar, Modal, Section, Button } from "react-bulma-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWrench } from "@fortawesome/free-solid-svg-icons";
+import { Navbar } from "react-bulma-components";
 import { Firebase } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { invitationUrl } from "../../discord";
@@ -252,7 +250,7 @@ const NavigationBar = props => {
                 </Navbar.Dropdown>
               </Navbar.Item>
             )}
-            {false && !auth && (
+            {!auth && (
               <a className='navbar-item' href='/login'>
                 <b>Login</b>
               </a>
