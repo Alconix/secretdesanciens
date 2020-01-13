@@ -1,7 +1,7 @@
 import React from "react";
 
-export const name = "ra-den";
-export const title = "L'Empereur noir";
+export const name = "Ra Den";
+export const title = "le Spolié";
 
 export const overview = {
   general: require("./ra-den-general.html"),

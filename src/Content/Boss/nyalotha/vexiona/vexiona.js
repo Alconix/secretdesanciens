@@ -1,7 +1,7 @@
 import React from "react";
 
 export const name = "Vexiona";
-export const title = "L'Empereur noir";
+export const title = "";
 
 export const overview = {
   general: require("./vexiona-general.html"),
@@ -36,6 +36,6 @@ export const prev = "drest-agath";
 export const displayPrev = "Drest'agath";
 
 export const next = "ra-den";
-export const displayNext = "Ra-den";
+export const displayNext = "Ra Den";
 
 export let details = require("./vexiona-details.html");

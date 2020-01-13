@@ -33,7 +33,7 @@ export const video = (
 );
 
 export const prev = "ra-den";
-export const displayPrev = "Ra-den";
+export const displayPrev = "Ra Den";
 
 export const next = "carapace";
 export const displayNext = "Carapace de N'Zoth";
