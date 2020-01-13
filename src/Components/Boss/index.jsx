@@ -160,6 +160,30 @@ const Boss = props => {
                 </li>
               </ul>
             </div>
+            <nav className='level'>
+              <div className='level-left'>
+                {strat.prev && (
+                  <button className='level-item button' onClick={goPrev}>
+                    <FontAwesomeIcon
+                      style={{ paddingRight: "5px" }}
+                      icon={faChevronLeft}
+                    />
+                    {strat.displayPrev}
+                  </button>
+                )}
+              </div>
+              <div className='level-right'>
+                {strat.next && (
+                  <button className='level-item button' onClick={goNext}>
+                    {strat.displayNext}
+                    <FontAwesomeIcon
+                      style={{ paddingLeft: "5px" }}
+                      icon={faChevronRight}
+                    />
+                  </button>
+                )}
+              </div>
+            </nav>
             <Section>
               <Switch>
                 <Route path='/strats/:raid/:boss/info'>{strat.info}</Route>

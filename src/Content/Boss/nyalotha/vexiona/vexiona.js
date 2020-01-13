@@ -1,6 +1,6 @@
 import React from "react";
 
-export const name = "vexiona";
+export const name = "Vexiona";
 export const title = "L'Empereur noir";
 
 export const overview = {
