@@ -1,5 +1,5 @@
-export const name = "drest-agath";
-export const title = "L'Empereur noir";
+export const name = "Drest'agath";
+export const title = "";
 
 export const overview = {
   general: require("./drest-agath-general.html"),
