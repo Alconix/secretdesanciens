@@ -1,5 +1,5 @@
 export const name = "Carapace de N'Zoth";
-export const title = "L'Empereur noir";
+export const title = "";
 
 export const overview = {
   general: require("./carapace-general.html"),
