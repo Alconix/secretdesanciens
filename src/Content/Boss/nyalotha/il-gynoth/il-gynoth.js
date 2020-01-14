@@ -1,7 +1,7 @@
 import React from "react";
 
-export const name = "il-gynoth";
-export const title = "L'Empereur noir";
+export const name = "Il'gynoth";
+export const title = "La corruption ressuscitée";
 
 export const overview = {
   general: require("./il-gynoth-general.html"),
