@@ -10,6 +10,35 @@ export const overview = {
   heal: require("./irion-heal.html"),
 };
 
+export const info = (
+  <div>
+    <table className='table is-bordered is-stripped is-fullwidth is-hoverable'>
+      <thead>
+        <tr>
+          <th>Pourcentage</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span style={{ color: "rgb(222, 80, 33)" }}>60%</span>
+          </td>
+          <td>
+            <span style={{ color: "rgb(222, 80, 33)" }}>
+              Feu (40% Souffle Incendiaire + Armure incendiaire)
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>40%</td>
+          <td>Physique (Auto-Attaques</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+);
+
 export const video = (
   <div>
     <div className='embedresize'>

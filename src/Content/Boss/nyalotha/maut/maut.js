@@ -9,6 +9,79 @@ export const overview = {
   heal: require("./maut-heal.html"),
 };
 
+export const info = (
+  <section className='section'>
+    <div>
+      <div className='is-size-3 has-text-left'>Tank Boss</div>
+      <table className='table is-bordered is-stripped is-fullwidth is-hoverable'>
+        <thead>
+          <tr>
+            <th>Pourcentage</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span>50%</span>
+            </td>
+            <td>
+              <span>Physique (10% Griffes d'ombre)</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style={{ color: "rgb(204, 153, 255)" }}>40%</span>
+            </td>
+            <td>
+              <span style={{ color: "rgb(204, 153, 255)" }}>
+                Ombre (25% Blessures d'ombre)
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style={{ color: "rgb(51, 102, 255)" }}>10%</span>
+            </td>
+            <td>
+              <span style={{ color: "rgb(51, 102, 255)" }}>Arcane</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div className='is-size-3 has-text-left'>Tank Add</div>
+      <table className='table is-bordered is-stripped is-fullwidth is-hoverable'>
+        <thead>
+          <tr>
+            <th>Pourcentage</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span>65%</span>
+            </td>
+            <td>
+              <span>Physique</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style={{ color: "rgb(204, 153, 255)" }}>35%</span>
+            </td>
+            <td>
+              <span style={{ color: "rgb(204, 153, 255)" }}>
+                Arcane / Ombre
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+);
+
 export const video = (
   <div>
     <div className='embedresize'>
