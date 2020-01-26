@@ -164,10 +164,10 @@ const bossesNA = (
       <DropItem name='Ra-den le dépouillé' to='/strats/nyalotha/ra-den' />
       <DropItem
         name="Il'gynoth, la corruption ressuscitée"
-        to='/nyalotha/il-gynoth'
+        to='/strats/nyalotha/il-gynoth'
       />
-      <DropItem name="Carapace de N'Zoth" to='/nyalotha/carapace' />
-      <DropItem name="N'Zoth, le corrupteur" to='/nyalotha/nzoth' />
+      <DropItem name="Carapace de N'Zoth" to='/strats/nyalotha/carapace' />
+      <DropItem name="N'Zoth, le corrupteur" to='/strats/nyalotha/nzoth' />
     </Navbar.Dropdown>
   </Navbar.Item>
 );
