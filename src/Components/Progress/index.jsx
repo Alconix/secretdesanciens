@@ -72,8 +72,8 @@ const Progress = () => {
                   <tr>
                     <td style={{ paddingLeft: "1.5em" }}>25</td>
                     <td>Ny'alotha</td>
-                    <td style={{ paddingLeft: "1.5em" }}>0/12</td>
-                    <td style={{ paddingLeft: "1.5em" }}>0/12</td>
+                    <td style={{ paddingLeft: "1.5em" }}>12/12</td>
+                    <td style={{ paddingLeft: "1.5em" }}>3/12</td>
                     <td style={{ paddingLeft: "1.5em" }}>0/12</td>
                   </tr>
                 </tbody>
