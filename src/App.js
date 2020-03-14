@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import SnowStorm from "react-snowstorm";
 import firebase from "firebase";
 import "./App.css";
 
@@ -34,7 +33,6 @@ function App() {
 
   return (
     <div className='App'>
-      <SnowStorm snowStick={false} />
       <BrowserRouter>
         <NavigationBar />
         <Switch>
