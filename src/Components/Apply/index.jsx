@@ -695,7 +695,7 @@ const Apply = () => {
               {editing && <b>Edition</b>}
             </h1>
             <TextareaAutosize
-              style={{ marginBottom: 10 }}
+              style={{ marginBottom: 10, color: "black" }}
               className='textarea is-size-5'
               placeholder='Commentaire ...'
               rows={6}
