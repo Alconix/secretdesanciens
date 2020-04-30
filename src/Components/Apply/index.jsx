@@ -21,6 +21,7 @@ const Apply = () => {
   const [editContent, setEditContent] = useState();
   const [statut, setStatut] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [rio, setRio] = useState();
 
   const { apply_id } = useParams();
   const [auth, init] = useAuthState(Firebase.auth());
@@ -32,7 +33,7 @@ const Apply = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const deleteComment = async id => {
+    const deleteComment = async (id) => {
       await db
         .collection("applies")
         .doc(apply_id)
@@ -40,7 +41,7 @@ const Apply = () => {
         .doc(id)
         .delete();
 
-      setCommentList(old => old.filter(c => c.key !== id));
+      setCommentList((old) => old.filter((c) => c.key !== id));
     };
 
     const getData = async () => {
@@ -48,19 +49,13 @@ const Apply = () => {
       let downvotes = 0;
 
       const ref = db.collection("applies").doc(apply_id);
-      let currentUserRef = await db
-        .collection("users")
-        .doc(auth.uid)
-        .get();
+      let currentUserRef = await db.collection("users").doc(auth.uid).get();
       let currentApply = await ref.get();
       if (!currentApply.exists) {
         setLoaded(true);
         return;
       }
-      let refComments = await ref
-        .collection("comments")
-        .orderBy("date")
-        .get();
+      let refComments = await ref.collection("comments").orderBy("date").get();
       let refVotes = await ref.collection("votes").get();
 
       let authorRef = await db
@@ -187,13 +182,30 @@ const Apply = () => {
         editDate: formattedEditDate,
       });
       document.title = `Candidature de ${thisAuthor.pseudo} - Secret des Anciens`;
+
+      const getRio = async () => {
+        let name = currentApply.data().content[0].split("-", 1)[0];
+        let realm = currentApply.data().content[0].split("-", 1)[1];
+        realm.trim();
+        realm = realm.replace(/'/g, "");
+        realm = encodeURI(realm);
+        name = encodeURI(name);
+        if (/[Cc]hants ?[ée]ternels/.test(realm)) realm = "chantséternels";
+        const apiResponse = await fetch(
+          `https://raider.io/api/v1/characters/profile?region=eu&realm=${realm}&name=${name}&fields=gear%2Craid_progression%2Cmythic_plus_best_runs%2Cmythic_plus_scores_by_season%3Acurrent%2Craid_progression`
+        );
+        return apiResponse.json();
+      };
+      setRio(await getRio());
       setLoaded(true);
     };
 
     if (!init && auth) getData();
   }, [apply_id, auth, init]);
 
-  const deleteComment = async id => {
+  console.log(rio);
+
+  const deleteComment = async (id) => {
     await db
       .collection("applies")
       .doc(apply_id)
@@ -201,10 +213,10 @@ const Apply = () => {
       .doc(id)
       .delete();
 
-    setCommentList(old => old.filter(c => c.key !== id));
+    setCommentList((old) => old.filter((c) => c.key !== id));
   };
 
-  const getNameStyle = role => {
+  const getNameStyle = (role) => {
     let nameStyle = "";
     if (role === "membre") {
       nameStyle = "is-3 subtitle has-text-info";
@@ -236,7 +248,7 @@ const Apply = () => {
         editDate: newDate,
       });
 
-    const index = commentList.findIndex(c => c.key === editing);
+    const index = commentList.findIndex((c) => c.key === editing);
 
     const commentRef = await db
       .collection("applies")
@@ -336,15 +348,12 @@ const Apply = () => {
       />
     );
 
-    setCommentList(old => [...old, createdComment]);
+    setCommentList((old) => [...old, createdComment]);
     setNewComment("");
   };
 
-  const handleVote = async value => {
-    const voteRef = db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("votes");
+  const handleVote = async (value) => {
+    const voteRef = db.collection("applies").doc(apply_id).collection("votes");
     const oldVote = await voteRef.doc(auth.uid).get();
     await voteRef.doc(auth.uid).set({
       user_id: auth.uid,
@@ -384,7 +393,7 @@ const Apply = () => {
     );
   };
 
-  const changeStatut = async e => {
+  const changeStatut = async (e) => {
     let statut = e.target.value;
     let value = "";
     if (statut === "En test") value = "test";
@@ -392,17 +401,14 @@ const Apply = () => {
     if (statut === "Accepté") value = "accept";
     if (statut === "Refusé") value = "reject";
     if (value) {
-      await db
-        .collection("applies")
-        .doc(apply_id)
-        .update({
-          state: value,
-        });
+      await db.collection("applies").doc(apply_id).update({
+        state: value,
+      });
     }
     setStatut(value);
   };
 
-  const getValue = statut => {
+  const getValue = (statut) => {
     if (statut === "test") return "En test";
     if (statut === "pending") return "En attente";
     if (statut === "accept") return "Accepté";
@@ -449,10 +455,7 @@ const Apply = () => {
       comment.ref.delete();
     }
 
-    await db
-      .collection("applies")
-      .doc(apply_id)
-      .delete();
+    await db.collection("applies").doc(apply_id).delete();
 
     history.push("/candidatures");
   };
@@ -612,6 +615,32 @@ const Apply = () => {
                   </h1>
                   <span>{apply.content[9]}</span>
                 </div>
+                {canVote() && (
+                  <div style={sectionStyle}>
+                    <p>
+                      Raider.IO :{" "}
+                      <a
+                        href={rio.profile_url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {rio.profile_url}
+                      </a>
+                    </p>
+                    <p>
+                      Score mythic+ :{" "}
+                      {rio.mythic_plus_scores_by_season[0].scores.all}
+                      <span style={{ marginLeft: "15px" }}>
+                        Meilleure M+ :{" "}
+                        {rio.mythic_plus_best_runs[0].mythic_level}
+                      </span>
+                    </p>
+                    <p>
+                      Progress raid :{" "}
+                      {rio.raid_progression["nyalotha-the-waking-city"].summary}
+                    </p>
+                  </div>
+                )}
               </Section>
             </Box>
             <VoteConfirmation />
@@ -700,7 +729,7 @@ const Apply = () => {
               placeholder='Commentaire ...'
               rows={6}
               value={editing ? editContent : newComment}
-              onChange={e => {
+              onChange={(e) => {
                 e.target.style.height = "inherit";
                 e.target.style.height = `${e.target.scrollHeight}px`;
                 if (!editing) setNewComment(e.target.value);

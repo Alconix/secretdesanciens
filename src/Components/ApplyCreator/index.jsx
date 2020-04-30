@@ -35,9 +35,9 @@ const ApplyCreator = () => {
 
   const editing = location.state ? true : false;
 
-  const onChange = event => {
+  const onChange = (event) => {
     const { name, value } = event.target;
-    setApply(old => ({ ...old, [name]: value }));
+    setApply((old) => ({ ...old, [name]: value }));
   };
 
   const sendNotification = (name, id) => {
@@ -62,13 +62,10 @@ const ApplyCreator = () => {
   const onSubmit = async () => {
     if (validateChange()) {
       if (editing) {
-        await db
-          .collection("applies")
-          .doc(location.state.id)
-          .update({
-            content: apply,
-            editDate: new Date(),
-          });
+        await db.collection("applies").doc(location.state.id).update({
+          content: apply,
+          editDate: new Date(),
+        });
         history.goBack();
       } else {
         const ref = db.collection("applies");
@@ -155,6 +152,9 @@ const ApplyCreator = () => {
                           onChange={onChange}
                           value={apply[0]}
                         />
+                        <p className='help is-link'>
+                          Sous la forme "nom-serveur"
+                        </p>
                       </div>
                     </div>
                   </div>
