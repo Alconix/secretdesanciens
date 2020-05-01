@@ -194,7 +194,8 @@ const Apply = () => {
         const apiResponse = await fetch(
           `https://raider.io/api/v1/characters/profile?region=eu&realm=${realm}&name=${name}&fields=gear%2Craid_progression%2Cmythic_plus_best_runs%2Cmythic_plus_scores_by_season%3Acurrent%2Craid_progression`
         );
-        return apiResponse.json();
+        if (apiResponse.status === 200) return apiResponse.json();
+        else return null;
       };
       setRio(await getRio());
       setLoaded(true);
@@ -301,6 +302,8 @@ const Apply = () => {
     setEditing("");
     setEditContent("");
   };
+
+  console.log(rio);
 
   const publishComment = async () => {
     const newDate = new Date();
@@ -613,32 +616,41 @@ const Apply = () => {
                   </h1>
                   <span>{apply.content[9]}</span>
                 </div>
-                {canVote() && (
-                  <div style={sectionStyle}>
-                    <p>
-                      Raider.IO :{" "}
-                      <a
-                        href={rio.profile_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        {rio.profile_url}
-                      </a>
-                    </p>
-                    <p>
-                      Score mythic+ :{" "}
-                      {rio.mythic_plus_scores_by_season[0].scores.all}
-                      <span style={{ marginLeft: "15px" }}>
-                        Meilleure M+ :{" "}
-                        {rio.mythic_plus_best_runs[0].mythic_level}
-                      </span>
-                    </p>
-                    <p>
-                      Progress raid :{" "}
-                      {rio.raid_progression["nyalotha-the-waking-city"].summary}
-                    </p>
-                  </div>
-                )}
+
+                {canVote() &&
+                  (rio ? (
+                    <div style={sectionStyle}>
+                      <p>
+                        Raider.IO :{" "}
+                        <a
+                          href={rio.profile_url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          {rio.profile_url}
+                        </a>
+                      </p>
+                      <p>
+                        Score mythic+ :{" "}
+                        {rio.mythic_plus_scores_by_season[0].scores.all}
+                        <span style={{ marginLeft: "15px" }}>
+                          Meilleure M+ :{" "}
+                          {rio.mythic_plus_best_runs[0].mythic_level}
+                        </span>
+                      </p>
+                      <p>
+                        Progress raid :{" "}
+                        {
+                          rio.raid_progression["nyalotha-the-waking-city"]
+                            .summary
+                        }
+                      </p>
+                    </div>
+                  ) : (
+                    <div style={{ ...sectionStyle, color: "red" }}>
+                      Impossible de trouver le personnage.
+                    </div>
+                  ))}
               </Section>
             </Box>
             <VoteConfirmation />
