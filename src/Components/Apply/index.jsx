@@ -184,8 +184,8 @@ const Apply = () => {
       document.title = `Candidature de ${thisAuthor.pseudo} - Secret des Anciens`;
 
       const getRio = async () => {
-        let name = currentApply.data().content[0].split("-", 1)[0];
-        let realm = currentApply.data().content[0].split("-", 1)[1];
+        let name = currentApply.data().content[0].split("-")[0];
+        let realm = currentApply.data().content[0].split("-")[1];
         realm.trim();
         realm = realm.replace(/'/g, "");
         realm = encodeURI(realm);
@@ -202,8 +202,6 @@ const Apply = () => {
 
     if (!init && auth) getData();
   }, [apply_id, auth, init]);
-
-  console.log(rio);
 
   const deleteComment = async (id) => {
     await db
