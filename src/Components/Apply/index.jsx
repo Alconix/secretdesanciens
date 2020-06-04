@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import TextareaAutosize from "react-autosize-textarea";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Picker } from "emoji-mart";
+
+import "emoji-mart/css/emoji-mart.css";
 
 import Comment from "../Comment";
 
@@ -22,6 +25,7 @@ const Apply = () => {
   const [statut, setStatut] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [rio, setRio] = useState();
+  const [emojiPickerState, setEmojiPicker] = useState(false);
 
   const { apply_id } = useParams();
   const [auth, init] = useAuthState(Firebase.auth());
@@ -303,8 +307,6 @@ const Apply = () => {
     setEditContent("");
   };
 
-  console.log(rio);
-
   const publishComment = async () => {
     const newDate = new Date();
 
@@ -444,7 +446,7 @@ const Apply = () => {
       .collection("votes")
       .get();
     for (let vote of votes.docs) {
-      vote.ref.delete();
+      await vote.ref.delete();
     }
 
     const comments = await db
@@ -453,7 +455,7 @@ const Apply = () => {
       .collection("comments")
       .get();
     for (let comment of comments.docs) {
-      comment.ref.delete();
+      await comment.ref.delete();
     }
 
     await db.collection("applies").doc(apply_id).delete();
@@ -746,28 +748,53 @@ const Apply = () => {
                 if (editing) setEditContent(e.target.value);
               }}
             />
-            <div className='buttons'>
-              {!editing && (
-                <button className='button is-success' onClick={publishComment}>
-                  Publier
-                </button>
-              )}
-              {editing && (
-                <>
-                  <button className='button is-success' onClick={editComment}>
-                    Editer
-                  </button>
+            <div className='level' style={{ position: "relative" }}>
+              <div className='buttons level-left'>
+                {!editing && (
                   <button
-                    className='button is-danger'
-                    onClick={() => {
-                      setEditContent("");
-                      setEditing("");
-                    }}
+                    className='button is-success'
+                    onClick={publishComment}
                   >
-                    Annuler
+                    Publier
                   </button>
-                </>
+                )}
+                {editing && (
+                  <>
+                    <button className='button is-success' onClick={editComment}>
+                      Editer
+                    </button>
+                    <button
+                      className='button is-danger'
+                      onClick={() => {
+                        setEditContent("");
+                        setEditing("");
+                      }}
+                    >
+                      Annuler
+                    </button>
+                  </>
+                )}
+              </div>
+              {emojiPickerState && (
+                <Picker
+                  title='Choisir un emoji'
+                  emoji='point_up'
+                  theme='dark'
+                  style={{ position: "absolute", bottom: 0, right: "-45%" }}
+                  onSelect={(emoji) => {
+                    if (!editing) setNewComment(newComment + emoji.native);
+                    if (editing) setEditContent(editContent + emoji.native);
+                  }}
+                />
               )}
+              <button
+                className='button is-rounded level-right'
+                onClick={() => {
+                  setEmojiPicker(!emojiPickerState);
+                }}
+              >
+                Emojis
+              </button>
             </div>
           </Section>
         </div>

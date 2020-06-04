@@ -5,10 +5,12 @@ import { Firebase } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { invitationUrl } from "../../discord";
 
-const DropItem = props => {
+const DropItem = (props) => {
   const location = useLocation();
-  const paramsLocation = location.pathname.split("/").filter(elt => elt !== "");
-  const paramsItem = props.to.split("/").filter(elt => elt !== "");
+  const paramsLocation = location.pathname
+    .split("/")
+    .filter((elt) => elt !== "");
+  const paramsItem = props.to.split("/").filter((elt) => elt !== "");
 
   let classActivity = "";
 
@@ -82,7 +84,7 @@ const bossesNA = (
 );
 // #endregion
 
-const NavigationBar = props => {
+const NavigationBar = (props) => {
   let auth = null;
   const [user, init] = useAuthState(Firebase.auth());
   if (init) auth = JSON.parse(localStorage.getItem("authUser"));
@@ -90,7 +92,7 @@ const NavigationBar = props => {
   const [active, setActive] = useState(false);
 
   let location = useLocation();
-  let params = location.pathname.split("/").filter(elt => elt !== "");
+  let params = location.pathname.split("/").filter((elt) => elt !== "");
 
   let raid = "";
 

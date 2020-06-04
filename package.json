@@ -8,6 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
     "bulma": "^0.8.0",
+    "emoji-mart": "^3.0.0",
     "firebase": "^7.5.0",
     "firebaseui": "^4.3.0",
     "nuka-carousel": "^4.5.13",
