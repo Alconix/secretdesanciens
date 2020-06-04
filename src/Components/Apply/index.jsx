@@ -11,6 +11,7 @@ import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 
 import Comment from "../Comment";
+import { logHookUrl } from "../../discord";
 
 const Apply = () => {
   const [loaded, setLoaded] = useState(false);
@@ -190,6 +191,7 @@ const Apply = () => {
       const getRio = async () => {
         let name = currentApply.data().content[0].split("-")[0];
         let realm = currentApply.data().content[0].split("-")[1];
+        if (!realm || !name) return null;
         realm.trim();
         realm = realm.replace(/'/g, "");
         realm = encodeURI(realm);
@@ -207,6 +209,18 @@ const Apply = () => {
 
     if (!init && auth) getData();
   }, [apply_id, auth, init]);
+
+  const sendNotification = (msg) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", logHookUrl, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(
+      JSON.stringify({
+        content: msg,
+        username: "Secret des Anciens",
+      })
+    );
+  };
 
   const deleteComment = async (id) => {
     await db
@@ -408,6 +422,14 @@ const Apply = () => {
         state: value,
       });
     }
+
+    const date = new Date();
+    sendNotification(
+      `**[EDIT][${date.toLocaleString()}]** ${currentUser.pseudo} changed ${
+        author.pseudo
+      }'s apply to ${value}`
+    );
+
     setStatut(value);
   };
 
@@ -457,6 +479,13 @@ const Apply = () => {
     for (let comment of comments.docs) {
       await comment.ref.delete();
     }
+
+    const date = new Date();
+    sendNotification(
+      `**[DELETE][${date.toLocaleString()}]** ${
+        currentUser.pseudo
+      } deleted apply from ${author.pseudo}`
+    );
 
     await db.collection("applies").doc(apply_id).delete();
 

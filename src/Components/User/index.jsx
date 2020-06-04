@@ -28,7 +28,7 @@ const User = () => {
     const userRef = db.collection("users").doc(user_id);
     userRef
       .get()
-      .then(doc => {
+      .then((doc) => {
         if (doc.exists) {
           document.title = `${doc.data().pseudo} - Secret des Anciens`;
           setUser(doc.data());
@@ -40,13 +40,10 @@ const User = () => {
         }
         setLoaded(true);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
 
     const fetchData = async () => {
-      const userDoc = await db
-        .collection("users")
-        .doc(user_id)
-        .get();
+      const userDoc = await db.collection("users").doc(user_id).get();
       if (userDoc.exists) {
         document.title = `${userDoc.data().pseudo} - Secret des Anciens`;
         setUser(userDoc.data());
@@ -55,10 +52,7 @@ const User = () => {
         setNewRole(userDoc.data().role);
       }
 
-      const currentUserDoc = await db
-        .collection("users")
-        .doc(auth.uid)
-        .get();
+      const currentUserDoc = await db.collection("users").doc(auth.uid).get();
       setCurrentUser(currentUserDoc.data());
 
       setLoaded(true);
@@ -71,11 +65,9 @@ const User = () => {
     return user.role.charAt(0).toUpperCase() + user.role.slice(1);
   };
 
-  const deleteAccount = () => {
-    db.collection("users")
-      .doc(user_id)
-      .delete();
-    auth.delete();
+  const deleteAccount = async () => {
+    await db.collection("users").doc(user_id).delete();
+    await auth.delete();
     window.location.assign("/");
   };
 
@@ -100,10 +92,7 @@ const User = () => {
       updatedUser["role"] = newRole;
     }
 
-    await db
-      .collection("users")
-      .doc(user_id)
-      .update(updatedUser);
+    await db.collection("users").doc(user_id).update(updatedUser);
 
     window.location.reload();
   };
@@ -200,7 +189,7 @@ const User = () => {
                               id='pseudo'
                               style={{ marginLeft: 20, width: "20vw" }}
                               value={newPseudo}
-                              onChange={e => setNewPseudo(e.target.value)}
+                              onChange={(e) => setNewPseudo(e.target.value)}
                             />
                           )}
                         </div>
@@ -219,7 +208,7 @@ const User = () => {
                                 style={{ marginRight: 7, marginLeft: 7 }}
                               >
                                 <select
-                                  onChange={e => {
+                                  onChange={(e) => {
                                     setNewRole(e.target.value.toLowerCase());
                                   }}
                                   value={
@@ -258,7 +247,7 @@ const User = () => {
                               id='pseudo'
                               style={{ marginLeft: 10, width: "20vw" }}
                               value={newURL}
-                              onChange={e => setNewURL(e.target.value)}
+                              onChange={(e) => setNewURL(e.target.value)}
                             />
                           </div>
                         )}
