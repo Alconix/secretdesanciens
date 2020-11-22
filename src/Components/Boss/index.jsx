@@ -1,20 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { useParams, useLocation, Route, Switch } from "react-router-dom";
-import { Section, Box } from "react-bulma-components";
+import { useParams, useLocation, Route, Switch } from 'react-router-dom';
+import { Section, Box } from 'react-bulma-components';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-const Boss = props => {
+const Boss = (props) => {
   const { raid, boss } = useParams();
   const { pathname } = useLocation();
 
-  const params = pathname.split("/").filter(e => e !== "");
-  const active = params.length === 4 ? params[params.length - 1] : "overview";
+  const params = pathname.split('/').filter((e) => e !== '');
+  const active = params.length === 4 ? params[params.length - 1] : 'overview';
 
   const strat = require(`../../Content/Boss/${raid}/${boss}/${boss}`);
 
@@ -22,18 +19,18 @@ const Boss = props => {
     document.title = `${strat.name} - Secret des Anciens`;
   }, [strat.name]);
 
-  const GetContent = props => {
+  const GetContent = (props) => {
     return <span dangerouslySetInnerHTML={{ __html: props.content }} />;
   };
 
   const heroStyle = {
     backgroundImage:
-      "url(https://wow.zamimg.com/uploads/blog/images/17423-upcoming-nyalotha-raid-testing-on-8-3-ptr-wrathion-maut-prophet-skitra-ra-den.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "right 50%",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "black",
-    marginBottom: "20px",
+      'url(https://wow.zamimg.com/uploads/guide/header/10380.jpg?1591192284&maxWidth=1630)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'right 50%',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'black',
+    marginBottom: '20px',
   };
 
   // #region general content
@@ -104,7 +101,7 @@ const Boss = props => {
     <div>
       <div className='columns'>
         <div className='column has-text is-6 is-offset-3'>
-          <Box style={{ minHeight: "92vh" }}>
+          <Box style={{ minHeight: '92vh' }}>
             <Section>
               <section className='hero' style={heroStyle}>
                 <div className='hero-body'>
@@ -133,30 +130,20 @@ const Boss = props => {
             </Section>
             <div className='tabs'>
               <ul>
-                <li className={active === "overview" ? "is-active" : ""}>
-                  {strat.overview && (
-                    <a href={`/strats/${raid}/${boss}/overview`}>Overview</a>
-                  )}
+                <li className={active === 'overview' ? 'is-active' : ''}>
+                  {strat.overview && <a href={`/strats/${raid}/${boss}/overview`}>Overview</a>}
                 </li>
-                <li className={active === "details" ? "is-active" : ""}>
-                  {strat.details && (
-                    <a href={`/strats/${raid}/${boss}/details`}>Details</a>
-                  )}
+                <li className={active === 'details' ? 'is-active' : ''}>
+                  {strat.details && <a href={`/strats/${raid}/${boss}/details`}>Details</a>}
                 </li>
-                <li className={active === "info" ? "is-active" : ""}>
-                  {strat.info && (
-                    <a href={`/strats/${raid}/${boss}/info`}>Infos</a>
-                  )}
+                <li className={active === 'info' ? 'is-active' : ''}>
+                  {strat.info && <a href={`/strats/${raid}/${boss}/info`}>Infos</a>}
                 </li>
-                <li className={active === "video" ? "is-active" : ""}>
-                  {strat.video && (
-                    <a href={`/strats/${raid}/${boss}/video`}>Video</a>
-                  )}
+                <li className={active === 'video' ? 'is-active' : ''}>
+                  {strat.video && <a href={`/strats/${raid}/${boss}/video`}>Video</a>}
                 </li>
-                <li className={active === "schema" ? "is-active" : ""}>
-                  {strat.schema && (
-                    <a href={`/strats/${raid}/${boss}/schema`}>Schema</a>
-                  )}
+                <li className={active === 'schema' ? 'is-active' : ''}>
+                  {strat.schema && <a href={`/strats/${raid}/${boss}/schema`}>Schema</a>}
                 </li>
               </ul>
             </div>
@@ -164,10 +151,7 @@ const Boss = props => {
               <div className='level-left'>
                 {strat.prev && (
                   <button className='level-item button' onClick={goPrev}>
-                    <FontAwesomeIcon
-                      style={{ paddingRight: "5px" }}
-                      icon={faChevronLeft}
-                    />
+                    <FontAwesomeIcon style={{ paddingRight: '5px' }} icon={faChevronLeft} />
                     {strat.displayPrev}
                   </button>
                 )}
@@ -176,10 +160,7 @@ const Boss = props => {
                 {strat.next && (
                   <button className='level-item button' onClick={goNext}>
                     {strat.displayNext}
-                    <FontAwesomeIcon
-                      style={{ paddingLeft: "5px" }}
-                      icon={faChevronRight}
-                    />
+                    <FontAwesomeIcon style={{ paddingLeft: '5px' }} icon={faChevronRight} />
                   </button>
                 )}
               </div>
@@ -200,17 +181,17 @@ const Boss = props => {
                       <GeneralContent />
                     </Section>
 
-                    {strat.overview.tank !== "" && (
+                    {strat.overview.tank !== '' && (
                       <Section>
                         <TankContent />
                       </Section>
                     )}
-                    {strat.overview.heal !== "" && (
+                    {strat.overview.heal !== '' && (
                       <Section>
                         <HealContent />
                       </Section>
                     )}
-                    {strat.overview.dps !== "" && (
+                    {strat.overview.dps !== '' && (
                       <Section>
                         <DpsContent />
                       </Section>
@@ -223,10 +204,7 @@ const Boss = props => {
               <div className='level-left'>
                 {strat.prev && (
                   <button className='level-item button' onClick={goPrev}>
-                    <FontAwesomeIcon
-                      style={{ paddingRight: "5px" }}
-                      icon={faChevronLeft}
-                    />
+                    <FontAwesomeIcon style={{ paddingRight: '5px' }} icon={faChevronLeft} />
                     {strat.displayPrev}
                   </button>
                 )}
@@ -235,10 +213,7 @@ const Boss = props => {
                 {strat.next && (
                   <button className='level-item button' onClick={goNext}>
                     {strat.displayNext}
-                    <FontAwesomeIcon
-                      style={{ paddingLeft: "5px" }}
-                      icon={faChevronRight}
-                    />
+                    <FontAwesomeIcon style={{ paddingLeft: '5px' }} icon={faChevronRight} />
                   </button>
                 )}
               </div>

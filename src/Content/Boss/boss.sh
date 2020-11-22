@@ -1,11 +1,16 @@
-boss=("sivara" "behemoth" "radiance" "corsandre" "orgozoa" "cour" "zaqul" "azshara")
-for i in "${boss[@]}"
+#!/bin/bash
+boss=("hurlaile" "altimor" "destructeur" "xymox" "kaelthas" "sombreveine" "conseil" "fangepoing" "generaux" "denathrius")
+
+raid="nathria"
+mkdir $raid
+
+for i in ${boss[@]}
 do
-    mkdir $i
-    cp ./template.js $i/$i.js
-    touch $i/$i-details.html
-    touch $i/$i-dps.html
-    touch $i/$i-tank.html
-    touch $i/$i-heal.html
-    touch $i/$i-general.html
+    mkdir $raid/$i
+    touch $raid/$i/$i.js
+    touch $raid/$i/$i-details.html
+    touch $raid/$i/$i-dps.html
+    touch $raid/$i/$i-tank.html
+    touch $raid/$i/$i-heal.html
+    touch $raid/$i/$i-general.html
 done
