@@ -26,9 +26,5 @@ yarn-error.log*
 firebase.json
 .firebaserc
 .firebase
-firebaseConfig.js
-
-# constants
-discord.js
 
 .vscode
