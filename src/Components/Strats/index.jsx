@@ -4,7 +4,8 @@ import { Tile, Section, Heading, Box } from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 
 const styleCastle = {
-  backgroundImage: 'url(https://wow.zamimg.com/uploads/guide/header/10380.jpg?1591192284)',
+  backgroundImage:
+    'url(https://wow.zamimg.com/uploads/guide/header/10246.jpg?1588896692&maxWidth=1630)',
   backgroundSize: 'cover',
   backgroundPosition: 'right 50% bottom 20%',
   height: '30vh',

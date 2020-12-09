@@ -7,7 +7,7 @@ const tileStyle = {
 };
 
 const heroStyle = {
-  backgroundImage: 'url(https://wow.zamimg.com/uploads/guide/header/10380.jpg?1591192284)',
+  backgroundImage: 'url(https://wow.zamimg.com/uploads/guide/header/10246.jpg?1588896692&maxWidth=1630)',
   backgroundSize: 'cover',
   backgroundPosition: 'right 50% bottom 0',
   backgroundRepeat: 'no-repeat',
