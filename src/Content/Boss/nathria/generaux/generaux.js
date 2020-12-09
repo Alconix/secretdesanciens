@@ -16,7 +16,7 @@ export const video = (
       <div>
         <iframe
           title='kirling generaux'
-          src='https://www.youtube.com/embed/lEb7Qbzoh0g'
+          src='https://www.youtube.com/embed/-NR2ONHNeqc'
           frameBorder='0'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
         ></iframe>

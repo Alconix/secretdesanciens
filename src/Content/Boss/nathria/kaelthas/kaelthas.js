@@ -16,7 +16,7 @@ export const video = (
       <div>
         <iframe
           title='kirling kaelthas'
-          src='https://www.youtube.com/embed/lEb7Qbzoh0g'
+          src='https://www.youtube.com/embed/LxXi6_9_O8o'
           frameBorder='0'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
         ></iframe>

@@ -14,21 +14,21 @@ export const overview = {
 
 export const video = (
   <div>
-    <div className='embedresize'>
-      <div>
-        <iframe
-          title='kirling denathrius'
-          src='https://www.youtube.com/embed/lEb7Qbzoh0g'
-          frameBorder='0'
-          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
-        ></iframe>
-      </div>
+    <p>
+      Schéma de déroulement des phases par <a href='http://www.twitch.tv/schlimmy'>Schlimmy</a>.
+    </p>
+    <p>
+      <b style={{ color: 'red' }}>
+        Ils représentent le combat en mode mythique, certaines capacités peuvent différer ou ne pas
+        être gérées de la même façon !
+      </b>
+    </p>
+    <div style={{ marginBottom: 50, marginTop: 50 }}>
+      <video controls preload='auto' loop='loop'>
+        <source src='//i.imgur.com/Cv3LiJb.mp4' type='video/mp4'></source>
+      </video>
+      <i>Phase 1</i>
     </div>
-    <i>
-      <br />
-      Vidéo explicative du combat par&nbsp;
-      <a href='https://www.youtube.com/channel/UCX53iuepLC-tW6W-ONU97IQ'>Kirling</a>
-    </i>
   </div>
 );
 
