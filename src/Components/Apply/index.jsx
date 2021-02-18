@@ -198,6 +198,39 @@ const Apply = () => {
     if (!init && auth) getData();
   }, [apply_id, auth, init]);
 
+  const raidProgress = () => {
+    if (
+      rio &&
+      rio.raid_progression &&
+      rio.raid_progression['castle-nathria'] &&
+      rio.raid_progression['castle-nathria'].summary
+    )
+      return rio.raid_progression['castle-nathria'].summary;
+    return 'N/A';
+  };
+
+  const bestMplus = () => {
+    if (
+      rio &&
+      rio.mythic_plus_best_runs &&
+      rio.mythic_plus_best_runs[0] &&
+      rio.mythic_plus_best_runs[0].mythic_level
+    )
+      return rio.mythic_plus_best_runs[0].mythic_level;
+    return 'N/A';
+  };
+
+  const scoreMplus = () => {
+    if (
+      rio &&
+      rio.mythic_plus_scores_by_season &&
+      rio.mythic_plus_scores_by_season[0] &&
+      rio.mythic_plus_scores_by_season[0].scores.all
+    )
+      return rio.mythic_plus_scores_by_season[0].scores.all;
+    return 'N/A';
+  };
+
   const sendNotification = (msg) => {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', logHookUrl, true);
@@ -606,12 +639,10 @@ const Apply = () => {
                         </a>
                       </p>
                       <p>
-                        Score mythic+ : {rio.mythic_plus_scores_by_season[0].scores.all}
-                        <span style={{ marginLeft: '15px' }}>
-                          Meilleure M+ : {rio.mythic_plus_best_runs[0].mythic_level}
-                        </span>
+                        Score mythic+ : {scoreMplus()}
+                        <span style={{ marginLeft: '15px' }}>Meilleure M+ : {bestMplus()}</span>
                       </p>
-                      <p>Progress raid : {rio.raid_progression[0].summary}</p>
+                      <p>Progress raid : {raidProgress()}</p>
                     </div>
                   ) : (
                     <div style={{ ...sectionStyle, color: 'red' }}>
