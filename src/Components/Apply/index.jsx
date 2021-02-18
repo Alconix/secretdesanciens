@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { Section, Box, Modal } from "react-bulma-components";
-import { db, Firebase } from "../../firebase";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
-import TextareaAutosize from "react-autosize-textarea";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Picker } from "emoji-mart";
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { Section, Box, Modal } from 'react-bulma-components';
+import { db, Firebase } from '../../firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import TextareaAutosize from 'react-autosize-textarea';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Picker } from 'emoji-mart';
 
-import "emoji-mart/css/emoji-mart.css";
+import 'emoji-mart/css/emoji-mart.css';
 
-import Comment from "../Comment";
-import { logHookUrl } from "../../discord";
+import Comment from '../Comment';
+import { logHookUrl } from '../../discord';
 
 const Apply = () => {
   const [loaded, setLoaded] = useState(false);
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState('');
   const [author, setAuthor] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [apply, setApply] = useState();
@@ -23,13 +23,15 @@ const Apply = () => {
   const [hasVoted, setVoted] = useState(false);
   const [editing, setEditing] = useState();
   const [editContent, setEditContent] = useState();
-  const [statut, setStatut] = useState("");
+  const [statut, setStatut] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [rio, setRio] = useState();
   const [emojiPickerState, setEmojiPicker] = useState(false);
 
   const { apply_id } = useParams();
   const [auth, init] = useAuthState(Firebase.auth());
+
+  console.log(rio);
 
   const sectionStyle = {
     marginTop: 60,
@@ -39,12 +41,7 @@ const Apply = () => {
 
   useEffect(() => {
     const deleteComment = async (id) => {
-      await db
-        .collection("applies")
-        .doc(apply_id)
-        .collection("comments")
-        .doc(id)
-        .delete();
+      await db.collection('applies').doc(apply_id).collection('comments').doc(id).delete();
 
       setCommentList((old) => old.filter((c) => c.key !== id));
     };
@@ -53,26 +50,23 @@ const Apply = () => {
       let upvotes = 0;
       let downvotes = 0;
 
-      const ref = db.collection("applies").doc(apply_id);
-      let currentUserRef = await db.collection("users").doc(auth.uid).get();
+      const ref = db.collection('applies').doc(apply_id);
+      let currentUserRef = await db.collection('users').doc(auth.uid).get();
       let currentApply = await ref.get();
       if (!currentApply.exists) {
         setLoaded(true);
         return;
       }
-      let refComments = await ref.collection("comments").orderBy("date").get();
-      let refVotes = await ref.collection("votes").get();
+      let refComments = await ref.collection('comments').orderBy('date').get();
+      let refVotes = await ref.collection('votes').get();
 
-      let authorRef = await db
-        .collection("users")
-        .doc(currentApply.data().author_id)
-        .get();
+      let authorRef = await db.collection('users').doc(currentApply.data().author_id).get();
 
       const thisAuthor = authorRef.data()
         ? authorRef.data()
         : {
-            pseudo: "[deleted]",
-            role: "deleted",
+            pseudo: '[deleted]',
+            role: 'deleted',
           };
       setAuthor(thisAuthor);
       setCurrentUser(currentUserRef.data());
@@ -81,48 +75,44 @@ const Apply = () => {
       let array = [];
       for (let commentRef of refComments.docs) {
         const comment = commentRef.data();
-        const commentDate = new Date(
-          comment.date.seconds * 1000
-        ).toLocaleString("fr-FR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
+        const commentDate = new Date(comment.date.seconds * 1000).toLocaleString('fr-FR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
         });
-        let commentEditDate = "";
+        let commentEditDate = '';
         if (comment.editDate) {
-          commentEditDate = new Date(
-            comment.editDate.seconds * 1000
-          ).toLocaleString("fr-FR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
+          commentEditDate = new Date(comment.editDate.seconds * 1000).toLocaleString('fr-FR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
           });
         }
-        const authorRef = db.collection("users").doc(comment.author_id);
+        const authorRef = db.collection('users').doc(comment.author_id);
         const author = await authorRef.get();
 
         const thisCommentUser = author.data()
           ? author.data()
           : {
-              pseudo: "[deleted]",
-              role: "deleted",
+              pseudo: '[deleted]',
+              role: 'deleted',
             };
 
-        let nameStyle = "";
-        if (thisCommentUser.role === "membre") {
-          nameStyle = "is-3 subtitle has-text-info";
-        } else if (thisCommentUser.role === "officier") {
-          nameStyle = "is-3 subtitle has-text-warning";
-        } else if (thisCommentUser.role === "admin") {
-          nameStyle = "is-3 subtitle has-text-warning";
-        } else if (thisCommentUser.role === "apply") {
-          nameStyle = "is-3 subtitle has-text-link";
-        } else if (thisCommentUser.role === "deleted") {
-          nameStyle = "is-3 subtitle has-text-light";
+        let nameStyle = '';
+        if (thisCommentUser.role === 'membre') {
+          nameStyle = 'is-3 subtitle has-text-info';
+        } else if (thisCommentUser.role === 'officier') {
+          nameStyle = 'is-3 subtitle has-text-warning';
+        } else if (thisCommentUser.role === 'admin') {
+          nameStyle = 'is-3 subtitle has-text-warning';
+        } else if (thisCommentUser.role === 'apply') {
+          nameStyle = 'is-3 subtitle has-text-link';
+        } else if (thisCommentUser.role === 'deleted') {
+          nameStyle = 'is-3 subtitle has-text-light';
         }
 
         array.push(
@@ -157,30 +147,28 @@ const Apply = () => {
 
       let formattedEditDate = null;
       if (currentApply.data().editDate) {
-        formattedEditDate = new Date(
-          currentApply.data().editDate.seconds * 1000
-        ).toLocaleString("fr-FR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        formattedEditDate = new Date(currentApply.data().editDate.seconds * 1000).toLocaleString(
+          'fr-FR',
+          {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          }
+        );
       }
 
       setApply({
         upvotes,
         downvotes,
-        date: new Date(currentApply.data().date.seconds * 1000).toLocaleString(
-          "fr-FR",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        ),
+        date: new Date(currentApply.data().date.seconds * 1000).toLocaleString('fr-FR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
         content: currentApply.data().content,
         state: currentApply.data().state,
         author_id: currentApply.data().author_id,
@@ -189,14 +177,14 @@ const Apply = () => {
       document.title = `Candidature de ${thisAuthor.pseudo} - Secret des Anciens`;
 
       const getRio = async () => {
-        let name = currentApply.data().content[0].split("-")[0];
-        let realm = currentApply.data().content[0].split("-")[1];
+        let name = currentApply.data().content[0].split('-')[0];
+        let realm = currentApply.data().content[0].split('-')[1];
         if (!realm || !name) return null;
         realm.trim();
-        realm = realm.replace(/'/g, "");
+        realm = realm.replace(/'/g, '');
         realm = encodeURI(realm);
         name = encodeURI(name);
-        if (/[Cc]hants ?[ée]ternels/.test(realm)) realm = "chantséternels";
+        if (/[Cc]hants ?[ée]ternels/.test(realm)) realm = 'chantséternels';
         const apiResponse = await fetch(
           `https://raider.io/api/v1/characters/profile?region=eu&realm=${realm}&name=${name}&fields=gear%2Craid_progression%2Cmythic_plus_best_runs%2Cmythic_plus_scores_by_season%3Acurrent%2Craid_progression`
         );
@@ -212,37 +200,32 @@ const Apply = () => {
 
   const sendNotification = (msg) => {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", logHookUrl, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.open('POST', logHookUrl, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(
       JSON.stringify({
         content: msg,
-        username: "Secret des Anciens",
+        username: 'Secret des Anciens',
       })
     );
   };
 
   const deleteComment = async (id) => {
-    await db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("comments")
-      .doc(id)
-      .delete();
+    await db.collection('applies').doc(apply_id).collection('comments').doc(id).delete();
 
     setCommentList((old) => old.filter((c) => c.key !== id));
   };
 
   const getNameStyle = (role) => {
-    let nameStyle = "";
-    if (role === "membre") {
-      nameStyle = "is-3 subtitle has-text-info";
-    } else if (role === "officier") {
-      nameStyle = "is-3 subtitle has-text-warning";
-    } else if (role === "admin") {
-      nameStyle = "is-3 subtitle has-text-warning";
-    } else if (role === "apply") {
-      nameStyle = "is-3 subtitle has-text-link";
+    let nameStyle = '';
+    if (role === 'membre') {
+      nameStyle = 'is-3 subtitle has-text-info';
+    } else if (role === 'officier') {
+      nameStyle = 'is-3 subtitle has-text-warning';
+    } else if (role === 'admin') {
+      nameStyle = 'is-3 subtitle has-text-warning';
+    } else if (role === 'apply') {
+      nameStyle = 'is-3 subtitle has-text-link';
     }
     return nameStyle;
   };
@@ -255,39 +238,34 @@ const Apply = () => {
   const editComment = async () => {
     const newDate = new Date();
     if (!editContent) return;
-    await db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("comments")
-      .doc(editing)
-      .update({
-        content: editContent,
-        editDate: newDate,
-      });
+    await db.collection('applies').doc(apply_id).collection('comments').doc(editing).update({
+      content: editContent,
+      editDate: newDate,
+    });
 
     const index = commentList.findIndex((c) => c.key === editing);
 
     const commentRef = await db
-      .collection("applies")
+      .collection('applies')
       .doc(apply_id)
-      .collection("comments")
+      .collection('comments')
       .doc(editing)
       .get();
 
-    const formattedDate = newDate.toLocaleString("fr-FR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
+    const formattedDate = newDate.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
     });
     const originDate = new Date(commentRef.data().date.seconds * 1000);
-    const formattedOriginDate = originDate.toLocaleString("fr-FR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
+    const formattedOriginDate = originDate.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
     });
 
     const createdComment = (
@@ -317,30 +295,26 @@ const Apply = () => {
 
     setCommentList(newList);
 
-    setEditing("");
-    setEditContent("");
+    setEditing('');
+    setEditContent('');
   };
 
   const publishComment = async () => {
     const newDate = new Date();
 
     if (!newComment) return;
-    const commentRef = await db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("comments")
-      .add({
-        author_id: auth.uid,
-        content: newComment,
-        date: newDate,
-      });
+    const commentRef = await db.collection('applies').doc(apply_id).collection('comments').add({
+      author_id: auth.uid,
+      content: newComment,
+      date: newDate,
+    });
 
-    const formattedDate = newDate.toLocaleString("fr-FR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
+    const formattedDate = newDate.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
     });
 
     const createdComment = (
@@ -366,11 +340,11 @@ const Apply = () => {
     );
 
     setCommentList((old) => [...old, createdComment]);
-    setNewComment("");
+    setNewComment('');
   };
 
   const handleVote = async (value) => {
-    const voteRef = db.collection("applies").doc(apply_id).collection("votes");
+    const voteRef = db.collection('applies').doc(apply_id).collection('votes');
     const oldVote = await voteRef.doc(auth.uid).get();
     await voteRef.doc(auth.uid).set({
       user_id: auth.uid,
@@ -402,7 +376,7 @@ const Apply = () => {
 
   const VoteConfirmation = () => {
     return hasVoted ? (
-      <div className='notification is-success' style={{ position: "relative" }}>
+      <div className='notification is-success' style={{ position: 'relative' }}>
         Vote prit en compte.
       </div>
     ) : (
@@ -412,13 +386,13 @@ const Apply = () => {
 
   const changeStatut = async (e) => {
     let statut = e.target.value;
-    let value = "";
-    if (statut === "En test") value = "test";
-    if (statut === "En attente") value = "pending";
-    if (statut === "Accepté") value = "accept";
-    if (statut === "Refusé") value = "reject";
+    let value = '';
+    if (statut === 'En test') value = 'test';
+    if (statut === 'En attente') value = 'pending';
+    if (statut === 'Accepté') value = 'accept';
+    if (statut === 'Refusé') value = 'reject';
     if (value) {
-      await db.collection("applies").doc(apply_id).update({
+      await db.collection('applies').doc(apply_id).update({
         state: value,
       });
     }
@@ -434,68 +408,60 @@ const Apply = () => {
   };
 
   const getValue = (statut) => {
-    if (statut === "test") return "En test";
-    if (statut === "pending") return "En attente";
-    if (statut === "accept") return "Accepté";
-    if (statut === "reject") return "Refusé";
-    return "";
+    if (statut === 'test') return 'En test';
+    if (statut === 'pending') return 'En attente';
+    if (statut === 'accept') return 'Accepté';
+    if (statut === 'reject') return 'Refusé';
+    return '';
   };
 
   const canVote = () => {
     return (
-      currentUser.role === "membre" ||
-      currentUser.role === "officier" ||
-      currentUser.role === "admin"
+      currentUser.role === 'membre' ||
+      currentUser.role === 'officier' ||
+      currentUser.role === 'admin'
     );
   };
 
   const canModerate = () => {
-    return currentUser.role === "officier" || currentUser.role === "admin";
+    return currentUser.role === 'officier' || currentUser.role === 'admin';
   };
 
   const canEdit = () => {
     return (
-      currentUser.role === "admin" ||
-      currentUser.role === "officier" ||
+      currentUser.role === 'admin' ||
+      currentUser.role === 'officier' ||
       auth.uid === apply.author_id
     );
   };
 
   const deleteApply = async () => {
-    const votes = await db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("votes")
-      .get();
+    const votes = await db.collection('applies').doc(apply_id).collection('votes').get();
     for (let vote of votes.docs) {
       await vote.ref.delete();
     }
 
-    const comments = await db
-      .collection("applies")
-      .doc(apply_id)
-      .collection("comments")
-      .get();
+    const comments = await db.collection('applies').doc(apply_id).collection('comments').get();
     for (let comment of comments.docs) {
       await comment.ref.delete();
     }
 
     const date = new Date();
     sendNotification(
-      `**[DELETE][${date.toLocaleString()}]** ${
-        currentUser.pseudo
-      } deleted apply from ${author.pseudo}`
+      `**[DELETE][${date.toLocaleString()}]** ${currentUser.pseudo} deleted apply from ${
+        author.pseudo
+      }`
     );
 
-    await db.collection("applies").doc(apply_id).delete();
+    await db.collection('applies').doc(apply_id).delete();
 
-    history.push("/candidatures");
+    history.push('/candidatures');
   };
 
   const editApply = () => {
     window.scrollTo(0, 0);
     history.push({
-      pathname: "/candidatures/create",
+      pathname: '/candidatures/create',
       state: { data: apply.content, id: apply_id },
     });
   };
@@ -503,18 +469,13 @@ const Apply = () => {
   const DeleteModal = () => {
     return (
       <Modal show={showModal} onClose={() => setShowModal(false)} closeOnBlur>
-        <Modal.Content style={{ backgroundColor: "white" }}>
+        <Modal.Content style={{ backgroundColor: 'white' }}>
           <Section className='has-text-dark'>
-            <h1 className='title has-text-dark'>
-              Suppression de la candidature
-            </h1>
+            <h1 className='title has-text-dark'>Suppression de la candidature</h1>
             <p>Voulez-vous vraiment supprimer cette candidature ?</p>
             <p>Cette action est irreversible.</p>
             <br />
-            <button
-              className='button is-danger is-pulled-right'
-              onClick={deleteApply}
-            >
+            <button className='button is-danger is-pulled-right' onClick={deleteApply}>
               Supprimer
             </button>
           </Section>
@@ -529,10 +490,9 @@ const Apply = () => {
       <section className='section'>
         <div
           className='notification is-danger'
-          style={{ maxWidth: "50vw", position: "relative", left: "25%" }}
+          style={{ maxWidth: '50vw', position: 'relative', left: '25%' }}
         >
-          Vous devez vous connecter ou créer un compte pour acceder à cette
-          section !
+          Vous devez vous connecter ou créer un compte pour acceder à cette section !
         </div>
       </section>
     );
@@ -542,10 +502,10 @@ const Apply = () => {
         className='progress is-link'
         max='100'
         style={{
-          width: "50vw",
-          marginTop: "40vh",
-          position: "relative",
-          left: "25%",
+          width: '50vw',
+          marginTop: '40vh',
+          position: 'relative',
+          left: '25%',
         }}
       ></progress>
     );
@@ -559,7 +519,7 @@ const Apply = () => {
           <Section>
             <h1 className='title has-text-left'>
               <b>
-                Candidature de{" "}
+                Candidature de{' '}
                 <a href={`/users/${apply.author_id}`} className='has-text-link'>
                   {author.pseudo}
                 </a>
@@ -574,9 +534,7 @@ const Apply = () => {
                 <nav className='level'>
                   <div className='level-left'>
                     <div>
-                      <h1 className='title is-3 has-text-link'>
-                        Nom du personnage:
-                      </h1>
+                      <h1 className='title is-3 has-text-link'>Nom du personnage:</h1>
                       <span>{apply.content[0]}</span>
                     </div>
                   </div>
@@ -587,7 +545,7 @@ const Apply = () => {
                         src={
                           author.img
                             ? author.img
-                            : "https://firebasestorage.googleapis.com/v0/b/secretdesanciens.appspot.com/o/default-avatar.jpg?alt=media"
+                            : 'https://firebasestorage.googleapis.com/v0/b/secretdesanciens.appspot.com/o/default-avatar.jpg?alt=media'
                         }
                         alt='profile'
                       ></img>
@@ -596,9 +554,7 @@ const Apply = () => {
                 </nav>
 
                 <div style={{ marginTop: 50 }}>
-                  <h1 className='title is-3 has-text-link'>
-                    Depuis combien de temps jouez vous ?
-                  </h1>
+                  <h1 className='title is-3 has-text-link'>Depuis combien de temps jouez vous ?</h1>
                   <span>{apply.content[1]}</span>
                 </div>
                 <div style={sectionStyle}>
@@ -608,9 +564,7 @@ const Apply = () => {
                   <span>{apply.content[2]}</span>
                 </div>
                 <div style={sectionStyle}>
-                  <h1 className='title is-3 has-text-link'>
-                    Vos anciennes guildes
-                  </h1>
+                  <h1 className='title is-3 has-text-link'>Vos anciennes guildes</h1>
                   <span>{apply.content[3]}</span>
                 </div>
                 <div style={sectionStyle}>
@@ -618,9 +572,7 @@ const Apply = () => {
                   <span>{apply.content[4]}</span>
                 </div>
                 <div style={sectionStyle}>
-                  <h1 className='title is-3 has-text-link'>
-                    Présentez-vous en jeu
-                  </h1>
+                  <h1 className='title is-3 has-text-link'>Présentez-vous en jeu</h1>
                   <span>{apply.content[5]}</span>
                 </div>
                 <div style={sectionStyle}>
@@ -630,15 +582,11 @@ const Apply = () => {
                   <span>{apply.content[6]}</span>
                 </div>
                 <div style={sectionStyle}>
-                  <h1 className='title is-3 has-text-link'>
-                    Si oui, indiquez le nom des guildes
-                  </h1>
+                  <h1 className='title is-3 has-text-link'>Si oui, indiquez le nom des guildes</h1>
                   <span>{apply.content[7]}</span>
                 </div>
                 <div style={sectionStyle}>
-                  <h1 className='title is-3 has-text-link'>
-                    Avez-vous un casque/micro ?
-                  </h1>
+                  <h1 className='title is-3 has-text-link'>Avez-vous un casque/micro ?</h1>
                   <span>{apply.content[8]}</span>
                 </div>
                 <div style={sectionStyle}>
@@ -652,33 +600,21 @@ const Apply = () => {
                   (rio ? (
                     <div style={sectionStyle}>
                       <p>
-                        Raider.IO :{" "}
-                        <a
-                          href={rio.profile_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
+                        Raider.IO :{' '}
+                        <a href={rio.profile_url} target='_blank' rel='noopener noreferrer'>
                           {rio.profile_url}
                         </a>
                       </p>
                       <p>
-                        Score mythic+ :{" "}
-                        {rio.mythic_plus_scores_by_season[0].scores.all}
-                        <span style={{ marginLeft: "15px" }}>
-                          Meilleure M+ :{" "}
-                          {rio.mythic_plus_best_runs[0].mythic_level}
+                        Score mythic+ : {rio.mythic_plus_scores_by_season[0].scores.all}
+                        <span style={{ marginLeft: '15px' }}>
+                          Meilleure M+ : {rio.mythic_plus_best_runs[0].mythic_level}
                         </span>
                       </p>
-                      <p>
-                        Progress raid :{" "}
-                        {
-                          rio.raid_progression["nyalotha-the-waking-city"]
-                            .summary
-                        }
-                      </p>
+                      <p>Progress raid : {rio.raid_progression[0].summary}</p>
                     </div>
                   ) : (
-                    <div style={{ ...sectionStyle, color: "red" }}>
+                    <div style={{ ...sectionStyle, color: 'red' }}>
                       Impossible de trouver le personnage.
                     </div>
                   ))}
@@ -696,10 +632,7 @@ const Apply = () => {
                           handleVote(1);
                         }}
                       >
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          style={{ marginRight: 5 }}
-                        />
+                        <FontAwesomeIcon icon={faThumbsUp} style={{ marginRight: 5 }} />
                         Pour ({apply.upvotes})
                       </button>
                       <button
@@ -708,10 +641,7 @@ const Apply = () => {
                           handleVote(-1);
                         }}
                       >
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          style={{ marginRight: 5 }}
-                        />
+                        <FontAwesomeIcon icon={faThumbsDown} style={{ marginRight: 5 }} />
                         Contre ({apply.downvotes})
                       </button>
                     </div>
@@ -725,10 +655,7 @@ const Apply = () => {
                         className='select is-info is-small'
                         style={{ marginRight: 7, marginLeft: 7 }}
                       >
-                        <select
-                          onChange={changeStatut}
-                          value={getValue(statut)}
-                        >
+                        <select onChange={changeStatut} value={getValue(statut)}>
                           <option>En attente</option>
                           <option>En test</option>
                           <option>Accepté</option>
@@ -742,10 +669,7 @@ const Apply = () => {
                       <button className='button is-info' onClick={editApply}>
                         Modifier
                       </button>
-                      <button
-                        className='button is-danger'
-                        onClick={() => setShowModal(true)}
-                      >
+                      <button className='button is-danger' onClick={() => setShowModal(true)}>
                         Supprimer
                       </button>
                     </div>
@@ -765,25 +689,22 @@ const Apply = () => {
               {editing && <b>Edition</b>}
             </h1>
             <TextareaAutosize
-              style={{ marginBottom: 10, color: "black" }}
+              style={{ marginBottom: 10, color: 'black' }}
               className='textarea is-size-5'
               placeholder='Commentaire ...'
               rows={6}
               value={editing ? editContent : newComment}
               onChange={(e) => {
-                e.target.style.height = "inherit";
+                e.target.style.height = 'inherit';
                 e.target.style.height = `${e.target.scrollHeight}px`;
                 if (!editing) setNewComment(e.target.value);
                 if (editing) setEditContent(e.target.value);
               }}
             />
-            <div className='level' style={{ position: "relative" }}>
+            <div className='level' style={{ position: 'relative' }}>
               <div className='buttons level-left'>
                 {!editing && (
-                  <button
-                    className='button is-success'
-                    onClick={publishComment}
-                  >
+                  <button className='button is-success' onClick={publishComment}>
                     Publier
                   </button>
                 )}
@@ -795,8 +716,8 @@ const Apply = () => {
                     <button
                       className='button is-danger'
                       onClick={() => {
-                        setEditContent("");
-                        setEditing("");
+                        setEditContent('');
+                        setEditing('');
                       }}
                     >
                       Annuler
@@ -809,7 +730,7 @@ const Apply = () => {
                   title='Choisir un emoji'
                   emoji='point_up'
                   theme='dark'
-                  style={{ position: "absolute", bottom: 0, right: "-45%" }}
+                  style={{ position: 'absolute', bottom: 0, right: '-45%' }}
                   onSelect={(emoji) => {
                     if (!editing) setNewComment(newComment + emoji.native);
                     if (editing) setEditContent(editContent + emoji.native);

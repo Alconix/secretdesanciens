@@ -40,10 +40,10 @@ const Progress = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ paddingLeft: '1.5em' }}>25</td>
+                    <td style={{ paddingLeft: '1.5em' }}>26</td>
                     <td>Chateau Nathria</td>
-                    <td style={{ paddingLeft: '1.5em' }}>3/10</td>
-                    <td style={{ paddingLeft: '1.5em' }}>0/10</td>
+                    <td style={{ paddingLeft: '1.5em' }}>10/10</td>
+                    <td style={{ paddingLeft: '1.5em' }}>10/10</td>
                     <td style={{ paddingLeft: '1.5em' }}>0/10</td>
                   </tr>
                   <tr>

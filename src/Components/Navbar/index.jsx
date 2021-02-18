@@ -133,7 +133,7 @@ const NavigationBar = (props) => {
             </Navbar.Link>
             <Navbar.Dropdown>
               <DropItem name='Chateau Nathria' to='/strats/nathria' />
-              <hr class='navbar-divider' />
+              <hr className='navbar-divider' />
               <DropItem name="Ny'alotha" to='/strats/nyalotha' />
               <DropItem name='Palais Eternel' to='/strats/palais' />
             </Navbar.Dropdown>

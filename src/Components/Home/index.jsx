@@ -96,6 +96,12 @@ const Screenshots = () => {
       <Box>
         <figure className='image container' style={{ marginBottom: 30 }}>
           <h1 className='subtitle is-3'>
+            <i>Denathrius Héroïque le 16/02/2021</i>
+          </h1>
+          <img src='https://puu.sh/HhPL2/c5fc1a2a20.jpg' alt='Dena HC' />
+        </figure>
+        <figure className='image container' style={{ marginBottom: 30 }}>
+          <h1 className='subtitle is-3'>
             <i>N'zoth Héroïque le 08/03/2020</i>
           </h1>
           <img src='https://puu.sh/FkwZ1/5e9003543c.jpg' alt='Nzoth HC' />
